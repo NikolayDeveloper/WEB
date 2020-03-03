@@ -1,0 +1,11 @@
+<div fxFlexFill
+     fxLayout="column">
+    <app-image-search-form [requestId]="requestId"
+                           [imageUrl]="imageUrl"
+                           (search)="onSearch($event)"></app-image-search-form>
+
+    <app-image-search-list fxFlex="grow"
+                           (checkChanged)="checkChanged.emit($event)"
+                           [checkedTrademarkDtos]="checkedTrademarkDtos"></app-image-search-list>
+
+</div>

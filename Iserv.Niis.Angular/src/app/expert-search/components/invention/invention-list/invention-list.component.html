@@ -1,0 +1,220 @@
+<div
+  fxLayout="column"
+  class="app-invention-container"
+>
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between stretch"
+    class="table-header"
+  >
+    <!-- <mat-form-field floatPlaceholder="never">
+      <input
+        matInput
+        #filter
+        i18n-placeholder="@@filterPlaceholder"
+        placeholder="Filter"
+      >
+    </mat-form-field> -->
+    <mat-paginator
+      fxFlex
+      #paginator
+      [length]="dataSource?.resultsLength"
+    >
+    </mat-paginator>
+  </div>
+  <div
+    fxFlex
+    class="table-container"
+  >
+    <mat-table
+      #table
+      [dataSource]="dataSource"
+      matSort
+      matSortDisableClear
+      class="table-medium table-auto-width"
+    >
+      <ng-container cdkColumnDef="select">
+        <mat-header-cell
+          [class.hidden]="!checkable"
+          *cdkHeaderCellDef
+          fxFlex="50px"
+        >
+          <mat-checkbox
+            [checked]="selectionModel.hasValue() && isAllSelected()"
+            [indeterminate]="selectionModel.hasValue() && !isAllSelected()"
+            (change)="$event ? masterToggle() : null"
+          >
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell
+          [class.hidden]="!checkable" style="padding-top: 15px; padding-bottom: 15px;"
+          *cdkCellDef="let row"
+          fxFlex="50px"
+        >
+          <mat-checkbox
+            [checked]="isChecked(row)"
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selectionModel.toggle(row) : null"
+          ></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="name">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="300px"
+          i18n="@@columnName"
+        >Name</mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="300px"
+        >{{ row.name }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="regNumber">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="150px"
+          i18n="@@columnRegNumber"
+        >Reg number</mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="150px"
+        >{{ row.regNumber }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="regDate">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="150px"
+          i18n="@@columnRegDate"
+        >Reg date</mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="150px"
+        >{{ toDate(row.regDate) }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="status">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="250px"
+          i18n="@@columnStatus"
+        >Status</mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="250px"
+        >{{ row.status }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="gosNumber">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="150px"
+          i18n="@@columnGosNumber"
+        >Gos number</mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="150px"
+        >{{ row.gosNumber }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="publishDate">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="150px"
+          i18n="@@columnPublishDate"
+        >Publish date</mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="150px"
+        >{{ toDate(row.publishDate) }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="declarant">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="250px"
+          i18n="@@columnDeclarant"
+        >Declarant</mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="250px"
+          (click)="$event.stopPropagation(); openDetailsPopup('Declarant', row.declarant);"
+          >{{ row.declarant }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="priorityData">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="200px"
+          i18n="@@columnPriorityData"
+        >Priority data</mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="200px"
+        >{{ row.priorityData }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="ipc">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="250px"
+          i18n="@@columnIPC"
+        >IPC</mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="250px"
+        >{{ row.ipc }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="referat">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="250px"
+          i18n="@@columnReferat"
+        >Referat</mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="250px"
+          (click)="$event.stopPropagation(); openDetailsPopup('Referat', row.referat);"
+        >{{ row.referat }}</mat-cell>
+      </ng-container>
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row
+        *cdkRowDef="let row; columns: displayedColumns;"
+        (click)="onSelect(row)"
+      ></mat-row>
+    </mat-table>
+  </div>
+</div>
+<div class="actions-container ac-bottom ac-right">
+  <button
+    mat-mini-fab
+    type="button"
+    (click)="onColumnsChange()"
+    color="primary"
+    matTooltip="Columns"
+    i18n-matTooltip="@@textColumns"
+    matTooltipPosition="above"
+  ><mat-icon>view_column</mat-icon></button>
+  <button
+    mat-fab
+    type="button"
+    [disabled]="(resultsLength | async) <= 0 || displayedColumns && displayedColumns.length === 0"
+    (click)="onExport()"
+    matTooltip="Export to Excel"
+    i18n-matTooltip="@@textExportToExcel"
+    matTooltipPosition="above"
+  ><mat-icon>file_download</mat-icon></button>
+  <button
+    *ngIf="checkable"
+    mat-fab
+    type="button"
+    [disabled]="(resultsLength | async) <= 0 || displayedColumns && displayedColumns.length === 0"
+    (click)="checkChanged.emit(selectionModel.selected)"
+    matTooltip="Save selected"
+    i18n-matTooltip="@@textSaveSelected"
+    matTooltipPosition="above"
+  ><mat-icon>save</mat-icon></button>
+</div>

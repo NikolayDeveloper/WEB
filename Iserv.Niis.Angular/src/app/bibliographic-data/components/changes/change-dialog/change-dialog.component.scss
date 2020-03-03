@@ -1,0 +1,19 @@
+form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+mat-dialog-content {
+    max-height: unset;
+    flex: 1 1 auto;
+}
+
+mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

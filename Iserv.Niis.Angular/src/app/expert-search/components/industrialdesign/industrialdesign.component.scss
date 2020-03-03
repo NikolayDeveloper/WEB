@@ -1,0 +1,27 @@
+:host {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+app-industrialdesign-form + app-industrialdesign-list {
+  margin-top: 10px;
+}
+
+/deep/ label {
+  margin-bottom: 0 !important;
+
+  &.mat-checkbox-layout {
+      margin-bottom: 0 !important;
+  }
+}
+
+/deep/.table-container {
+  overflow: scroll !important;
+
+  mat-table {
+      width: 100%;
+      height: 100%;
+  }
+}

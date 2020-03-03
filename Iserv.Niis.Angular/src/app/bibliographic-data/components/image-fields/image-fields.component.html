@@ -1,0 +1,40 @@
+<!-- Изображение -->
+<form [formGroup]="formGroup" fxLayout="column">
+  <h4 class="title" i18n="@@cardPicture">Picture <span *ngIf="editMode" [hidden]="imageSource">*</span></h4>
+  <div fxLayout="row" *ngIf="editMode">
+    <div fxFlex>
+      <span>
+        <input
+          formControlName="imageFile"
+          accept="image/*"
+          (change)="onFileSelect($event)"
+          type="file"
+          #inputFile
+          hidden
+          [required]="isRequired()"
+        />
+        <button
+          [disabled]="isDisabled() || isChecked()"
+          type="button"
+          mat-raised-button
+          (click)="inputFile.click()"
+        >
+          <mat-icon>file_upload</mat-icon>
+          <span *ngIf="!fileCount" i18n="@@textChoseFile">Choose file</span>
+          <span *ngIf="fileCount" i18n="@@textFileSelected">File selected</span>
+        </button>
+      </span>
+    </div>
+    <span fxFlex="32px"></span>
+    <div fxFlex [class.hidden]="isGenerateButtonHidden()">
+      <mat-checkbox
+        formControlName="isImageFromName"
+        (change)="onImageFromNameChecked($event)"
+        i18n="@@textGenerateLogoFromName"
+      >Generate logo from name</mat-checkbox>
+    </div>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <img class="logo-img mat-elevation-z4" mat-card-image [src]="imageSource || defaultImageSource" />
+  </div>
+</form>

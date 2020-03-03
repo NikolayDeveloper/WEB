@@ -1,0 +1,38 @@
+<!-- Поля для НМПТ -->
+<div [formGroup]="formGroup"
+     fxLayout="column">
+  <div fxLayout="column">
+    <!-- Вид товара -->
+    <mat-form-field class="nmpt-textarea">
+      <textarea matInput
+                i18n-placeholder="@@inputSelectionFamily"
+                placeholder="Selection family"
+                formControlName="selectionFamily"
+                matTooltipPosition="above"
+                rows="8"></textarea>
+    </mat-form-field>
+    <!-- Описание особых свойств -->
+    <mat-form-field class="nmpt-textarea">
+      <textarea matInput
+                i18n-placeholder="@@inputSpecialProp"
+                placeholder="Special prop"
+                formControlName="productSpecialProp"
+                matTooltipPosition="above"
+                rows="8"></textarea>
+    </mat-form-field>
+    <!-- Указание места производства товара -->
+    <mat-form-field class="nmpt-textarea">
+      <textarea matInput
+                i18n-placeholder="@@inputPlace"
+                placeholder="Place"
+                formControlName="productPlace"
+                matTooltipPosition="above"
+                rows="8"></textarea>
+    </mat-form-field>
+    <!-- Транслитерация -->
+    <app-common-input-string i18n-placeholder="@@inputTransliteration"
+                             placeholder="Transliteration"
+                             formControlName="transliteration"
+                             fxFlex></app-common-input-string>
+  </div>
+</div>

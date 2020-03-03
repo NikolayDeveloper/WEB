@@ -1,0 +1,29 @@
+<div fxLayout="column"
+     class="form-full-width"
+     fxFlexFill>
+  <h1 mat-dialog-title>Создать бюллетень</h1>
+  <form novalidate
+        [formGroup]="formGroup"
+        (ngSubmit)="onSubmit()">
+    <div mat-dialog-content>
+      <p>Номер бюллетеня</p>
+      <mat-form-field>
+        <input matInput
+               type="number"
+               formControlName="bulletinNumber">
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions
+         align="end">
+      <button type="button"
+              mat-button
+              color="accent"
+              (click)="onCancelClick()">Отмена</button>
+      <button type="submit"
+              color="primary"
+              [disabled]="formGroup.invalid"
+              mat-button
+              cdkFocusInitial>Сохранить</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,30 @@
+<app-materials-list
+  [owner]="owner"
+  [disabled]="disabled"
+  (attachmentClick)="download($event)"
+  fxFlexFill
+></app-materials-list>
+<div class="actions-container ac-bottom ac-right" fxLayout="row">
+  <button
+    mat-mini-fab
+    type="button"
+    (click)="onGenerateInternalRegisterClick()"
+    [disabled]="disabled"
+    i18n-matTooltip="@@generateInternalRegisterTooltip"
+    matTooltip="Generate internal register"
+    matTooltipPosition="above"
+  >
+    <mat-icon>format_list_numbered</mat-icon>
+  </button>
+  <button
+    mat-fab
+    type="button"
+    (click)="onCreateMaterialClick()"
+    [disabled]="disabled"
+    i18n-matTooltip="@@scanDocumentsTooltip"
+    matTooltip="Scan documents"
+    matTooltipPosition="above"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

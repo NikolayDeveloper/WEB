@@ -1,0 +1,25 @@
+<form novalidate
+      [formGroup]="formGroup">
+  <div>
+      <div fxLayout="row">
+          <button type="button"
+                [disabled]="disabled"
+                mat-icon-button
+                color="primary"
+                i18n-placeholder="@@textSelect"
+                placeholder="Select"
+                (click)="onClick()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <app-table [columns]="columns"
+        [data]="tableLinks"
+        class="table-small table-stripped"></app-table>
+      <div *ngIf="tableParentLinks.length > 0" style="margin-top: 10px">
+        <app-table [columns]="parentColumns"
+        [data]="tableParentLinks"
+        class="table-small table-stripped"></app-table>
+      </div>
+
+  </div>
+</form>

@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+    <PackageReference Include="RestSharp" Version="105.2.3" />
+    <PackageReference Include="Serilog" Version="2.8.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.4" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Niis.Business\Iserv.Niis.Business.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DataAccess.EntityFramework\Iserv.Niis.DataAccess.EntityFramework.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Domain\Iserv.Niis.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CertCheckerClient">
+      <HintPath>..\..\Libs\Crypto\CertCheckerClient.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Interop.KalkanCryptCOMLib">
+      <HintPath>..\..\Libs\Crypto\Interop.KalkanCryptCOMLib.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.IdentityModel" />
+  </ItemGroup>
+</Project>

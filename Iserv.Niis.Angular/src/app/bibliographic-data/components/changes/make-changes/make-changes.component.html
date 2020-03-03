@@ -1,0 +1,51 @@
+<div fxLayout="column" [formGroup]="formGroup" fxFlexFill>
+  <div fxLayout="column">
+    <app-field-change
+      fxFlex
+      *ngFor="let changeDto of changeDtos; let i = index"
+      [changeDto]="changeDto"
+      [isAddress]="isAddress(changeDto)"
+    ></app-field-change>
+  </div>
+  <div>
+    <div *ngFor="let subjectChangeType of subjectChangeTypes">
+      <app-subject-change-container
+        *ngFor="let type of subjectChangeType.types"
+        [changeType]="type"
+        [details]="details"
+      ></app-subject-change-container>
+    </div>
+  </div>
+  <div fxLayout="column">
+    <app-image-fields
+      *ngIf="isImagesActive()"
+      [editMode]="true"
+      [changeMode]="true"
+      [owner]="details"
+      (changed)="assignDetails($event)"
+      formControlName="imageFields"
+    ></app-image-fields>
+    <app-icgs-fields
+      *ngIf="isIcgsActive()"
+      [editMode]="true"
+      [changeMode]="true"
+      [owner]="details"
+      formControlName="icgsFields"
+    ></app-icgs-fields>
+  </div>
+  <div fxLayout="column">
+    <app-bibliographic-data
+      *ngIf="isFullFormActive()"
+      [owner]="details"
+      (submitData)="assignDetails($event)"
+      (modifiedData)="assignDetails($event)"
+      (subjectAttached)="onSubjectAttached($event)"
+      (subjectDeleted)="onSubjectDeleted($event)"
+      (subjectEdited)="onSubjectEdited($event)"
+      [roleCodes]="roleCodes"
+      [selectedIndex]="0"
+      [isChangeMode]="true"
+      [editMode]="false"
+    ></app-bibliographic-data>
+  </div>
+</div>

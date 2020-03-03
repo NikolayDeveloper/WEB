@@ -1,0 +1,44 @@
+<div
+  fxFlexFill
+  fxLayout="column"
+>
+  <app-table
+    [columns]="columns"
+    [displayedColumns]="displayedColumns"
+    [source]="source"
+    [sortable]="true"
+    [filterable]="true"
+    [onlyQueriedData]="true"
+    [paginable]="true"
+    [paginatorOnTop]="true"
+    [selectable]="true"
+    [reset]="queryParams"
+    (select)="onSelect($event)"
+    (resultsLength)="resultsLength.emit($event)"
+    class="table-medium"
+  ></app-table>
+</div>
+<div class="actions-container ac-bottom ac-right">
+  <button
+    mat-mini-fab
+    type="button"
+    (click)="onColumnsChange()"
+    color="primary"
+    matTooltip="Columns"
+    i18n-matTooltip="@@textColumns"
+    matTooltipPosition="above"
+  >
+    <mat-icon>view_column</mat-icon>
+  </button>
+  <button
+    mat-fab
+    type="button"
+    [disabled]="(resultsLength | async) <= 0 || displayedColumns && displayedColumns.length===0"
+    (click)="onExport()"
+    matTooltip="Export to Excel"
+    i18n-matTooltip="@@textExportToExcel"
+    matTooltipPosition="above"
+  >
+    <mat-icon>file_download</mat-icon>
+  </button>
+</div>

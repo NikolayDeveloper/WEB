@@ -1,0 +1,75 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:60644/",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchUrl": "api/values",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Iserv.Niis.Api": {
+      "commandName": "Project",
+      "launchUrl": "api/values",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:60645/"
+    },
+    "Development-iserv": {
+      "commandName": "Project",
+      "launchUrl": "api/values",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development-iserv"
+      },
+      "applicationUrl": "http://localhost:60645/"
+    },
+    "Development-niis": {
+      "commandName": "Project",
+      "launchUrl": "api/values",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development-niis"
+      },
+      "applicationUrl": "http://localhost:60645/"
+    },
+    "Staging-iserv": {
+      "commandName": "Project",
+      "launchUrl": "api/values",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Staging-iserv"
+      },
+      "applicationUrl": "http://localhost:60645/"
+    },
+    "Staging-niis": {
+      "commandName": "Project",
+      "launchUrl": "api/values",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Staging-niis"
+      },
+      "applicationUrl": "http://localhost:60645/"
+    },
+    "Production-iserv": {
+      "commandName": "Project",
+      "launchUrl": "api/values",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production-iserv"
+      },
+      "applicationUrl": "http://localhost:60645/"
+    },
+    "Production-niis": {
+      "commandName": "Project",
+      "launchUrl": "api/values",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production-niis"
+      },
+      "applicationUrl": "http://localhost:60645/"
+    }
+  }
+}

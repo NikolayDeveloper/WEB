@@ -1,0 +1,42 @@
+import { ProtectionDocSearchStatus } from 'app/expert-search/models/protectiondoc-search-status.enum';
+import { OwnerType } from 'app/shared/services/models/owner-type.enum';
+
+export abstract class BaseExpertSearchDto {
+    ownerType: OwnerType;
+    searchStatus: ProtectionDocSearchStatus;
+    id: number;
+    barcode: number;
+    requestTypeId: number;
+    requestTypeNameRu: string;
+    statusId: number;
+    statusCode: string;
+    statusNameRu: string;
+    gosDate: Date;
+    requestNum: number;
+    requestDate: Date;
+    name: string;
+    nameRu: string;
+    nameKz: string;
+    nameEn: string;
+    declarant: string;
+    patentAttorney: string;
+    addressForCorrespondence: string;
+    confidant: string;
+    receiveTypeId: number;
+    receiveTypeNameRu: string;
+    priorityRegCountryNames: string;
+    priorityRegNumbers: string;
+    toPriorityDate: Date;
+    priorityDates: Date[];
+    priorityData: string;
+    numberBulletin: string;
+    publicDate: Date;
+    validDate: Date;
+    imageSimilarity: string;
+    phonSimilarity: string;
+    semSimilarity: string;
+    // query: string;
+    protectionDocFormula: string;
+    protectionDocCategory: string;
+    expertSearchSimilarId: number;
+}

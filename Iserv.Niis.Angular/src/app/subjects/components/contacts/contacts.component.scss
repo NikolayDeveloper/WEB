@@ -1,0 +1,30 @@
+@import '~@angular/material/theming';
+
+:host {
+  align-self: baseline;
+
+  &.ng-invalid {
+    mat-card {
+      border: 1px solid mat-color($mat-red, 500);
+    }
+  }
+}
+
+mat-card {
+  height: 100%;
+  box-sizing: border-box;
+
+  mat-card-subtitle {
+    &.is-empty {
+      margin: 0;
+    }
+  }
+
+  mat-card-content {
+    margin-bottom: 0;
+  }
+
+  mat-icon {
+    color: #444444;
+  }
+}

@@ -1,0 +1,50 @@
+<!-- Медиа -->
+<form
+  [formGroup]="formGroup"
+  fxLayout="column"
+>
+  <h4 class="title" i18n="@@cardMediaFile">Media File</h4>
+  <div fxLayout="row">
+    <div fxFlex>
+      <span>
+        <input
+          formControlName="mediaFile"
+          [accept]="getAccept()"
+          (change)="onFileSelect($event)"
+          type="file"
+          #inputFile
+          hidden
+        />
+        <button
+          [disabled]="isDisabledOnStageFormationAppData()"
+          type="button"
+          mat-raised-button
+          (click)="inputFile.click()"
+        >
+          <mat-icon>file_upload</mat-icon>
+          <span *ngIf="!fileCount" i18n="@@textChoseFile">Choose file</span>
+          <span *ngIf="fileCount" i18n="@@textFileSelected">File selected</span>
+        </button>
+      </span>
+    </div>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <video
+      width="320"
+      height="240"
+      controls
+      [src]="fileSource"
+      *ngIf="isVideo()"
+      controls
+    >
+      <h6 i18n="@@labelDoesNotSupportVideo">
+        Your browser does not support video tag
+      </h6>
+    </video>
+    <audio [src]="fileSource" *ngIf="isAudio()" controls>
+      <h6 i18n="@@labelDoesNotSupportAudio">
+        Your browser does not support audio tag
+      </h6>
+    </audio>
+  </div>
+</form>

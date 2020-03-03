@@ -1,0 +1,27 @@
+<!--md2-dialog #searchDialog>
+  <h1 md-dialog-title i18n="@@subjectSelect">Выбор контрагента</h1>
+  <div>
+    <md-table #table [dataSource]="subjectsDatasource" mdSort class="table-small table-stripped table-height-40" fxFlex fxFill>
+      <ng-container cdkColumnDef="xin">
+        <md-header-cell *cdkHeaderCellDef i18n="@@columnXin" md-sort-header> Barcode </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.xin}} </md-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="nameRu">
+        <md-header-cell *cdkHeaderCellDef i18n="@@columnNameRu" md-sort-header> NameRu </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.nameRu}} </md-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="address">
+        <md-header-cell *cdkHeaderCellDef i18n="@@columnAddress" md-sort-header> Request number </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.address}} </md-cell>
+      </ng-container>
+      <md-header-row *cdkHeaderRowDef="subjectColumns"></md-header-row>
+      <md-row *cdkRowDef="let row; columns: subjectColumns;"></md-row>
+    </md-table>
+  </div>
+  <div fxLayout="row" fxFlex>
+    <span fxFlex="50"></span>
+    <button type="button" i18n="@@buttonAdd" md-raised-button color="primary" (click)="onSubmit()" fxFlex>Add</button>
+    <span fxFlex="1"></span>
+    <button type="button" i18n="@@dialogCancel" md-raised-button color="warn" (click)="onCancel()" fxFlex>Cancel</button>
+  </div>
+</md2-dialog-->

@@ -1,0 +1,32 @@
+<h2 mat-dialog-title
+    i18n="@@materialsList">Materials List</h2>
+<form novalidate
+      (ngSubmit)="onSubmit()"
+      class="form-full-width form-medium-input">
+  <mat-dialog-content>
+    <div fxFlexFill fxLayout="column">
+      <app-table [columns]="columns"
+                [source]="source"
+                [sortable]="true"
+                [filterable]="true"
+                [paginable]="true"
+                [paginatorOnTop]="true"
+                [selectable]="true"
+                (select)="onSelect($event)"
+                class="table-medium"></app-table>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+      <button type="button"
+              mat-button
+              color="accent"
+              (click)="onCancel()"
+              i18n="@@dialogCancel">Cancel</button>
+      <button type="submit"
+              mat-button
+              color="primary"
+              [disabled]="!isSelectedRow"
+              i18n="@@dialogAdd">Add</button>
+    </mat-dialog-actions>
+</form>
+

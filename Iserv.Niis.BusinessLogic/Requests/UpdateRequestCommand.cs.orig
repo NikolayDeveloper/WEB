@@ -1,0 +1,30 @@
+﻿using AutoMapper;
+using Iserv.Niis.Domain.Entities.Request;
+using Iserv.Niis.DataBridge.Repositories;  using Iserv.Niis.DataBridge.Implementations; //using NetCoreCQRS; .Commands;
+
+namespace Iserv.Niis.BusinessLogic.Requests
+{
+    public class UpdateRequestCommand : BaseCommand
+    {
+<<<<<<< HEAD
+        public async Task ExecuteAsync(Request request)
+        {
+            var repository = Uow.GetRepository<Request>();
+=======
+        private readonly IMapper _mapper;
+>>>>>>> origin/niis_refactoring
+
+        public UpdateRequestCommand(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
+        public int Execute(Request request)
+        {
+            var requestRepository = Uow.GetRepository<Request>();
+            requestRepository.Update(request);
+            Uow.SaveChanges();
+            return request.Id;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<mat-tab-group class="tabs-small tabs-colored-light"
+               [selectedIndex]="0">
+  <mat-tab label="Description"
+           i18n-label="@@textDescription">
+    <app-contract-subject-description [contractDetails]="contractDetails"
+                                      [selectOptions]="selectOptions"
+                                      (submitData)="onSubmitData($event)"
+                                      (edit)="onEdit($event)"></app-contract-subject-description>
+  </mat-tab>
+  <!-- <mat-tab label="Parties"
+           i18n-label="@@textParties">
+    <app-subjects *ngIf="contractDetails"
+                  [disabled]="currentStageCode!=='DK02.1'"
+                  [ownerId]="contractDetails.id"
+                  [ownerType]="3"
+                  [protectionDocTypeCode]="contractDetails.protectionDocTypeCode"
+                  [roleCodes]="roleCodes"
+                  (changed)="onSubjectsChanged($event)"></app-subjects>
+  </mat-tab> -->
+</mat-tab-group>

@@ -1,0 +1,94 @@
+<div *ngIf="protectionDocDetails" fxFlexFill>
+  <mat-tab-group
+    class="tabs-colored tabs-medium"
+    [selectedIndex]="selectedIndex"
+    (selectedIndexChange)="selectedIndexChange($event)"
+  >
+    <mat-tab
+      [disabled]="editMode"
+      i18n-label="@@protectionDoc"
+      label="Protection document"
+    >
+      <app-protection-doc
+        [protectionDocDetails]="protectionDocDetails"
+        [selectOptions]="selectOptions"
+        (submitData)="onSubmitData($event)"
+        (edit)="onEdit($event)"
+      ></app-protection-doc>
+    </mat-tab>
+    <mat-tab
+      [disabled]="editMode"
+      i18n-label="@@bibliographicData"
+      label="Bibliographic data"
+    >
+      <app-bibliographic-data
+        [owner]="protectionDocDetails"
+        (submitData)="onSubmitData($event)"
+        (edit)="onEdit($event)"
+        (modifiedData)="onModifiedData($event)"
+        (subjectsChanged)="onSubjectsChanged($event)"
+        [disabled]="!isBibliographicDataAvailable"
+        [selectedIndex]="selectedSubIndex"
+      ></app-bibliographic-data>
+    </mat-tab>
+    <mat-tab [disabled]="editMode" i18n-label="@@materials" label="Materials">
+      <app-materials
+        [owner]="protectionDocDetails"
+        (modifiedData)="onModifiedData($event)"
+      ></app-materials>
+    </mat-tab>
+    <mat-tab [disabled]="editMode" i18n-label="@@payments" label="Payments">
+      <app-payments
+        [ownerId]="protectionDocDetails.id"
+        [ownerType]="protectionDocDetails.ownerType"
+        [payingSubject]="payingSubject"
+        [protectionDocTypeId]="protectionDocDetails.typeId"
+        [disabled]="!arePaymentsAvailable"
+        (changed)="onPaymentUsed($event)"
+      >
+      </app-payments>
+    </mat-tab>
+    <mat-tab [disabled]="editMode" i18n-label="@@contracts" label="Contracts">
+      <app-contract-list
+        [ownerId]="protectionDocDetails.id"
+        [ownerType]="protectionDocDetails.ownerType"
+      >
+      </app-contract-list>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="actions-container ac-top ac-right">
+    <button
+      mat-mini-fab
+      type="button"
+      (click)="onBack()"
+      color="primary"
+      i18n-matTooltip="@@backTooltip"
+      matTooltip="Back"
+      matTooltipPosition="above"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button
+      mat-fab
+      type="button"
+      (click)="onOpenWorkflowDialog()"
+      color="accent"
+      i18n-matTooltip="@@TransferStageTooltip"
+      matTooltip="Transfer to stage"
+      matTooltipPosition="above"
+    >
+      <mat-icon>next_week</mat-icon>
+    </button>
+    <button *ngIf="isCreatingAuthorsCertificatesAvailable"
+    mat-mini-fab
+    type="accent"
+    (click)="onOpenAuthorsCertificatesDialog()"
+    color="primary"
+    i18n-matTooltip="@@CreateAuthorsCertificates"
+    matTooltip="Create authors certificates"
+    matTooltipPosition="above"
+  >
+    <mat-icon>create_new_folder</mat-icon>
+  </button>
+  </div>
+</div>

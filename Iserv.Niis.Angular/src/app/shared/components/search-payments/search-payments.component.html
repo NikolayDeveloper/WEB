@@ -1,0 +1,37 @@
+<h2 mat-dialog-title
+    i18n="@@selectOrCreatePayment">Select exist or create payment</h2>
+<form novalidate
+      [formGroup]="formGroup"
+      (ngSubmit)="onSubmit()"
+      class="form-full-width form-medium-input">
+  <mat-dialog-content>
+    <div class="dialog-content-wrapper">
+        <div fxFlexFill fxLayout="column">
+        <app-table fxFlexFill
+                    [columns]="columns"
+                    [data]="invoiceDtos"
+                    [sortable]="true"
+                    [selectable]="true"
+                    (select)="onSelect($event)"
+                    class="table-stripped table-medium"></app-table>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+      <button type="button"
+              mat-button
+              color="accent"
+              (click)="onCancel()"
+              i18n="@@dialogCancel">Cancel</button>
+      <button type="submit"
+              mat-button
+              color="primary"
+              [disabled]="!isSelectedRow"
+              i18n="@@dialogAdd">Add</button>
+      <button type="button"
+              mat-button
+              color="primary"
+              (click)="onCreate()"
+              i18n="@@dialogCreate">Create</button>
+    </mat-dialog-actions>
+</form>

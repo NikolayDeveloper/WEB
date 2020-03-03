@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content>
+  <div>{{ message }}</div>
+</div>
+<div mat-dialog-actions align="end">
+  <button
+    mat-button
+    color="accent"
+    (click)="onCancelClick()"
+    *ngIf="isAvailable(modalButton.Cancel)"
+    cdkFocusInitial
+  >{{getLabel(modalButton.Cancel) || 'Отмена'}}</button>
+  <button
+    mat-button
+    color="accent"
+    (click)="onNoClick()"
+    *ngIf="isAvailable(modalButton.No)"
+  >{{getLabel(modalButton.No) || 'Нет'}}</button>
+  <button
+    color="primary"
+    mat-button
+    (click)="onYesClick()"
+    *ngIf="isAvailable(modalButton.Yes)"
+  >{{getLabel(modalButton.Yes) || 'Да'}}</button>
+</div>

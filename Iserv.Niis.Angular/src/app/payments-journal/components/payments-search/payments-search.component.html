@@ -1,0 +1,147 @@
+<div class="payment-search">
+  <div class="payment-buttons">
+    <button mat-button type="submit"
+            color="primary"
+            (click)='onApplySearch()'
+            class="search-button"
+            i18n="@@textSearch">Search
+    </button>
+    <button mat-button
+            type="button"
+            color="accent"
+            i18n="@@textReset"
+            class="search-button"
+            (click)="onResetSearch()">Reset
+    </button>
+  </div>
+
+  <div class="form-full-width form-medium-input">
+    <!--ID-->
+    <mat-form-field class="field">
+      <input matInput placeholder="ID" [(ngModel)]="searchParams.id" type="number">
+    </mat-form-field>
+
+    <div class="group">
+      <!--Дата создания с-->
+      <mat-form-field class="field">
+        <input matInput
+              [matDatepicker]="createDateFrom"
+              [(ngModel)]="searchParams.dateCreateFrom"
+              placeholder="Дата создания записи с">
+        <mat-datepicker-toggle matSuffix [for]="createDateFrom"></mat-datepicker-toggle>
+        <mat-datepicker #createDateFrom></mat-datepicker>
+      </mat-form-field>
+
+      <!--Дата создания по-->
+      <mat-form-field class="field">
+        <input matInput
+              [matDatepicker]="createDateTo"
+              [(ngModel)]="searchParams.dateCreateTo"
+              placeholder="Дата создания записи по">
+        <mat-datepicker-toggle matSuffix [for]="createDateTo"></mat-datepicker-toggle>
+        <mat-datepicker #createDateTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!--ФИО/Наименование плательщика-->
+    <mat-form-field class="field">
+      <input matInput
+             [(ngModel)]="searchParams.payerName"
+             placeholder="ФИО/Наименование плательщика">
+    </mat-form-field>
+
+    <!--ИИН/БИН плательщика-->
+    <mat-form-field class="field">
+      <input matInput
+             [(ngModel)]="searchParams.payerXin"
+             placeholder="ИИН/БИН плательщика">
+    </mat-form-field>
+
+    <!--РНН плательщика-->
+    <mat-form-field class="field">
+      <input matInput
+             [(ngModel)]="searchParams.payerRnn"
+             placeholder="РНН плательщика">
+    </mat-form-field>
+
+    <div class="group">
+      <!--Дата платежа с-->
+      <mat-form-field class="field">
+        <input matInput
+              [matDatepicker]="paymentDateFrom"
+              [(ngModel)]="searchParams.paymentDateFrom"
+              placeholder="Дата платежа с">
+        <mat-datepicker-toggle matSuffix [for]="paymentDateFrom"></mat-datepicker-toggle>
+        <mat-datepicker #paymentDateFrom></mat-datepicker>
+      </mat-form-field>
+
+      <!--Дата платежа по-->
+      <mat-form-field class="field">
+        <input matInput
+              [matDatepicker]="paymentDateTo"
+              [(ngModel)]="searchParams.paymentDateTo"
+              placeholder="Дата платежа по">
+        <mat-datepicker-toggle matSuffix [for]="paymentDateTo"></mat-datepicker-toggle>
+        <mat-datepicker #paymentDateTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!--Сумма-->
+    <mat-form-field class="field">
+      <input matInput
+             [(ngModel)]="searchParams.amount"
+             placeholder="Сумма">
+    </mat-form-field>
+
+    <!--Остаток-->
+    <mat-form-field class="field">
+      <input matInput
+             [(ngModel)]="searchParams.remainder"
+             placeholder="Остаток">
+    </mat-form-field>
+
+    <!--Распределено-->
+    <mat-form-field class="field">
+      <input matInput
+             [(ngModel)]="searchParams.distributed"
+             placeholder="Распределено">
+    </mat-form-field>
+
+    <!--Назначение-->
+    <mat-form-field class="field">
+      <input matInput
+             [(ngModel)]="searchParams.paymentPurpose"
+             placeholder="Назначение">
+    </mat-form-field>
+
+    <!--Номер платежа-->
+    <mat-form-field class="field">
+      <input matInput
+             [(ngModel)]="searchParams.paymentNumber"
+             placeholder="Номер платежа">
+    </mat-form-field>
+
+    <!--Статус платежа-->
+    <mat-form-field class="field">
+      <mat-select [(ngModel)]="searchParams.paymentStatusId"
+                  placeholder="Статус платежа">
+        <mat-option *ngFor="let paymentStatus of paymentStatuses" [value]="paymentStatus.id">
+          {{paymentStatus.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Платеж в иностранной валюте-->
+    <mat-slide-toggle class="field" [(ngModel)]="searchParams.isForeignCurrency">Платеж в иностранной валюте</mat-slide-toggle>
+
+    <!--Код валюты-->
+    <mat-form-field class="field">
+      <mat-select [(ngModel)]="searchParams.currencyCode"
+                  placeholder="Код валюты">
+        <mat-option *ngFor="let item of currencies" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field></div>
+</div>
+

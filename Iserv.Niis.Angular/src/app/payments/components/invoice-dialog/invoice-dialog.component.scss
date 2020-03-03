@@ -1,0 +1,49 @@
+.mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.group {
+  display: grid;
+  grid-gap: 1.25em;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.table-wrapper {
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  app-table {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    /deep/.table-component {
+      height: 100%;
+      overflow: hidden;
+
+      .main-table-container {
+        height: 100%;
+        overflow: hidden;
+
+        .table-container {
+          height: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,130 @@
+<div [formGroup]="formGroup" fxLayout="column">
+  <!-- МКТУ -->
+  <div formArrayName="icgsRequestIdsFormArray" fxLayout="column">
+    <h4 class="title" i18n="@@textMktu">ICGS <span [hidden]="isDisabled()">*</span></h4>
+    <!-- Данный блок доступен для ТЗ -->
+    <div
+      *ngIf="icgsRequestIdsFormArray.controls.length > 0"
+    >
+      <div
+        *ngFor="let id of icgsRequestIdsFormArray.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div fxLayout="row">
+          <mat-form-field fxFlex="80">
+            <mat-select
+              [disabled]="isDisabled()"
+              i18n-placeholder="@@inputICGS"
+              placeholder="ICGS №{{ i + 1 }}"
+              formControlName="icgsRequestId"
+            >
+              <mat-option
+                *ngFor="let selectOption of icgs"
+                [value]="selectOption.id"
+                [disabled]="isIcgsAlreadySelected(selectOption.id)"
+              >
+                <ng-container> {{ selectOption.nameRu }} / {{ selectOption.descriptionShort}}</ng-container>
+                <!--<ng-container *ngIf="!isIcgsAlreadySelected(selectOption.id)"> {{ selectOption.nameRu }}</ng-container>-->
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <input hidden formControlName="icgsClaimedDescription" />
+          <input hidden formControlName="icgsClaimedDescriptionEn" />
+          <input hidden formControlName="icgsIsRefused" />
+          <input hidden formControlName="icgsIsPartialRefused" />
+          <input hidden formControlName="icgsReasonForPartialRefused" />
+          <button
+            mat-mini-fab
+            type="button"
+            [disabled]="isDisabled()"
+            [hidden]="!editMode"
+            (click)="openDialogIcgsDelete(i)"
+            i18n-matTooltip="@@ICGSDeleteTooltip"
+            matTooltip="Delete"
+            matTooltipPosition="above"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            type="button"
+            [disabled]="isIcgsCompareDisabled()"
+            [hidden]="!editMode"
+            (click)="openDialogCompareICGS(i)"
+            i18n-matTooltip="@@MatchingICGSTooltip"
+            matTooltip="Matching ICGS"
+            matTooltipPosition="above"
+          >
+            <mat-icon>thumbs_up_down</mat-icon>
+          </button>
+          <button
+            *ngIf="editMode"
+            mat-mini-fab
+            type="button"
+            (click)="openDialogViewRequestICGS(i, true)"
+            i18n-matTooltip="@@ICGSEditTooltip"
+            matTooltip="Edit"
+            matTooltipPosition="above"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            *ngIf="!editMode"
+            mat-mini-fab
+            type="button"
+            (click)="openDialogViewRequestICGS(i)"
+            i18n-matTooltip="@@ICGSViewTooltip"
+            matTooltip="View"
+            matTooltipPosition="above"
+          >
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </div>
+        <div fxLayoutAlign="center none">
+          <button
+            mat-mini-fab
+            type="button"
+            *ngIf="i === icgsRequestIdsFormArray.controls.length - 1"
+            [disabled]="isDisabled()"
+            [hidden]="!editMode"
+            (click)="openDialogInputData()"
+            i18n-matTooltip="@@ICGSAddTooltip"
+            matTooltip="Add ICGS"
+            matTooltipPosition="above"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div fxLayoutAlign="center none">
+      <button
+        mat-mini-fab
+        type="button"
+        *ngIf="icgsRequestIdsFormArray.controls.length === 0"
+        [disabled]="isDisabled()"
+        [hidden]="!editMode"
+        (click)="openDialogInputData()"
+        i18n-matTooltip="@@ICGSAddTooltip"
+        matTooltip="Add ICGS"
+        matTooltipPosition="above"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="isRejectionStateVisible()">
+      <mat-checkbox
+        i18n="@@inputIsRejectedIcgs"
+        [checked]="isRejectionChecked()"
+        [disabled]="true"
+        >Is rejected</mat-checkbox
+      >
+      <mat-checkbox
+        i18n="@@inputIsPartialRejectedIcgs"
+        [checked]="isPartialRejectionChecked()"
+        [disabled]="true"
+        >Is partially rejected</mat-checkbox
+      >
+    </div>
+  </div>
+</div>

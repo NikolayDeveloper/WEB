@@ -1,0 +1,136 @@
+<app-current-number-and-stage-label
+  *ngIf="!!requestDetails && !!requestDetails.currentWorkflow"
+  [currentStageNameRu]="requestDetails.currentWorkflow.currentStageNameRu"
+  [number]="requestDetails.requestNum"
+  [ownerType]="requestDetails.ownerType"
+></app-current-number-and-stage-label>
+<mat-tab-group
+  class="tabs-colored tabs-medium"
+  [selectedIndex]="selectedIndex"
+  (selectedIndexChange)="selectedIndexChange($event)"
+>
+  <ng-container *ngIf="requestDetails">
+    <mat-tab [disabled]="editMode" i18n-label="@@request" label="Request">
+      <app-request
+        [requestDetails]="requestDetails"
+        [selectOptions]="selectOptions"
+        [disabled]="!canEdit()"
+        (submitData)="onSubmitData($event)"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)"
+      ></app-request>
+    </mat-tab>
+    <mat-tab
+      [disabled]="IsBiblioDisabled() || editMode"
+      i18n-label="@@bibliographicData"
+      label="Bibliographic data"
+    >
+      <app-bibliographic-data
+        [owner]="requestDetails"
+        (submitData)="onSubmitData($event)"
+        (edit)="onEdit($event)"
+        (modifiedData)="onModifiedData($event)"
+        (subjectsChanged)="onSubjectsChanged($event)"
+        (descriptionChanged)="onRequestNumberChanged($event)"
+        [roleCodes]="roleCodes"
+        [disabled]="!isBibliographicDataAvailable || !canEdit()"
+        [needUpdateSubjects]="needUpdateSubjects"
+        [selectedIndex]="selectedSubIndex"
+      ></app-bibliographic-data>
+    </mat-tab>
+    <mat-tab
+      [disabled]="editMode || isExpertizeDisabled()"
+      i18n-label="@@expertize"
+      label="Expertize"
+    >
+      <app-request-expert-search
+        [pdTypeCode]="requestDetails.protectionDocTypeCode"
+        [requestDetails]="requestDetails"
+      ></app-request-expert-search>
+    </mat-tab>
+    <mat-tab [disabled]="editMode" i18n-label="@@materials" label="Materials">
+      <app-materials
+        [owner]="requestDetails"
+        [disabled]="!canEdit()"
+        (modifiedData)="onModifiedData($event)"
+      ></app-materials>
+    </mat-tab>
+    <mat-tab
+      [disabled]="editMode || isPaymentDisabled()"
+      i18n-label="@@payments"
+      label="Payments"
+    >
+      <app-payments
+        [ownerId]="requestDetails.id"
+        [ownerType]="requestDetails.ownerType"
+        [payingSubject]="payingSubject"
+        [protectionDocTypeId]="requestDetails.protectionDocTypeId"
+        [disabled]="!arePaymentsAvailable || !canEdit()"
+        (changed)="onPaymentUsed($event)"
+      >
+      </app-payments>
+    </mat-tab>
+    <mat-tab
+      [disabled]="editMode || isContractsDisabled()"
+      i18n-label="@@contracts"
+      label="Contracts"
+    >
+      <app-contract-list
+        [ownerId]="requestDetails.id"
+        [ownerType]="requestDetails.ownerType"
+        [disabled]="!canEdit()"
+      >
+      </app-contract-list>
+    </mat-tab>
+  </ng-container>
+</mat-tab-group>
+<div class="main-actions actions-container ac-top ac-right">
+  <button
+    mat-mini-fab
+    type="button"
+    (click)="onBack()"
+    color="primary"
+    i18n-matTooltip="@@backTooltip"
+    matTooltip="Back"
+    matTooltipPosition="above"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button
+      mat-mini-fab
+      type="button"
+      color="primary"
+      matTooltip="Отправить в ЛК"
+      matTooltipPosition="above"
+      (click)="requisitionSend()"
+      [disabled]="isSendButtonDisabled()"
+    >
+    <mat-icon>mail</mat-icon>
+  </button>
+  <button
+    *ngIf="isCompleteCreateVisible()"
+    mat-fab
+    type="button"
+    (click)="onCompleteCreateClick()"
+    color="accent"
+    i18n-matTooltip="@@completeCreateTooltip"
+    matTooltip="Complete Create"
+    matTooltipPosition="above"
+    [disabled]="isCompleteCreateDisabled()"
+  >
+    <mat-icon>done_outline</mat-icon>
+  </button>
+  <button
+    *ngIf="isSendToNextStageVisible()"
+    mat-fab
+    type="button"
+    [disabled]="editMode || !canEdit()"
+    (click)="onOpenWorkflowDialog()"
+    color="accent"
+    i18n-matTooltip="@@TransferStageTooltip"
+    matTooltip="Transfer to stage"
+    matTooltipPosition="above"
+  >
+    <mat-icon>next_week</mat-icon>
+  </button>
+</div>

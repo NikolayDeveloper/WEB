@@ -1,0 +1,120 @@
+<div fxFlexFill
+     fxLayoutAlign="center center"
+     class="logo-background">
+  <div fxFlex="grow"
+       class="login-form">
+    <form novalidate
+          class="form-medium-input form-full-width"
+          [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()">
+      <mat-card class=" mat-elevation-z8">
+        <mat-card-header fxLayoutAlign="space-around center">
+          <mat-card-title>
+            <h3 i18n="@@loginLabel">Login</h3>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-tab-group mat-stretch-tabs
+                         (focusChange)=" setIndexFocus($event)">
+            <mat-tab label="Login/Password"
+                     i18n-label="@@loginTabByUserName">
+              <div fxLayout="column"
+                   fxLayoutAlign="start stretch"
+                   class="tab-content"
+                   formGroupName="byLogin">
+                <app-common-input-string formControlName="userName"
+                                         placeholder="UserName"
+                                         i18n-placeholder="@@loginUserName"></app-common-input-string>
+                <mat-form-field>
+                  <input type="password"
+                         matInput
+                         formControlName="password"
+                         placeholder="Password"
+                         #passwordInput
+                         i18n-placeholder="@@loginPassword">
+                </mat-form-field>
+              </div>
+            </mat-tab>
+            <mat-tab label="Digital Signature"
+                     i18n-label="@@loginTabByDigitalSignature">
+              <div class="tab-content-cert"
+                   formGroupName="digitalSignatureInfo"
+                   fxLayout="column"
+                   fxLayoutAlign="start stretch">
+                <mat-form-field>
+                  <input matInput
+                         formControlName="iin"
+                         placeholder="iin"
+                         i18n-placeholder="@@loginXin"
+                         [value]="dutyCertData.iin">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput
+                         formControlName="bin"
+                         placeholder="bin"
+                         i18n-placeholder="@@loginXin"
+                         [value]="dutyCertData.bin">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput
+                         formControlName="fullName"
+                         placeholder="FullName"
+                         i18n-placeholder="@@loginFullName"
+                         [value]="dutyCertData.owner">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput
+                         formControlName="validDate"
+                         placeholder="Valid date"
+                         i18n-placeholder="@@loginValidDate"
+                         [value]="dutyCertData.getValidDate()">
+                </mat-form-field>
+              </div>
+              <div formGroupName="byDigitalSignature">
+                <input matInput
+                       hidden
+                       formControlName="certData">
+                <input matInput
+                       hidden
+                       formControlName="plainData">
+                <input matInput
+                       hidden
+                       formControlName="signedPlainData">
+                <input matInput
+                       formControlName="userName"
+                       hidden
+                       name="username"
+                       value="{{username + ' ЭЦП Авторизация'}}">
+                <input matInput
+                       formControlName="password"
+                       hidden
+                       type="password"
+                       name="password"
+                       value="{{password}}">
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+        <mat-card-actions>
+          <div fxLayout="row"
+               fxLayoutAlign="space-between center">
+            <button type="button"
+                    *ngIf="isCertificate"
+                    mat-button
+                    color="accent"
+                    i18n="@@textBrowseCertificate"
+                    (click)="browseCertificate()">Browse certificate</button>
+            <span fxFlex></span>
+            <button type="submit"
+                    mat-button
+                    tabindex="1"
+                    color="primary"
+                    i18n="@@textLogin"
+                    [disabled]="!isFormValid() || (loginForm.pristine && !passwordInput.value)"
+                    align="end">Login</button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>

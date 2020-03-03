@@ -1,0 +1,253 @@
+<form
+  novalidate
+  [formGroup]="formGroup"
+  class="info"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="info__column">
+    <h4 class="info__title" i18n="@@contractSubject">Subject of contract</h4>
+    <div class="info__group">
+      <!-- Категория договора -->
+      <mat-form-field class="info__group-item">
+        <mat-select
+          matInput
+          i18n-placeholder="@@inputContractCategory"
+          placeholder="Contract category"
+          formControlName="categoryId"
+        >
+          <mat-option
+            *ngFor="let selectOption of dicContractCategories"
+            [value]="selectOption.id"
+          >{{ selectOption.nameRu }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <ng-container *ngIf="licenseContractType">
+      <!-- Срок действия -->
+      <app-common-input-string
+        class="info__group-item"
+        placeholder="Validity"
+        formControlName="validDate"
+        i18n-placeholder="@@inputValidity"
+        required
+      ></app-common-input-string>
+    </ng-container>
+    <ng-container *ngIf="agreementContractType">
+      <!-- Изменения -->
+      <app-common-input-string
+        placeholder="Changes"
+        formControlName="changes"
+        i18n-placeholder="@@inputСhanges"
+      ></app-common-input-string>
+    </ng-container>
+    <ng-container *ngIf="licenseContractType">
+      <!-- Территория действия -->
+      <app-common-input-string
+        placeholder="Area of valid"
+        formControlName="registrationPlace"
+        i18n-placeholder="@@inputAreaOfValid"
+        required
+      ></app-common-input-string>
+    </ng-container>
+    <ng-container *ngIf="currentStageCode === 'DK02.9.1'">
+      <!-- Дата расторжения -->
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          i18n-placeholder="@@inputTerminateDate"
+          placeholder="Terminate date"
+          formControlName="terminateDate"
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #picker
+          [disabled]="formGroup.controls.terminateDate.disabled"
+        ></mat-datepicker>
+      </mat-form-field>
+    </ng-container>
+  </div>
+  <div class="info__column">
+    <h4 class="info__title" i18n="@@RequestOrProtectionDocRelations">Request Relations</h4>
+    <!-- Связанные заявки + МКТУ -->
+    <div
+      formArrayName="requestRelations"
+      fxLayout="column"
+      class="formarray-container-items"
+    >
+      <div
+        *ngFor="let requestRelation of requestRelations.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="info__group">
+          <!-- Связанные заявки -->
+          <mat-form-field class="info__group-item">
+            <mat-select
+              matInput
+              [disabled]="false"
+              i18n-placeholder="@@inputRequests"
+              placeholder="Requests"
+              formControlName="request"
+            >
+              <mat-option
+                *ngFor="let item of requests"
+                [value]="item"
+              >{{ item.protectionDocTypeName }} №{{ item.requestNum }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- МКТУ -->
+        <div formArrayName="icgsRequestRelations">
+          <div
+            *ngFor="let icgsRequestRelation of requestRelation.get('icgsRequestRelations').controls; let j = index"
+            [formGroupName]="j"
+          >
+            <div class="info__group">
+              <mat-form-field class="info__group-item">
+                <mat-select
+                  matInput
+                  *ngIf="getFilteredICGSRequests(i)?.length"
+                  [disabled]="formGroup.controls.requestRelations.disabled"
+                  i18n-placeholder="@@inputICGS"
+                  placeholder="ICGS"
+                  formControlName="icgsRequestId"
+                >
+                  <mat-option
+                    *ngFor="let icgsRequest of getFilteredICGSRequests(i)"
+                    [value]="icgsRequest.id"
+                  >/{{ icgsRequest.icgsNameRu }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="info__group-item">
+                <mat-select
+                  matInput
+                  *ngIf="getFilteredICGSRequests(i)?.length"
+                  [disabled]="formGroup.controls.requestRelations.disabled"
+                  i18n-placeholder="@@inputDescriptions"
+                  placeholder="Descriptions"
+                  formControlName="descriptions"
+                  multiple
+                >
+                  <mat-option
+                    *ngFor="let description of getFilteredICGSDescription(i, j)"
+                    [value]="description"
+                  >{{ description }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <button
+              mat-button
+              type="button"
+              class="mat-mini-button"
+              [disabled]="formGroup.controls.requestRelations.disabled || isNeedToDisableIcgsRequestRelation(i, j)"
+              (click)="onIcgsRequestRelationDelete(i,j)"
+              i18n-matTooltip="@@ICGSDeleteTooltip"
+              matTooltip="Delete"
+              matTooltipPosition="above"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button
+              mat-button
+              type="button"
+              class="mat-mini-button"
+              *ngIf="!isNeedToDisableAddICGS(i) && !isNeedToDisableIcgsRequestRelation(i, j)"
+              [disabled]="formGroup.controls.requestRelations.disabled || isNeedToDisableAddICGS(i) || isNeedToDisableIcgsRequestRelation(i, j)"
+              (click)="onIcgsRequestRelationAdd(i,j)"
+              i18n-matTooltip="@@ICGSAddTooltip"
+              matTooltip="Add ICGS"
+              matTooltipPosition="above"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <button
+            mat-button
+            type="button"
+            *ngIf="requestRelation.get('icgsRequestRelations').controls.length===0 && getFilteredICGSRequests(i)?.length!=0"
+            [disabled]="formGroup.controls.requestRelations.disabled"
+            (click)="onIcgsRequestRelationAdd(i,j)"
+            i18n-matTooltip="@@ICGSAddTooltip"
+            matTooltip="Add ICGS"
+            matTooltipPosition="above"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <h4 class="info__title" i18n="@@ProtectionDocRelations">Protection Doc Relations</h4>
+    <!-- Связанные охранные документы + МКТУ -->
+    <div class="formarray-container-items-4">
+      <div class="info__group">
+        <!-- Связанные ОД -->
+        <mat-form-field class="info__group-item">
+          <mat-select
+            matInput
+            i18n-placeholder="@@inputProtectionDocs"
+            placeholder="Protection Docs"
+            formControlName="protectionDocId"
+            type="text"
+            [disabled]="false"
+          >
+            <mat-option
+              *ngFor="let item of protectionDocs"
+              [value]="item.id"
+            >{{ item.protectionDocTypeName }} №{{ item.protectionDocNum }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="actions-container ac-right ac-bottom">
+    <div
+      class="read-mode-actions"
+      *ngIf="!editMode"
+    >
+      <button
+        mat-fab
+        type="button"
+        (click)="onEdit()"
+        [disabled]="!(availableAtStage | async)"
+        color="accent"
+        i18n-matTooltip="@@editTooltip"
+        matTooltip="Edit"
+        matTooltipPosition="above"
+      >
+        <mat-icon>mode_edit</mat-icon>
+      </button>
+    </div>
+    <div
+      class="edit-mode-actions"
+      *ngIf="editMode"
+    >
+      <button
+        mat-mini-fab
+        type="button"
+        (click)="onUndo()"
+        [color]="formGroup.dirty ? 'warn' : 'accent'"
+        i18n-matTooltip="@@undoTooltip"
+        matTooltip="Undo"
+        matTooltipPosition="above"
+      >
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button
+        mat-fab
+        type="submit"
+        [disabled]="formGroup.invalid || !formGroup.dirty"
+        color="primary"
+        i18n-matTooltip="@@saveTooltip"
+        matTooltip="Save"
+        matTooltipPosition="above"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+.document-details {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+  height: calc(100% - 17px);
+  overflow: auto;
+
+  .details {
+    width: 100%;
+
+    .title {
+      font-weight: bold;
+      width: 40%;
+    }
+
+    .value {
+      width: 60%;
+    }
+
+    td {
+      padding: 6px 4px;
+      border-bottom: rgba(0, 0, 0, 0.42) solid 1px;
+    }
+
+    td:last-child {
+      border-left: rgba(0, 0, 0, 0.42) solid 1px;
+    }
+  }
+}

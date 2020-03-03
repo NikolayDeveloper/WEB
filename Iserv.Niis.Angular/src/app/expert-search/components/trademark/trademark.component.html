@@ -1,0 +1,36 @@
+<div
+    fxFlexFill
+    fxLayout="column"
+>
+    <div *ngIf='showImagePreview' fxFlex style="margin-right: 40px; margin-left: 40px; margin-top: -15px;">
+        <button
+            type="button"
+            class="closeButton"
+            mat-icon-button
+            color="primary"
+            placeholder="Clear"
+            (click)="onCloseClick()"
+        ><mat-icon>clear</mat-icon></button>
+        <app-image-viewer
+            [images]="images"
+            [idContainer]="'idOnHTML'"
+            [showPDFOnlyOption]='false'
+            [loadOnInit]="true"
+        ></app-image-viewer>
+    </div>
+    <div fxFlexFill fxLayout="column" [ngClass]="{'hide': showImagePreview}">
+        <app-trademark-form
+            [resultsLength]="resultsLength"
+            (search)="onSearch($event)"
+            (reset)="onReset()"
+        ></app-trademark-form>
+        <app-trademark-list
+            fxFlex="grow"
+            [checkable]="checkable"
+            [checkedTrademarkDtos]="checkedTrademarkDtos"
+            (resultsLength)="resultsLength.next($event)"
+            (showImage)="showImage($event)"
+            (checkChanged)="checkChanged.emit($event)"
+        ></app-trademark-list>
+    </div>
+</div>

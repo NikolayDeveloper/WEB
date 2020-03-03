@@ -1,0 +1,13 @@
+<app-roles-list fxFlexFill
+                (select)="selectRole($event)"></app-roles-list>
+<div class="actions-container ac-bottom ac-right">
+  <button mat-fab
+          *ngIf="!showForm"
+          type="button"
+          i18n-matTooltip="@@CreateRoleTooltip"
+          matTooltip="Create role"
+          (click)="openDialog()"
+          matTooltipPosition="above">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

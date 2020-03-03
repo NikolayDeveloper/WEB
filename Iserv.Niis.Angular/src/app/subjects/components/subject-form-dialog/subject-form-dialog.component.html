@@ -1,0 +1,622 @@
+<form
+    novalidate
+    [formGroup]="formGroup"
+    fxLayout="column"
+    fxFlexFill
+    class="form-full-width form-medium-input"
+>
+    <mat-dialog-content fxFlex="grow">
+        <div fxLayout="column">
+            <div class="form-row" fxLayout="row" *ngIf="mode === 1 || mode === 2 || mode === 3">
+                <!-- Роль контрагента -->
+                <div fxFlex>
+                    <mat-form-field>
+                        <mat-select
+                            i18n-placeholder="@@inputCustomerRole"
+                            placeholder="Customer role"
+                            formControlName="roleId"
+                            (selectionChange)="selectionRoleChange($event.value)"
+                        >
+                            <mat-option
+                                *ngFor="let selectOption of dicCustomerRoles"
+                                [value]="selectOption.id"
+                            >
+                                {{ selectOption.nameRu }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-row" fxLayout="row">
+                <!-- ИИН -->
+                <div fxFlex>
+                    <mat-form-field>
+                        <input
+                            matInput
+                            placeholder="XIN"
+                            type="text"
+                            maxlength="12"
+                            (input)="parseToNumeric($event)"
+                            formControlName="xin"
+                            i18n-placeholder="@@textXin"
+                            i18n-matTooltip="@@InsertXinTooltip"
+                            matTooltip="Insert XIN"
+                            matTooltipPosition="above"
+                        />
+                        <mat-error i18n="@@errorXin">Please enter a valid xin</mat-error>
+                    </mat-form-field>
+                    <span fxFlex="16px"></span>
+                    <button
+                        type="button"
+                        [disabled]="!this.formGroup.get('roleId').value"
+                        mat-mini-fab
+                        color="primary"
+                        i18n-matTooltip="@@searchTooltip"
+                        matTooltip="Search for customer"
+                        matTooltipPosition="above"
+                        (click)="onSearchCustomersClick()"
+                    >
+                        <mat-icon>zoom_in</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <!-- <span fxFlex="16px"></span> -->
+            <div class="form-row" fxLayout="row">
+                <!-- ФИО / Наименование контрагента на русском -->
+                <div fxFlex>
+                    <app-common-input-string
+                        fxFlex
+                        i18n-placeholder="@@inputCustomer"
+                        placeholder="Customer Ru"
+                        formControlName="nameRu"
+                    ></app-common-input-string>
+                </div>
+            </div>
+            <div class="form-row" fxLayout="row">
+                <!-- ФИО / Наименование контрагента на английском -->
+                <div fxFlex>
+                    <app-common-input-string
+                        fxFlex
+                        i18n-placeholder="@@inputCustomerEn"
+                        placeholder="Customer En"
+                        formControlName="nameEn"
+                    ></app-common-input-string>
+                </div>
+            </div>
+            <!-- <span fxFlex="16px"></span> -->
+            <div class="form-row" fxLayout="row">
+                <!-- ФИО / Наименование контрагента на казахском -->
+                <div fxFlex>
+                    <app-common-input-string
+                        fxFlex
+                        i18n-placeholder="@@inputCustomerKz"
+                        placeholder="Customer Kz"
+                        formControlName="nameKz"
+                    ></app-common-input-string>
+                </div>
+            </div>
+            <div class="form-row" fxLayout="row">
+                <!-- Тип контрагента -->
+                <div fxFlex>
+                    <mat-form-field>
+                        <mat-select
+                            #customerTypeId
+                            i18n-placeholder="@@inputCustomerType"
+                            placeholder="Customer type"
+                            formControlName="typeId"
+                        >
+                            <mat-option
+                                *ngFor="let selectOption of dicCustomerTypes"
+                                [value]="selectOption.id"
+                            > {{ selectOption.nameRu }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- <span fxFlex="16px"></span> -->
+                <!-- Льготник -->
+                <!-- <div fxFlex>
+                    <mat-checkbox
+                        *ngIf="isVisibleBeneficiary()"
+                        class="check-input-container"
+                        i18n="@@inputBeneficiary"
+                        formControlName="isBeneficiary"
+                        >Beneficiary</mat-checkbox
+                    >
+                </div> -->
+                <!-- Резидент -->
+                <div fxFlex>
+                    <mat-form-field>
+                        <mat-select
+                            placeholder="Residency status"
+                            i18n-placeholder="@@inputResidencyStatus"
+                            [value]="getResidencyValue()"
+                            [disabled]="true"
+                        >
+                            <mat-option
+                                *ngFor="let selectOption of residencyStatuses"
+                                [value]="selectOption.code"
+                            >{{ selectOption.nameRu }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- Не упоминать -->
+                <div fxFlex>
+                    <mat-checkbox
+                        *ngIf="isVisibleNotMention()"
+                        class="check-input-container"
+                        i18n="@@inputNotMention"
+                        formControlName="isNotMention"
+                        >Not Mention</mat-checkbox
+                    >
+                </div>
+            </div>
+            <div class="form-row" fxLayout="row" *ngIf="isFieldActive(CountryFieldType) || mode === 0">
+                <!-- Страна -->
+                <div fxFlex>
+                    <app-common-autocomplete
+                        [dictionary]="dicCountries"
+                        i18n-placeholder="@@inputCountry"
+                        placeholder="Country"
+                        formControlName="countryId"
+                        (changed)="onCountryChange($event)"
+                        fxFlex
+                    ></app-common-autocomplete>
+                </div>
+            </div>
+            <!-- Льготник -->
+            <div class="form-row" fxLayout="row" *ngIf="isVisibleBeneficiary()">
+                <mat-form-field>
+                    <mat-select
+                        i18n-placeholder="@@inputBeneficiary"
+                        placeholder="Beneficiary"
+                        formControlName="beneficiaryTypeId"
+                    >
+                        <mat-option
+                            *ngFor="let selectOption of dicBeneficiaryTypes"
+                            [value]="selectOption.id"
+                        >
+                            {{ selectOption.nameRu }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" *ngIf="isFieldActive(AddressSimpleFieldType)">
+                <div class="form-row" fxLayout="row">
+                    <!-- Адрес рус. -->
+                    <mat-form-field>
+                        <textarea
+                            matInput
+                            matTextareaAutosize
+                            [matAutocomplete]="auto"
+                            i18n-placeholder="@@inputAddress"
+                            placeholder="Address"
+                            formControlName="address"
+                            i18n-matTooltip="@@InsertAddressTooltip"
+                            matTooltip="Insert address"
+                            matTooltipPosition="above"
+                        ></textarea>
+                    </mat-form-field>
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option
+                            *ngFor="let addr of filteredPostAddresses"
+                            [value]="getFullAdress(addr)"
+                            (onSelectionChange)="onAddressSelect(addr)"
+                            [matTooltip]="addr"
+                            matTooltipPosition="left"
+                        >
+                            {{ getFullAdress(addr) }}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon
+                        class="help-icon"
+                        matTooltip="I am showing a hint for the request status"
+                        i18n-matTooltip="@@hintRequestStatus"
+                        matTooltipPosition="left"
+                        >help_outline</mat-icon
+                    >
+                </div>
+                <div class="spacer"></div>
+                <!-- Адрес каз. -->
+                <mat-form-field>
+                    <textarea
+                        matInput
+                        matTextareaAutosize
+                        i18n-placeholder="@@inputAddressKz"
+                        placeholder="Address KZ"
+                        formControlName="addressKz"
+                        i18n-matTooltip="@@InsertAddressTooltip"
+                        matTooltip="Insert address"
+                        matTooltipPosition="above"
+                    ></textarea>
+                </mat-form-field>
+                <div class="spacer"></div>
+                <!-- Адрес англ. -->
+                <mat-form-field>
+                    <textarea
+                        matInput
+                        matTextareaAutosize
+                        i18n-placeholder="@@inputAddressEn"
+                        placeholder="Address EN"
+                        formControlName="addressEn"
+                        i18n-matTooltip="@@InsertAddressTooltip"
+                        matTooltip="Insert address"
+                        matTooltipPosition="above"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+            <div class="spacer"></div>
+            <div class="form-row" fxLayout="row" *ngIf="isFieldActive(AddressSimpleFieldType)">
+                <!-- Квартира/Офис -->
+                <div fxFlex>
+                    <app-common-input-string
+                        fxFlex
+                        i18n-placeholder="@@inputApartment"
+                        placeholder="Apartment"
+                        formControlName="apartment"
+                    ></app-common-input-string>
+                </div>
+            </div>
+            <div
+                class="form-row" fxLayout="row"
+                fxflex="100"
+                *ngIf="isFieldActive(AddressDetailedFieldType) || mode === 0"
+            >
+                <mat-expansion-panel [expanded]="false" fxFill>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <!-- Адрес -->
+                            <mat-form-field>
+                                <textarea
+                                    matInput
+                                    matTextareaAutosize
+                                    [matAutocomplete]="auto"
+                                    i18n-placeholder="@@inputAddress"
+                                    placeholder="Address"
+                                    formControlName="address"
+                                    i18n-matTooltip="@@InsertAddressTooltip"
+                                    matTooltip="Insert address"
+                                    matTooltipPosition="above"
+                                    (keypress)="onAddressKeyPress($event)"
+                                ></textarea>
+                            </mat-form-field>
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option
+                                    *ngFor="let addr of filteredPostAddresses"
+                                    [value]="getAddress(addr)"
+                                    (onSelectionChange)="onAddressSelect(addr)"
+                                > {{ getFullAdress(addr) }} </mat-option>
+                            </mat-autocomplete>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxlayout="column" fxFlexFill>
+                        <div class="form-row" fxLayout="row" fxFlex="100">
+                            <!--Республика-->
+                            <app-common-input-string
+                                formControlName="republic"
+                                placeholder="Republic"
+                                i18n-placeholder="@@republic"
+                            ></app-common-input-string>
+                            <!-- <span fxFlex="4"></span> -->
+                            <!--Область-->
+                            <app-common-input-string
+                                formControlName="oblast"
+                                placeholder="Oblast"
+                                i18n-placeholder="@@oblast"
+                            ></app-common-input-string>
+                            <!-- <span fxFlex="4"></span> -->
+                            <!--Район-->
+                            <app-common-input-string
+                                formControlName="region"
+                                placeholder="Region"
+                                i18n-placeholder="@@region"
+                            ></app-common-input-string>
+                            <!-- <span fxFlex="4"></span> -->
+                            <!--Город-->
+                            <app-common-input-string
+                                formControlName="city"
+                                placeholder="City"
+                                i18n-placeholder="@@city"
+                            ></app-common-input-string>
+                            <!-- <span fxFlex="4"></span> -->
+                            <!--Улица-->
+                            <app-common-input-string
+                                formControlName="street"
+                                placeholder="Street"
+                                i18n-placeholder="@@street"
+                            ></app-common-input-string>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </div>
+            <div
+                class="form-row"
+                fxLayout="row"
+                *ngIf="isFieldActive(AddressDetailedFieldType) || mode === 0">
+                <div fxFlex>
+                    <app-common-input-string
+                        fxFlex
+                        i18n-placeholder="@@inputAddress"
+                        placeholder="Short Address"
+                        formControlName="shortAddress"
+                    ></app-common-input-string>
+                </div>
+            </div>
+            <div
+                class="form-row"
+                fxLayout="row"
+                *ngIf="isFieldActive(AddressDetailedFieldType) || mode === 0"
+            >
+                <!-- Квартира/Офис -->
+                <div fxFlex>
+                    <app-common-input-string
+                        fxFlex
+                        i18n-placeholder="@@inputApartment"
+                        placeholder="Apartment"
+                        formControlName="apartment"
+                    ></app-common-input-string>
+                </div>
+            </div>
+            <div class="form-row" fxLayout="row">
+                <!-- Сведения о государственной регистрации ЮЛ/ИП -->
+                <div
+                    fxFlex
+                    *ngIf="
+                        (
+                            pdTypeTMCodes.includes(protectionDocTypeCode) ||
+                            pdTypeCOOCodes.includes(protectionDocTypeCode)
+                        ) && isJur()
+                    "
+                >
+                    <app-common-input-string
+                        fxFlex
+                        i18n-placeholder="@@inputJurRegNumber"
+                        placeholder="Information about registration of a legal entity"
+                        formControlName="jurRegNumber"
+                    ></app-common-input-string>
+                </div>
+                <!-- № регистрации -->
+                <div fxFlex *ngIf="mode !== 0 && isFieldActive(RegNumberFieldType)">
+                    <mat-form-field>
+                        <input
+                            matInput
+                            type="number"
+                            i18n-placeholder="@@inputGovReg"
+                            placeholder="Registration number"
+                            formControlName="powerAttorneyFullNum"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div
+                class="form-row"
+                fxLayout="row"
+                *ngIf="isFieldActive(ContactsFieldType) || mode === 0"
+            >
+                <div class="container-height-90" fxFlex>
+                    <div>
+                        <div fxLayout="row">
+                            <h5 fxFlex i18n="@@headerFaxes">Faxes</h5>
+                            <div align="end">
+                                <button
+                                    type="button"
+                                    mat-icon-button
+                                    color="primary"
+                                    (click)="onFaxAdd()"
+                                    i18n-matTooltip="@@addTooltip"
+                                    matTooltip="Add"
+                                    matTooltipPosition="above"
+                                >
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div
+                            formGroupName="faxesGroup"
+                            *ngFor="let fax of faxes; let i = index"
+                        >
+                            <div fxLayout="row">
+                                <app-common-input-string
+                                    fxFlex
+                                    i18n-placeholder="@@inputFax"
+                                    placeholder="Fax"
+                                    [formControlName]="'fax' + i"
+                                    i18n-errorText="@@errorPhone"
+                                    errorText="Please enter a valid phone number"
+                                    [mask]="phoneMask"
+                                ></app-common-input-string>
+                                <span fxFlex="16px"></span>
+                                <button
+                                    type="button"
+                                    mat-icon-button
+                                    color="primary"
+                                    (click)="onFaxDelete(i)"
+                                    i18n-matTooltip="@@deleteTooltip"
+                                    matTooltip="Delete"
+                                    matTooltipPosition="above"
+                                ><mat-icon>delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h5 fxFlex i18n="@@headerPhones">Phones</h5>
+                            <div align="end">
+                                <button
+                                    type="button"
+                                    mat-icon-button
+                                    color="primary"
+                                    (click)="onPhoneAdd()"
+                                    i18n-matTooltip="@@addTooltip"
+                                    matTooltip="Add"
+                                    matTooltipPosition="above"
+                                ><mat-icon>add</mat-icon></button>
+                            </div>
+                        </div>
+                        <div
+                            formGroupName="phonesGroup"
+                            *ngFor="let phone of phones; let i = index"
+                        >
+                            <div fxLayout="row">
+                                <app-common-input-string
+                                    fxFlex
+                                    i18n-placeholder="@@inputPhone"
+                                    placeholder="Phone"
+                                    [formControlName]="'phone' + i"
+                                    i18n-errorText="@@errorPhone"
+                                    errorText="Please enter a valid phone number"
+                                    [mask]="phoneMask"
+                                ></app-common-input-string>
+                                <span fxFlex="16px"></span>
+                                <button
+                                    type="button"
+                                    mat-icon-button
+                                    color="primary"
+                                    (click)="onPhoneDelete(i)"
+                                    i18n-matTooltip="@@deleteTooltip"
+                                    matTooltip="Delete"
+                                    matTooltipPosition="above"
+                                ><mat-icon>delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span fxFlex="16px"></span>
+                <div class="container-height-90" fxFlex>
+                    <div>
+                        <div>
+                            <h5 fxFlex i18n="@@headerMobilePhones">Mobile phones</h5>
+                            <div align="end">
+                                <button
+                                    type="button"
+                                    mat-icon-button
+                                    color="primary"
+                                    (click)="onMobilePhoneAdd()"
+                                    i18n-matTooltip="@@addTooltip"
+                                    matTooltip="Add"
+                                    matTooltipPosition="above"
+                                ><mat-icon>add</mat-icon></button>
+                            </div>
+                        </div>
+                        <div
+                            formGroupName="mobilePhonesGroup"
+                            *ngFor="let mobilePhone of mobilePhones; let i = index"
+                        >
+                            <div fxLayout="row">
+                                <app-common-input-string
+                                    fxFlex
+                                    i18n-placeholder="@@inputMobilePhone"
+                                    placeholder="Mobile phone"
+                                    [formControlName]="'mobilePhone' + i"
+                                    i18n-errorText="@@errorPhone"
+                                    errorText="Please enter a valid mobile phone number"
+                                    [mask]="phoneMask"
+                                ></app-common-input-string>
+                                <span fxFlex="16px"></span>
+                                <button
+                                    type="button"
+                                    mat-icon-button
+                                    color="primary"
+                                    (click)="onMobilePhoneDelete(i)"
+                                    i18n-matTooltip="@@deleteTooltip"
+                                    matTooltip="Delete"
+                                    matTooltipPosition="above"
+                                ><mat-icon>delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h5 fxFlex i18n="@@headerEmails">Emails</h5>
+                            <div align="end">
+                                <button
+                                    type="button"
+                                    mat-icon-button
+                                    color="primary"
+                                    (click)="onEmailAdd()"
+                                    i18n-matTooltip="@@addTooltip"
+                                    matTooltip="Add"
+                                    matTooltipPosition="above"
+                                ><mat-icon>add</mat-icon></button>
+                            </div>
+                        </div>
+                        <div
+                            formGroupName="emailsGroup"
+                            *ngFor="let email of emails; let i = index"
+                        >
+                            <div fxLayout="row">
+                                <mat-form-field>
+                                    <input
+                                        matInput
+                                        i18n-placeholder="@@inputEmail"
+                                        placeholder="Email"
+                                        [formControlName]="'email' + i"
+                                    />
+                                    <mat-error i18n="@@errorEmail">Please enter a valid email</mat-error
+                                    >
+                                </mat-form-field>
+                                <span fxFlex="16px"></span>
+                                <button
+                                    type="button"
+                                    mat-icon-button
+                                    color="primary"
+                                    (click)="onEmailDelete(i)"
+                                    i18n-matTooltip="@@deleteTooltip"
+                                    matTooltip="Delete"
+                                    matTooltipPosition="above"
+                                ><mat-icon>delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row" fxLayout="row" *ngIf="isFieldActive(LicenseDatesFieldType)">
+                <mat-form-field>
+                    <input
+                        matInput
+                        [matDatepicker]="beginPicker"
+                        i18n-placeholder="@@inputBeginDate"
+                        placeholder="Begin date"
+                        formControlName="dateBegin"
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="beginPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #beginPicker></mat-datepicker>
+                </mat-form-field>
+                <span fxFlex="16px"></span>
+                <mat-form-field>
+                    <input
+                        matInput
+                        [matDatepicker]="endPicker"
+                        i18n-placeholder="@@inputEndDate"
+                        placeholder="End date"
+                        formControlName="dateEnd"
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="endPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #endPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button
+            mat-button
+            type="button"
+            color="warn"
+            i18n="@@textCancel"
+            (click)="onCancel()"
+        >Cancel</button>
+        <button
+            mat-button
+            type="submit"
+            [disabled]="isDisabledButtonSave()"
+            color="primary"
+            i18n="@@textSave"
+            (click)="onSubmit()"
+        >Save</button>
+    </mat-dialog-actions>
+</form>

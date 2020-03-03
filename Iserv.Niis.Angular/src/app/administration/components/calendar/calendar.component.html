@@ -1,0 +1,93 @@
+<div fxFlexFill
+     fxLayout="column">
+    <div fxLayout="row"
+         class="calendar-toolbar">
+        <div fxFlex>
+            <mat-button-toggle-group #group="matButtonToggleGroup">
+                <mat-button-toggle value="month"
+                                   checked="true">
+                    <span i18n="@@textMonth">Month</span>
+                </mat-button-toggle>
+                <mat-button-toggle value="year">
+                    <span i18n="@@textYear">Year</span>
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <div fxFlex
+             fxAlign="center center">
+            {{ mainTitle }}
+        </div>
+        <div fxFlex="none"
+             fxLayoutAlign="space-around end">
+            <mat-chip-list>
+                <mat-chip selected>
+                    <span i18n="@@textPublications">Publications</span>: {{publicationCount}}</mat-chip>
+                <mat-chip selected>
+                    <span i18n="@@textHolidays">Holidays</span>: {{holidayCount}}</mat-chip>
+                <mat-chip selected>
+                    <span i18n="@@textDayoffs">Dayoffs</span>: {{dayoffCount}}</mat-chip>
+                <mat-chip selected>
+                    <span i18n="@@textNotWorkedDays">NotWorkedDays</span>: {{(dayoffCount || 0) + (holidayCount || 0)}}</mat-chip>
+                <mat-chip selected>
+                    <span i18n="@@textSelectedDays">SelectedDays</span>: {{selectedDays.length}}</mat-chip>
+            </mat-chip-list>
+        </div>
+        <div fxFlex="nogrow"
+             fxLayoutAlign="space-around end">
+            <button mat-button
+                    class="right-button"
+                    color="primary"
+                    [matMenuTriggerFor]="menu">
+                <mat-icon>add_circle</mat-icon>
+                <span i18n="@@textActions">Actions</span>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item
+                        (click)="onAddEvents('green','Публикация')">
+                    <mat-icon class="publication">add_circle</mat-icon>
+                    <span i18n="@@textPublications">Publications</span>
+                </button>
+                <button mat-menu-item
+                        (click)="onAddEvents('red','Праздничный')">
+                    <mat-icon class="holiday">add_circle</mat-icon>
+                    <span i18n="@@textHolidays">Holidays</span>
+                </button>
+                <button mat-menu-item
+                        (click)="onAddEvents('darkred','Выходной')">
+                    <mat-icon class="dayoff">add_circle</mat-icon>
+                    <span i18n="@@textDayoffs">Dayoffs</span>
+                </button>
+                <button mat-menu-item
+                        (click)="onRemoveEvents()">
+                    <mat-icon>remove_circle</mat-icon>
+                    <span i18n="@@textRemoveEvents">Remove events</span>
+                </button>
+                <button mat-menu-item
+                        (click)="onFillEvents()">
+                    <mat-icon>event</mat-icon>
+                    <span i18n="@@textFillCalendar">Fill calendar</span>
+                </button>
+            </mat-menu>
+
+        </div>
+    </div>
+    <div fxFlex>
+        <app-calendar-month *ngIf="group.value === 'month'"
+                            [events]="events"
+                            [selectedDays]="selectedDays"
+                            [refresh]="refresh"
+                            [today]="today"
+                            (changeTitle)="mainTitle=$event"
+                            (periodChange)="onPeriodChange($event)">
+        </app-calendar-month>
+
+        <app-calendar-year *ngIf="group.value === 'year'"
+                           [events]="events"
+                           [selectedDays]="selectedDays"
+                           [refresh]="refresh"
+                           [today]="today"
+                           (changeTitle)="mainTitle=$event"
+                           (periodChange)="onPeriodChange($event)">
+        </app-calendar-year>
+    </div>
+</div>

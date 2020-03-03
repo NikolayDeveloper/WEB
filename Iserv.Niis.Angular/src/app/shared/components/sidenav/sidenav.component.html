@@ -1,0 +1,13 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav
+               [ngStyle]="{'background-color': bgc, 'width': width}"
+               mode="{{mode}}"
+               position="{{position}}"
+               [(opened)]="state"
+               (close)="onClose()">
+    <ng-content select="[sidenav]"></ng-content>
+  </mat-sidenav>
+  <mat-sidenav-content >
+      <ng-content class="content" select="[content]"></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

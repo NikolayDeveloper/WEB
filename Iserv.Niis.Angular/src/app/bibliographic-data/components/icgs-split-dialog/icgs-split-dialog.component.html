@@ -1,0 +1,147 @@
+<div [formGroup]="formGroup">
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <div [ngSwitch]="ownerType">
+        <h3 i18n="@@splitOldRequestLabel" *ngSwitchCase="1">Old request</h3>
+        <h3 i18n="@@splitOldProtectionDocLabel" *ngSwitchCase="2">
+          Old protection doc
+        </h3>
+      </div>
+      <mat-selection-list
+        #oldIcgsList
+        pDroppable="newIcgs"
+        (onDrop)="dropOld()"
+        (selectionChange)="onSelectionChange($event, newIcgsRequests)"
+      >
+        <mat-list-option
+          *ngFor="let icgs of oldIcgsRequests; let i = index"
+          pDraggable="oldIcgs"
+          (onDragStart)="dragStart(i)"
+          (onDragEnd)="dragEnd()"
+          [value]="icgs.id"
+          >{{ icgs.icgsName }}</mat-list-option
+        >
+      </mat-selection-list>
+    </div>
+    <span fxFlex="16px"></span>
+    <div fxLayout="column" align="center" fxFlex>
+      <button
+        mat-mini-fab
+        type="button"
+        [disabled]="oldIcgsRequests.length < 2"
+        (click)="moveToNew(oldIcgsList.selectedOptions.selected)"
+        color="primary"
+      >
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        type="button"
+        [disabled]="
+          isSplitDisabled(
+            oldIcgsList.selectedOptions.selected,
+            newIcgsList.selectedOptions.selected
+          )
+        "
+        (click)="
+          split(
+            oldIcgsList.selectedOptions.selected,
+            newIcgsList.selectedOptions.selected
+          )
+        "
+        color="primary"
+      >
+        <mat-icon>swap_horiz</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        type="button"
+        (click)="moveToOld(newIcgsList.selectedOptions.selected)"
+        color="primary"
+      >
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+    <span fxFlex="16px"></span>
+    <div fxLayout="column">
+      <div [ngSwitch]="ownerType">
+        <h3 i18n="@@splitNewRequestLabel" *ngSwitchCase="1">New request</h3>
+        <h3 i18n="@@splitNewProtectionDocLabel" *ngSwitchCase="2">
+          New protection doc
+        </h3>
+      </div>
+
+      <mat-selection-list
+        #newIcgsList
+        pDroppable="oldIcgs"
+        (onDrop)="dropNew()"
+        (selectionChange)="onSelectionChange($event, oldIcgsRequests)"
+      >
+        <mat-list-option
+          *ngFor="let icgs of newIcgsRequests; let i = index"
+          pDraggable="newIcgs"
+          (onDragStart)="dragStart(i)"
+          (onDragEnd)="dragEnd()"
+          [value]="icgs.id"
+          >{{ icgs.icgsName }}</mat-list-option
+        >
+      </mat-selection-list>
+    </div>
+  </div>
+  <div
+    fxflexFill
+    fxLayout="row"
+    *ngIf="
+      isSplitDisabled(
+        oldIcgsList.selectedOptions.selected,
+        newIcgsList.selectedOptions.selected
+      )
+    "
+  >
+    <div fxLayout="column" fxFlex>
+      <mat-form-field>
+        <textarea
+          fxFlex
+          formControlName="oldDescription"
+          matInput
+          i18n-placeholder="@@DescriptionICGS"
+          placeholder="Description"
+          rows="6"
+        ></textarea>
+      </mat-form-field>
+    </div>
+    <span fxFlex="40px"></span>
+    <div fxLayout="column" fxFlex>
+      <mat-form-field>
+        <textarea
+          fxFlex
+          formControlName="newDescription"
+          matInput
+          i18n-placeholder="@@DescriptionICGS"
+          placeholder="Description"
+          rows="6"
+        ></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div align="end">
+  <button
+    mat-button
+    type="button"
+    color="warn"
+    (click)="onCancel()"
+    i18n="@@textCancel"
+  >
+    Cancel
+  </button>
+  <button
+    mat-button
+    type="button"
+    color="primary"
+    (click)="onOk()"
+    i18n="@@textOk"
+  >
+    OK
+  </button>
+</div>

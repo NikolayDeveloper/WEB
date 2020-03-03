@@ -1,0 +1,29 @@
+<div fxLayout="column" fxFlexFill>
+  <h4>{{ label }}</h4>
+  <div fxLayout="row">
+    <app-subject-change
+      [editMode]="false"
+      [subject]="oldSubject"
+      [roleCode]="oldSubject.roleCode"
+    ></app-subject-change>
+    <button
+      mat-mini-fab
+      type="button"
+      (click)="onCopySubject()"
+      color="primary"
+      i18n-matTooltip="@@subjectCopyTooltip"
+      matTooltip="Copy subject"
+      matTooltipPosition="above"
+    >
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+    <app-subject-change
+      [editMode]="true"
+      [subject]="newSubject"
+      [roleCode]="oldSubject.roleCode"
+      [ownerId]="details.id"
+      [subjectId]="oldSubject.id"
+      #newSubject
+    ></app-subject-change>
+  </div>
+</div>

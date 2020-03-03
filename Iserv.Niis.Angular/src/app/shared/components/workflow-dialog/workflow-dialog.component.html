@@ -1,0 +1,135 @@
+<h2
+    mat-dialog-title
+    i18n="@@workflowDialog"
+>Workflow dialog</h2>
+<form
+    novalidate
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit()"
+    class="form-full-width form-medium-input"
+>
+    <mat-dialog-content>
+        <div class="dialog-content-wrapper">
+            <mat-form-field>
+                <mat-select
+                    matInput
+                    #routeType
+                    i18n-placeholder="@@inputRouteType"
+                    (change)="onRouteChange($event.value)"
+                    placeholder="Route type"
+                    formControlName="workflowSendType"
+                >
+                    <mat-option
+                        *ngFor="let item of workflowSendTypes"
+                        [value]="item.type"
+                    >{{ item.nameRu }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select
+                    matInput
+                    i18n-placeholder="@@inputCurrentStage"
+                    placeholder="Current stage"
+                    formControlName="fromStageId"
+                >
+                    <mat-option
+                        *ngFor="let selectOption of dicRouteStages"
+                        [value]="selectOption.id"
+                    >{{ selectOption.nameRu }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="!parallelEnd">
+              <!--
+                <mat-select
+                    matInput
+                    i18n-placeholder="@@inputNextStage"
+                    placeholder="Next stage"
+                    formControlName="currentStageId"
+                    (change)="onNextStageChange($event.value)"
+                >
+                    <mat-option
+                        *ngFor="let selectOption of filteredRouteStages"
+                        [value]="selectOption.id"
+                    >{{ selectOption.nameRu }}</mat-option>
+                </mat-select>
+-->
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Next stage"
+                  i18n-placeholder="@@inputNextStage"
+                  [formControl] = "nextStageId"
+                  [matAutocomplete]="nextStageList"
+                />
+              <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="nextStageId.patchValue(null)">
+                <mat-icon>close</mat-icon>
+              </button>
+                <mat-autocomplete #nextStageList="matAutocomplete" [displayWith]="displayStageFn">
+                  <mat-option
+                    *ngFor="let nextStage of filteredStagesList | async"
+                    [value]="nextStage"
+                  >{{ nextStage.nameRu }}</mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field *ngIf="!hideUserInput && !parallelEnd">
+                <!-- <mat-select
+                    matInput
+                    i18n-placeholder="@@inputNextUser"
+                    placeholder="Next user"
+                    formControlName="currentUserId"
+                >
+                    <mat-option
+                        *ngFor="let user of stageUsers"
+                        [value]="user.id"
+                    >{{ user.nameRu }}</mat-option>
+                </mat-select> -->
+                <input
+                    matInput
+                    type="text"
+                    placeholder="Next user"
+                    i18n-placeholder="@@inputNextUser"
+                    formControlName="currentUserId"
+                    [matAutocomplete]="userList"
+                >
+                <mat-autocomplete
+                  [displayWith]="getDisplayUser()"
+                  #userList="matAutocomplete"
+                >
+                    <mat-option
+                        *ngFor="let user of filteredStageUsers | async"
+                        [value]="user.id"
+                    >{{ user.nameRu }}</mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <app-common-input-string
+                *ngIf="
+                    routeType.selected?.value === WorkflowSendType.ReturnByRoute ||
+                    routeType.selected?.value === WorkflowSendType.ToCurrentStage
+                "
+                i18n-placeholder="@@inputDescription"
+                placeholder="Description"
+                formControlName="description"
+            ></app-common-input-string>
+            <app-bulletin-form
+                *ngIf="isBulletinRequired"
+                formControlName="bulletinId"
+            ></app-bulletin-form>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button
+            type="button"
+            mat-button
+            color="warn"
+            (click)="onWorkflowCancel()"
+            i18n="@@dialogCancel"
+        >Cancel</button>
+        <button
+            type="submit"
+            mat-button
+            color="primary"
+            [disabled]="(formGroup.invalid || formGroup.pristine) && !parallelEnd"
+            i18n="@@dialogSend"
+        >Send</button>
+    </mat-dialog-actions>
+</form>

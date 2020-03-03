@@ -1,0 +1,26 @@
+<div fxFlexFill
+     fxLayout="column">
+  <mat-form-field>
+    <mat-select i18n-placeholder="@@inputMaterialType"
+                placeholder="Material type"
+                (change)="applyFilter($event.value)">
+      <mat-option *ngFor="let selectOption of dicMaterialTypes"
+                  [value]="selectOption.kind">
+        {{ selectOption.nameRu }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <app-table [columns]="columns"
+             [uniqTableName]="'requestsMaterialTableCols'"
+             [sortButton]="true"
+             [data]="materials"
+             [sortable]="true"
+             [filterPredicate]="filterPredicate"
+             [clientFilters]="clientFilters"
+             [filterable]="true"
+             [paginable]="true"
+             [paginatorOnTop]="true"
+             [selectable]="true"
+             (select)="onSelect($event)"
+             class="table-medium"></app-table>
+</div>

@@ -1,0 +1,20 @@
+<div fxFlexFill
+     fxLayout="column">
+  <mat-tab-group class="tabs-small tabs-colored-light"
+                 [selectedIndex]="0">
+    <mat-tab label="Search"
+             i18n-label="@@tabSearch">
+      <app-invention [checkable]="true"
+                     [checkedInventionDtos]="checkedSearchDtos"
+                     (checkChanged)="onCheckChanged($event)"></app-invention>
+    </mat-tab>
+    <mat-tab label="Similar Protection Docs"
+             i18n-label="@@tabSimilarProtectionDocs">
+      <app-similar-protection-docs [requestId]="requestId"
+                                   [checkedSearchDtos]="checkedSearchDtos"
+                                   [protectionDocTypeCode]="'B'"
+                                   (delete)="onDelete($event)"
+                                   (save)="onSave($event)"></app-similar-protection-docs>
+    </mat-tab>
+  </mat-tab-group>
+</div>

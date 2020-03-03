@@ -1,0 +1,105 @@
+<div *ngIf="sidebarData" class="info-container">
+  <div class="label">
+    <div class="img-label">
+      <div class="td-logo"><div>td</div></div>
+    </div>
+    <div class="label-props">
+      <div class="trade-sign">{{sidebarData.protectionDocTypeValue}}</div>
+      <span class="labels">Вхоящий номер: <span>{{sidebarData.incomingNumber || sidebarData.requestNum}}</span></span>
+      <span class="labels">Штрих код <span>{{sidebarData.barcode}}</span></span>
+    </div>
+  </div>
+
+  <mat-grid-list cols="2" rowHeight="100px">
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <div class="grid-label-name labels">дата создания
+        <span>
+                      <!--<mat-icon>calendar_today</mat-icon>-->
+          {{sidebarData.dateCreate}}
+                    </span>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <div class="grid-label-name labels">тип доставки <br>
+        <span>{{sidebarData.reciveName?.nameRu || sidebarData.reciveName?.nameKz || sidebarData.reciveName?.nameEn}}</span>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <div class="grid-label-name labels">подвид заявки <br>
+        <span>{{sidebarData.subType || "-"}}</span>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <div class="grid-label-name labels">
+        <div>статус</div>
+        <span>{{sidebarData.statusName?.nameRu || "-"}}</span>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <div class="namings">
+    <div class="ru">
+                <span class="labels">
+                  наименование на русском
+                </span>
+      <span class="name">
+                  {{sidebarData.nameRu  || "-"}}
+                </span>
+    </div>
+    <div class="kz">
+                <span class="labels">
+                  наименование на казахском
+                </span>
+      <span class="name">
+                  {{sidebarData.nameKz  || "-"}}
+                </span>
+    </div>
+    <div class="en">
+                <span class="labels">
+                  наименование на английском
+                </span>
+      <span class="name">
+                  {{sidebarData.nameEn || "-"}}
+                </span>
+    </div>
+  </div>
+  <div *ngIf="sidebarData.image" class="image-container">
+    <div class="labels">изображение</div>
+    <div class="image">
+      <img [src]="sidebarData.image">
+    </div>
+  </div>
+
+  <div class="footer-container">
+    <ul>
+      <li class="footer-labels">
+        <span class="labels">Регистрационный номер:</span>
+        <span class="content">{{sidebarData.regNumber}}</span>
+      </li>
+      <li class="footer-labels">
+        <span class="labels">Дата подачи заявки:</span>
+        <span class="content">{{sidebarData.dateCreate}}
+          <!--<mat-icon>calendar_today</mat-icon>--></span>
+      </li>
+      <li class="footer-labels">
+        <span class="labels">Заявитель: </span>
+        <span class="content">{{sidebarData.ordererName || "-"}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
+<div *ngIf="docPrev"
+     class="pdf-wrapper-container">
+  <iframe *ngIf="docPrev"
+          [src]="docPrev"
+          class="pdf-frame">
+  </iframe>
+</div>
+<div *ngIf="docPrev">
+  <button class="new-window-button"
+          mat-raised-button color="primary"
+          (click)="openNewWindowPdf()">Открыть документ в новом окне</button>
+</div>
+<div class="go-to-card" (click)="goToCard(docId || sidebarData.id, sidebarData?.taskType)">
+  Карточка
+</div>

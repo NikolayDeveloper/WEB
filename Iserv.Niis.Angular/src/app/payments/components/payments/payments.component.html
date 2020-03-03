@@ -1,0 +1,31 @@
+<div
+  fxFlexFill
+  fxLayout="column"
+>
+  <app-table
+    fxFlexFill
+    [columns]="columns"
+    [sortButton]="true"
+    [uniqTableName]="'paymentsTableRequests'"
+    [data]="invoiceDtos"
+    [sortable]="true"
+    [sortBy]="'createDate'"
+    class="table-stripped table-medium"
+  ></app-table>
+</div>
+<div class="actions-container ac-bottom ac-right">
+  <!-- [disabled]="disabled" -->
+  <button
+    mat-fab
+    type="button"
+    (click)="onAddService()"
+    [disabled]="disabled"
+    color="accent"
+    i18n-matTooltip="@@addServiceTooltip"
+    matTooltip="Add service"
+    matTooltipPosition="above"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+

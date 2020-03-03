@@ -1,0 +1,68 @@
+<div
+  fxFlexFill
+  fxLayout="column"
+>
+  <div
+    fxFlex
+    *ngIf="['TM','ITM'].includes(pdTypeCode)"
+  >
+    <app-trademark-with-similar
+      [requestId]="requestDetails.id"
+      [protectionDocsId]="requestDetails.protectionDocsSimilaritiesId"
+      [imageUrl]="requestDetails.imageUrl"
+    ></app-trademark-with-similar>
+  </div>
+  <div
+    fxFlex
+    *ngIf="!(['TM'].includes(pdTypeCode) || isExistData())"
+  >
+    <app-invention-with-similar
+      *ngIf="['B','A4','A'].includes(pdTypeCode)"
+      [requestId]="requestDetails.id"
+    ></app-invention-with-similar>
+    <app-useful-model-with-similar
+      *ngIf="['U'].includes(pdTypeCode)"
+      [requestId]="requestDetails.id"
+    ></app-useful-model-with-similar>
+    <app-industrial-design-with-similar
+      *ngIf="['S2', 'S1'].includes(pdTypeCode)"
+      [requestId]="requestDetails.id"
+    ></app-industrial-design-with-similar>
+  </div>
+  <div
+    fxFlex
+    *ngIf="!['TM'].includes(pdTypeCode) && isExistData()"
+  >
+    <mat-tab-group
+      class="tabs-small tabs-colored-light"
+      [selectedIndex]="0"
+    >
+      <mat-tab
+        label="Search"
+        i18n-label="@@tabSearch"
+      >
+        <app-invention-with-similar
+          *ngIf="['B','A4','A'].includes(pdTypeCode)"
+          [requestId]="requestDetails.id"
+        ></app-invention-with-similar>
+        <app-useful-model-with-similar
+          *ngIf="['U'].includes(pdTypeCode)"
+          [requestId]="requestDetails.id"
+        ></app-useful-model-with-similar>
+        <app-industrial-design-with-similar
+          *ngIf="['S2', 'S1'].includes(pdTypeCode)"
+          [requestId]="requestDetails.id"
+        ></app-industrial-design-with-similar>
+      </mat-tab>
+      <mat-tab
+        i18n-label="@@expertizeDocumentCompare"
+        label="Document Compare"
+      >
+        <app-documents-compare
+          [inputDocumentsInfoForCompare]="documentsInfoForCompare"
+          [requestId]="requestId"
+        ></app-documents-compare>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

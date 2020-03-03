@@ -1,0 +1,63 @@
+@import '~@angular/material/theming';
+
+$config: mat-typography-config();
+
+mat-expansion-panel {
+  mat-expansion-panel-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+.form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .form__status {
+    margin-bottom: 20px;
+    font-size: mat-font-size($config, headline);
+    font-family: mat-font-family($config);
+  }
+
+  .form__category {
+    border-radius: 4px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.125);
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  .form__block {
+    display: block;
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  .form__group {
+    width: 100%;
+    display: flex;
+
+    app-data-field {
+      flex: 1 1 auto;
+
+      /deep/mat-form-field {
+        width: 100%;
+      }
+
+      &:not(:last-child) {
+        margin-right: 1.25em;
+      }
+    }
+  }
+
+  .form__title {
+    margin: 0;
+    font-size: mat-font-size($config, title);
+    font-weight: 400;
+  }
+}

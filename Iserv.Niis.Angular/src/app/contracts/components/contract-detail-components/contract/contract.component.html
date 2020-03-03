@@ -1,0 +1,22 @@
+<mat-tab-group class="tabs-small tabs-colored-light"
+               [selectedIndex]="0">
+  <mat-tab label="Description"
+           i18n-label="@@textDescription">
+    <app-contract-description [contractDetails]="contractDetails"
+                              [selectOptions]="selectOptions"
+                              (submitData)="onSubmitData($event)"
+                              (edit)="onEdit($event)"
+                              (delete)="onDelete($event)"
+                              (register)="register.emit($event)"></app-contract-description>
+  </mat-tab>
+  <mat-tab label="Subjects"
+           i18n-label="@@textSubjects">
+    <app-subjects *ngIf="contractDetails"
+                  [ownerId]="contractDetails.id"
+                  [additionalRules]="additionalRules"
+                  [ownerType]="3"
+                  [protectionDocTypeCode]="contractDetails.protectionDocTypeCode"
+                  [roleCodes]="roleCodes"
+                  (changed)="onSubjectsChanged($event)"></app-subjects>
+  </mat-tab>
+</mat-tab-group>

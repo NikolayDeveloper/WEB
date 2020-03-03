@@ -1,0 +1,151 @@
+<h2
+  mat-dialog-title
+  i18n="@@workflowDialog"
+>Workflow dialog</h2>
+<form
+  novalidate
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+  class="form-full-width form-medium-input"
+>
+  <mat-dialog-content>
+    <div class="dialog-content-wrapper">
+
+      <app-bulletin-form
+        formControlName="bulletinId"
+        *ngIf="!areSelectedRequests"
+      ></app-bulletin-form>
+
+      <mat-form-field *ngIf="areAllSelectedTrademarks && !nextStageIsParalel">
+        <input
+          matInput
+          type="text"
+          placeholder="Next user"
+          i18n-placeholder="@@inputNextUserProtectionDocs"
+          formControlName="currentUserId"
+          [matAutocomplete]="userList"
+        >
+        <mat-autocomplete #userList="matAutocomplete">
+          <mat-option
+            *ngFor="let user of filteredStageUsers | async"
+            [value]="user.nameRu"
+          >{{ user.nameRu }}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field *ngIf="!areAllSelectedTrademarks && !nextStageIsParalel">
+        <input
+          matInput
+          type="text"
+          placeholder="Next main user"
+          i18n-placeholder="@@inputNextMainUser"
+          formControlName="currentUserId"
+          [matAutocomplete]="userList"
+        >
+        <mat-autocomplete #userList="matAutocomplete">
+          <mat-option
+            *ngFor="let user of filteredStageUsers | async"
+            [value]="user.nameRu"
+          >{{ user.nameRu }}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field *ngIf="nextStageIsParalel">
+        <input
+          matInput
+          type="text"
+          placeholder="Next user for Print Protected Document"
+          i18n-placeholder="@@inputNextUserForPrint"
+          formControlName="nextUserForPrintId"
+          [matAutocomplete]="userList"
+        >
+        <mat-autocomplete #userList="matAutocomplete">
+          <mat-option
+            *ngFor="let user of filteredStageUsersPrint | async"
+            [value]="user.nameRu"
+          >{{ user.nameRu }}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field *ngIf="nextStageIsParalel">
+        <input
+          matInput
+          type="text"
+          placeholder="Next user for Training descriptions for Protected Document"
+          i18n-placeholder="@@inputNextForDescriptions"
+          formControlName="nextUserForDescriptionsId"
+          [matAutocomplete]="userList"
+        >
+        <mat-autocomplete #userList="matAutocomplete">
+          <mat-option
+            *ngFor="let user of filteredStageUsersDescriptions | async"
+            [value]="user.nameRu"
+          >{{ user.nameRu }}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field *ngIf="nextStageIsParalel && areAccelerated">
+        <input
+          matInput
+          type="text"
+          placeholder="Next user for Maintenance Protected Document"
+          i18n-placeholder="@@inputNextForMaintenance"
+          formControlName="nextUserForMaintenanceId"
+          [matAutocomplete]="userList"
+        >
+        <mat-autocomplete #userList="matAutocomplete">
+          <mat-option
+            *ngFor="let user of filteredStageUsersMaintenance | async"
+            [value]="user.nameRu"
+          >{{ user.nameRu }}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field *ngIf="!areAllSelectedTrademarks && !areSelectedRequests && !areAccelerated">
+        <input
+          matInput
+          type="text"
+          placeholder="Next bulletin user"
+          i18n-placeholder="@@inputBulletinUser"
+          formControlName="bulletinUserId"
+          [matAutocomplete]="userList"
+        >
+        <mat-autocomplete #userList="matAutocomplete">
+          <mat-option
+            *ngFor="let user of filteredBulletinUsers | async"
+            [value]="user.nameRu"
+          >{{ user.nameRu }}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="!areAllSelectedTrademarks && !areSelectedRequests && !nextStageIsParalel">
+        <input
+          matInput
+          type="text"
+          placeholder="Next support user"
+          i18n-placeholder="@@inputSupportUser"
+          formControlName="supportUserId"
+          [matAutocomplete]="userList"
+        >
+        <mat-autocomplete #userList="matAutocomplete">
+          <mat-option
+            *ngFor="let user of filteredSupportUsers | async"
+            [value]="user.nameRu"
+          >{{ user.nameRu }}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button
+      type="button"
+      mat-button
+      color="warn"
+      (click)="onCancel()"
+      i18n="@@dialogCancel"
+    >Cancel</button>
+    <button
+      type="submit"
+      mat-button
+      color="primary"
+      [disabled]="formGroup.invalid || formGroup.pristine"
+      i18n="@@dialogSend"
+    >Send</button>
+  </mat-dialog-actions>
+</form>

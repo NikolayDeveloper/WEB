@@ -1,0 +1,14 @@
+@import '../../../../styles/mixin.scss';
+
+.request-info {
+  height: 60px;
+  padding: 0 20px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 400;
+  background: map-get($primary, 800);
+  color: #ffffff;
+}

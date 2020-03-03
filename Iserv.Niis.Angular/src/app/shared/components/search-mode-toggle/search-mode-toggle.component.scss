@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+@import './../../../../styles/theme.scss';
+
+.mat-button-toggle-checked {
+    background-color: mat-color($primary);
+    color: white;
+}
+
+.toggle-icon {
+    width: 15px;
+    height: 15px;
+}
+
+.mat-button-toggle-group {
+    box-shadow: none !important;
+}
+
+.mat-button-toggle-label-content {
+    padding: 0 0 !important;
+    line-height: 30px !important;
+}
+
+mat-button-toggle {
+    label {
+        padding-bottom: 10px;
+    }
+}

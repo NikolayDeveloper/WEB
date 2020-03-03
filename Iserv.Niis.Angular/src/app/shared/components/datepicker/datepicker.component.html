@@ -1,0 +1,11 @@
+<mat-form-field [formGroup]="formGroup">
+  <input matInput
+         [matDatepicker]="picker"
+         placeholder="{{placeholder}}"
+         [disabled]="disabled"
+         formControlName="inputVal">
+  <mat-datepicker-toggle matSuffix
+                         [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker
+                  [disabled]="disabled"></mat-datepicker>
+</mat-form-field>

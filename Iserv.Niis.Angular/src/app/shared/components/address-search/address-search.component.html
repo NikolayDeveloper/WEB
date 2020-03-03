@@ -1,0 +1,68 @@
+<mat-expansion-panel [expanded]="false" fxFill [formGroup]="formGroup">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <!-- Адрес -->
+      <mat-form-field fxFlex>
+        <textarea
+          matInput
+          [matAutocomplete]="auto"
+          i18n-placeholder="@@inputAddress"
+          placeholder="Address"
+          formControlName="address"
+          i18n-matTooltip="@@InsertAddressTooltip"
+          matTooltip="Insert address"
+          matTooltipPosition="above"
+        ></textarea>
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let addr of filteredPostAddresses"
+          [value]="getAddresseeAddress(addr)"
+          (onSelectionChange)="onAddressSelect(addr)"
+        >
+          {{ getFullAdress(addr) }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div fxlayout="column" fxFlexFill>
+    <div fxLayout="row" fxFlex="100">
+      <!-- Республика -->
+      <app-common-input-string
+        formControlName="republic"
+        placeholder="Republic"
+        i18n-placeholder="@@republic"
+      ></app-common-input-string>
+      <span fxFlex="4"></span>
+      <!-- Область -->
+      <app-common-input-string
+        formControlName="oblast"
+        placeholder="Oblast"
+        i18n-placeholder="@@oblast"
+      ></app-common-input-string>
+    </div>
+    <div fxLayout="row" fxFlex="100">
+      <!-- Город -->
+      <app-common-input-string
+        formControlName="city"
+        placeholder="City"
+        i18n-placeholder="@@city"
+      ></app-common-input-string>
+      <span fxFlex="4"></span>
+      <!-- Улица -->
+      <app-common-input-string
+        formControlName="street"
+        placeholder="Street"
+        i18n-placeholder="@@street"
+      ></app-common-input-string>
+      <span fxFlex="4"></span>
+      <!-- Квартира/Офис -->
+      <app-common-input-string
+        fxFlex="48"
+        i18n-placeholder="@@inputApartment"
+        placeholder="Apartment"
+        formControlName="apartment"
+      ></app-common-input-string>
+    </div>
+  </div>
+</mat-expansion-panel>

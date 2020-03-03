@@ -1,0 +1,56 @@
+// @mixin setColumnWidth($columnName, $width, $min-width: $width) {
+//   .cdk-column-#{$columnName} {
+//     width: $width;
+//     min-width: $min-width;
+//   }
+// }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .form__group {
+    width: 100%;
+    display: flex;
+
+    mat-form-field {
+      flex: 1 1 auto;
+
+      &:not(:last-child) {
+        margin-right: 1.25em;
+      }
+    }
+  }
+}
+
+.table-wrapper {
+  overflow: auto;
+}
+
+mat-table {
+  width: 100%;
+  display: table;
+
+  // mat-header-cell {
+  //   white-space: nowrap;
+  // }
+
+  mat-header-cell,
+  mat-cell {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+
+    &:last-child {
+      width: 40px;
+      flex: 0 0 auto;
+    }
+  }
+}
+
+mat-checkbox {
+  /deep/.mat-checkbox-label {
+    white-space: normal;
+  }
+}

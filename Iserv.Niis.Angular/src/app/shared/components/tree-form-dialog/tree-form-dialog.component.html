@@ -1,0 +1,48 @@
+<div mat-dialog-content>
+  <form
+    novalidate
+    [formGroup]="formGroup"
+    class="form"
+  >
+    <mat-form-field class="form__search">
+      <input
+        matInput
+        type="text"
+        placeholder="Поиск"
+        formControlName="filter"
+      >
+      <button
+        matSuffix
+        mat-icon-button
+        (click)="onReset()"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="form__container">
+      <p-tree
+        [value]="filteredValues"
+        selectionMode="checkbox"
+        [(selection)]="selectedNodes"
+        [styleClass]="'material-tree-fill'"
+      ></p-tree>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-button
+    type="button"
+    color="warn"
+    mat-dialog-close
+    (click)="onCancel()"
+    i18n="@@textCancel"
+  >Cancel</button>
+  <button
+    mat-button
+    type="submit"
+    color="primary"
+    (click)="onSubmit()"
+    i18n="@@textSave"
+  >Save</button>
+</div>

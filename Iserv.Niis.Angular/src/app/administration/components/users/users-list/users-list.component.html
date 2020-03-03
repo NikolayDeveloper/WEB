@@ -1,0 +1,13 @@
+<div fxFlex
+     fxLayout="column">
+    <app-table [columns]="columns"
+               [source]="source"
+               [reset]="reset"
+               [sortable]="true"
+               [filterable]="true"
+               [paginable]="true"
+               [paginatorOnTop]="true"
+               [selectable]="true"
+               (select)="onSelect($event)"
+               class="table-medium"></app-table>
+</div>

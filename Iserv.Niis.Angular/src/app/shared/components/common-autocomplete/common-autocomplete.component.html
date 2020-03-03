@@ -1,0 +1,19 @@
+<mat-form-field [formGroup]="formGroup"
+                fxFlexFill>
+  <!-- [ngClass]="{'input-invalid': this.isInvalidInput}" -->
+  <input type="text"
+         placeholder="{{placeholder}}"
+         aria-label="Autocomplete placehoder"
+         matInput
+         formControlName="nameRu"
+         [matAutocomplete]="auto">
+</mat-form-field>
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngFor="let selectOption of filteredDictionary"
+              [value]="selectOption.nameRu"
+              [matTooltip]="selectOption.nameRu"
+              matTooltipPosition="left"
+              (onSelectionChange)="onSelect(selectOption)">
+    {{selectOption.nameRu}}
+  </mat-option>
+</mat-autocomplete>

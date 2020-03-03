@@ -1,0 +1,37 @@
+.document-buttons {
+  display: flex;
+
+  button {
+    flex: 1 1 auto;
+
+    & + button {
+      margin-left: 10px;
+    }
+  }
+}
+
+.group {
+  display: flex;
+
+  &:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
+  .field {
+    & + .field {
+      margin-top: 0;
+      margin-left: 10px;
+    }
+  }
+}
+
+.field {
+  & + .field {
+    margin-top: 5px;
+  }
+}
+
+.search-block {
+  padding: 10px;
+  text-align: center;
+}

@@ -1,0 +1,83 @@
+<h2
+  mat-dialog-title
+  i18n="@@invoiceAddDialog"
+>Invoice add dialog</h2>
+<mat-dialog-content>
+  <form
+    novalidate
+    [formGroup]="invoiceFormGroup"
+    (ngSubmit)="onSubmit()"
+    class="form form-medium-input"
+  >
+    <div class="table-wrapper">
+      <app-table
+        [data]="tariffs"
+        [columns]="columns"
+        [sortable]="true"
+        [filterable]="true"
+        [paginable]="true"
+        [paginatorOnTop]="true"
+        [selectable]="true"
+        (select)="onTariffSelect($event.id)"
+      ></app-table>
+    </div>
+    <div class="group">
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          i18n-placeholder="@@inputCoefficient"
+          placeholder="Coefficient"
+          formControlName="coefficient"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          min="1"
+          max="1000"
+          i18n-placeholder="@@inputTariffCount"
+          placeholder="Tariff count"
+          formControlName="tariffCount"
+        >
+      </mat-form-field>
+    </div>
+    <div class="group">
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          i18n-placeholder="@@inputPenaltyPercent"
+          placeholder="Penalty percent"
+          formControlName="penaltyPercent"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          i18n-placeholder="@@inputNds"
+          placeholder="NDS"
+          formControlName="nds"
+        >
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    type="button"
+    mat-button
+    color="accent"
+    (click)="onCancel()"
+    i18n="@@dialogCancel"
+  >Cancel</button>
+  <button
+    type="submit"
+    mat-button
+    color="primary"
+    [disabled]="invoiceFormGroup.invalid || invoiceFormGroup.pristine"
+    i18n="@@dialogAdd"
+  >Add</button>
+</mat-dialog-actions>

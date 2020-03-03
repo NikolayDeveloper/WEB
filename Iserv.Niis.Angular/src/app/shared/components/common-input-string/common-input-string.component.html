@@ -1,0 +1,16 @@
+<mat-form-field [formGroup]="formGroup">
+  <!-- [ngClass]="{'input-invalid': this.isInvalidInput}" -->
+  <input *ngIf="!!mask"
+         matInput
+         [required]="required"
+         formControlName="inputVal"
+         placeholder="{{placeholder}}"
+         [textMask]="{mask: mask}">
+  <!-- [ngClass]="{'input-invalid': this.isInvalidInput}" -->
+  <input *ngIf="!mask"
+         matInput
+         [required]="required"
+         formControlName="inputVal"
+         placeholder="{{placeholder}}">
+  <mat-error>{{errorText}}</mat-error>
+</mat-form-field>

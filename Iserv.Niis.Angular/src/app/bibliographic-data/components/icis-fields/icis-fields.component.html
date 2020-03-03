@@ -1,0 +1,52 @@
+<!-- МКПО -->
+<div [formGroup]="formGroup"
+     fxLayout="column">
+  <h4 class="title" i18n="@@LablelICIS">ICIS</h4>
+  <input hidden
+         formControlName="icisRequestIds">
+  <div *ngIf="labelsIcis.length === 0"
+       fxLayoutAlign="center none">
+    <button mat-mini-fab
+            type="button"
+            [disabled]="isDisabled()"
+            [hidden]="!editMode"
+            (click)="openDialogIcisTree()"
+            i18n-matTooltip="@@ButtonAddICIS"
+            matTooltip="Add ICIS"
+            matTooltipPosition="above">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="labelsIcis.length > 0"
+       class="formarray-container-items-3">
+    <div *ngFor="let item of labelsIcis"
+         fxLayout="row"
+         class="label-item">
+      <span>{{item.nameRu}}</span>
+      <button mat-mini-fab
+              type="button"
+              [disabled]="isDisabled()"
+              [hidden]="!editMode"
+              (click)="deleteIcis(item.id)"
+              i18n-matTooltip="@@ICISDeleteTooltip"
+              matTooltip="Delete ICIS"
+              matTooltipPosition="above">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="labelsIcis.length !== 0"
+       class="actions-container ac-bottom ac-left"
+       fxLayoutAlign="row">
+    <button mat-mini-fab
+            type="button"
+            [disabled]="isDisabled()"
+            [hidden]="!editMode"
+            (click)="openDialogIcisTree()"
+            i18n-matTooltip="@@ButtonChangeICIS"
+            matTooltip="Edit ICIS"
+            matTooltipPosition="above">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div fxFlexFill>
+  <mat-tab-group class="tabs-small tabs-colored-light-2"
+                 [selectedIndex]="0">
+    <mat-tab *ngIf="isVisibleEssay()"
+             label="Essay"
+             i18n-label="@@docsCopmareEassy">
+      <app-view-compare [originalText]="documentsInfoForCompare.essay"
+                        [changedText]="documentsInfoForCompare.changedEssay"
+                        [documentId]="documentsInfoForCompare.changedEssayDocId"></app-view-compare>
+    </mat-tab>
+    <mat-tab *ngIf="isVisibleDescription()"
+             label="Description"
+             i18n-label="@@docsCopmareDescription">
+      <app-view-compare [originalText]="documentsInfoForCompare.description"
+                        [changedText]="documentsInfoForCompare.changedDescription"
+                        [documentId]="documentsInfoForCompare.changedDescriptionDocId"></app-view-compare>
+    </mat-tab>
+    <mat-tab *ngIf="isVisibleFormula()"
+             label="Formula"
+             i18n-label="@@docsCopmareFormula">
+      <app-view-compare [originalText]="documentsInfoForCompare.formula"
+                        [changedText]="documentsInfoForCompare.changedFormula"
+                        [documentId]="documentsInfoForCompare.changedFormulaDocId"></app-view-compare>
+    </mat-tab>
+  </mat-tab-group>
+</div>

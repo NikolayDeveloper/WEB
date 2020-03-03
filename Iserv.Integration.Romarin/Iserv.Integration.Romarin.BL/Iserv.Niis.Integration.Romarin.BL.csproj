@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <Configurations>Debug;Release;Development-iserv;Development-niis;Production-iserv;Production-niis;Staging-iserv;Staging-niis</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Ftp\FtpClientWrapperv2.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentFTP" Version="19.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
+    <PackageReference Include="Serilog" Version="2.6.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServerCore" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\WEB\Iserv.Niis.Business\Iserv.Niis.Business.csproj" />
+    <ProjectReference Include="..\..\..\WEB\Iserv.Niis.DataAccess.EntityFramework\Iserv.Niis.DataAccess.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\..\WEB\Iserv.Niis.Domain\Iserv.Niis.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+</Project>

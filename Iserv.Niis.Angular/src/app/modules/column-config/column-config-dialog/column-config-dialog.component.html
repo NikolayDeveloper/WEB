@@ -1,0 +1,36 @@
+<h2 mat-dialog-title
+    i18n="@@ColumnConfigEditDialog">Columns configuration edit dialog</h2>
+<form novalidate
+      [formGroup]="formGroup"
+      class="form-full-width form-medium-input">
+  <mat-dialog-content>
+    <div class="dialog-content-wrapper"
+         formArrayName="items">
+      <div *ngFor="let itemGroup of items.controls; let i = index;">
+        <div [formGroupName]="i"
+             pDroppable="columns"
+             pDraggable="columns"
+             (onDragStart)="dragStart($event, i)"
+             (onDragEnd)="dragEnd($event)"
+             (onDrop)="drop($event, i)"
+             (onDragEnter)="dragEnter($event, i)"
+             [ngClass]="{'highlight':dragIndex > -1 && dropIndex === i}">
+          <input hidden
+                 formControlName="field">
+          <mat-slide-toggle formControlName="value"> {{columnsConfig[i].name}} </mat-slide-toggle>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button
+            i18n="@@dialogCancel"
+            color="accent"
+            (click)="onCancel()">Cancel</button>
+    <button mat-button
+            [disabled]="formGroup.invalid || formGroup.pristine"
+            i18n="@@dialogApply"
+            color="primary"
+            (click)="onSave()">Apply</button>
+  </mat-dialog-actions>
+</form>

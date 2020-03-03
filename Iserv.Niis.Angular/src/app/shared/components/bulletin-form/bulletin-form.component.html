@@ -1,0 +1,76 @@
+<div [formGroup]="formGroup"
+     fxFlexFill>
+  <div fxLayout="row">
+    <mat-form-field *ngIf="formMode === 0">
+      <mat-select matInput
+                  i18n-placeholder="@@inputBulletin"
+                  placeholder="Bulletin"
+                  (change)="onBulletinChange($event.value)"
+                  formControlName="bulletinId">
+        <mat-option *ngFor="let bulletin of bulletins"
+                    [value]="bulletin.id">
+          {{ 'Бюллетень № ' + bulletin.number + ' от ' + (bulletin.publishDate| date: 'dd.MM.yyyy') }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="formMode !== 0"
+         fxLayout="row">
+      <h5 *ngIf="formMode === 1"
+          fxAlign="start center"> {{'Бюллетень № ' + selectedBulletin.number + ' от '}} </h5>
+      <h5 *ngIf="formMode === 2"
+          fxAlign="start center"> {{'Новый бюллетень от '}} </h5>
+      <span fxFlex="3px"></span>
+      <app-datepicker formControlName="selectedBulletinDate"
+                      placeholder="Publish date"
+                      i18n-placeholder="@@selectedBulletinDate"></app-datepicker>
+    </div>
+    <div fxLayout="row">
+      <div *ngIf="formMode === 0"
+           fxLayout="row">
+        <button mat-icon-button
+                type="button"
+                class="mat-mini-button"
+                i18n-matTooltip="@@editTooltip"
+                matTooltip="Edit"
+                matTooltipPosition="above"
+                [disabled]="disabled"
+                (click)="onEditClick()">
+          <mat-icon>mode_edit</mat-icon>
+        </button>
+        <button mat-icon-button
+                type="button"
+                class="mat-mini-button"
+                i18n-matTooltip="@@addTooltip"
+                matTooltip="Add"
+                matTooltipPosition="above"
+                [disabled]="disabled"
+                (click)="onAddClick()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="formMode !== 0"
+           fxLayout="row">
+        <button mat-icon-button
+                type="button"
+                class="mat-mini-button"
+                i18n-matTooltip="@@buttonConfirm"
+                matTooltip="OK"
+                matTooltipPosition="above"
+                [disabled]="disabled || formGroup.invalid"
+                (click)="onOkClick()">
+          <mat-icon>done</mat-icon>
+        </button>
+        <button mat-icon-button
+                type="button"
+                class="mat-mini-button"
+                i18n-matTooltip="@@buttonCancel"
+                matTooltip="Cancel"
+                matTooltipPosition="above"
+                [disabled]="disabled"
+                (click)="onCancelClick()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

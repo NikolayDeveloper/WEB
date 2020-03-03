@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Удалить Списанную Оплату</h1>
+<form novalidate [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <p>Причина удаления</p>
+    <mat-form-field>
+      <textarea matInput formControlName="deletionReason"></textarea>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button type="button" mat-button color="accent" (click)="onCancelClick()">Отмена</button>
+    <button type="submit" color="primary" [disabled]="formGroup.invalid" mat-button cdkFocusInitial>Удалить</button>
+  </div>
+</form>

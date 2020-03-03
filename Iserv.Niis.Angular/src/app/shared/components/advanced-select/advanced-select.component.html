@@ -1,0 +1,49 @@
+<form [formGroup]="formGroup">
+    <mat-form-field>
+        <input
+            matInput
+            type="text"
+            formControlName="input"
+            (focus)="hideSelected()"
+            (blur)="showSelected()"
+            [placeholder]="placeholder"
+            [matAutocomplete]="options"
+        >
+    </mat-form-field>
+    <mat-autocomplete
+        #options="matAutocomplete"
+    >
+        <ng-container *ngIf="!usedRequest">
+            <mat-option
+                *ngFor="let entry of filteredEntries | async"
+                [value]="entry.id"
+            >
+                <div
+                    (click)="optionClicked($event, entry)"
+                >
+                    <mat-checkbox
+                        [checked]="isChecked(entry)"
+                        (change)="toggleSelection(entry)"
+                        (click)="$event.stopPropagation()"
+                    >{{ entry.value }}</mat-checkbox>
+                </div>
+            </mat-option>
+        </ng-container>
+        <ng-container *ngIf="usedRequest">
+            <mat-option
+                *ngFor="let entry of entries"
+                [value]="entry.id"
+            >
+                <div
+                    (click)="optionClicked($event, entry)"
+                >
+                    <mat-checkbox
+                        [checked]="isChecked(entry)"
+                        (change)="toggleSelection(entry)"
+                        (click)="$event.stopPropagation()"
+                    >{{ entry.value }}</mat-checkbox>
+                </div>
+            </mat-option>
+        </ng-container>
+    </mat-autocomplete>
+</form>

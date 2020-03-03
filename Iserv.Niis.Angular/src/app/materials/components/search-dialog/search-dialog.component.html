@@ -1,0 +1,178 @@
+<h2 mat-dialog-title
+    i18n="@@requestSelect">Выбор заявок</h2>
+<mat-dialog-content>
+  <div fxLayout="row"
+       fxLayoutAlign="space-between stretch"
+       fxFill
+       [formGroup]="formGroup">
+    <div class="content-wrapper">
+      <div fxLayout="row">
+        <mat-form-field floatPlaceholder="never">
+          <input matInput
+                  #filter
+                  i18n-placeholder="@@filterPlaceholder"
+                  placeholder="Filter">
+        </mat-form-field>
+        <span fxFlex="16px"></span>
+        <mat-form-field>
+          <mat-select i18n-placeholder="@@inputOwnerTypes"
+                      placeholder="Owner types"
+                      formControlName="kind"
+                      (change)="onKindChange($event.value)">
+            <mat-option *ngFor="let selectOption of ownerTypes"
+                        [value]="selectOption.kind">
+              {{selectOption.nameRu}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span fxFlex="16px"></span>
+        <mat-form-field *ngIf="selectedKind==1">
+          <!-- Тип ОПС для заявок -->
+          <mat-select i18n-placeholder="@@inputDocumentType"
+                      placeholder="Document type"
+                      formControlName="requestTypeId"
+                      (change)="onRequestTypeChange($event.value)"
+                      [disabled]="isDisabledSelectForm">
+            <mat-option *ngFor="let selectOption of protectionDocTypes"
+                        [value]="selectOption.id">
+              {{selectOption.nameRu}}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+        <mat-form-field *ngIf="selectedKind==2">
+          <!-- Тип ОПС для ОД -->
+          <mat-select i18n-placeholder="@@inputDocumentType"
+                      placeholder="ProtectionDoc type"
+                      formControlName="protectionDocTypeId"
+                      (change)="onProtectionDocTypeChange($event.value)"
+                      [disabled]="isDisabledSelectForm">
+            <mat-option *ngFor="let selectOption of protectionDocTypes"
+                        [value]="selectOption.id">
+              {{selectOption.nameRu}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxFill>
+        <mat-form-field floatPlaceholder="never" fxFill>
+          <input matInput
+                  #regNumbers
+                  formControlName="regNumbers"
+                  i18n-placeholder="@@regNumbersPlaceholder"
+                  placeholder="№ Заявки/ОД/Договора">
+        </mat-form-field>
+      </div>
+    </div>
+    <span fxFlex="16px"></span>
+    <mat-paginator #paginator
+                   [length]="dataSource.resultsLength"
+                   fxFill
+                   fxFlex>
+    </mat-paginator>
+  </div>
+  <div fxFill>
+    <mat-table #table
+               [dataSource]="dataSource"
+               matSort
+               class="table-small table-stripped table-height-40"
+               fxFlex
+               fxFill>
+      <ng-container cdkColumnDef="checkboxes">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header>
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="checkAll($event)"
+                        [disabled]="isSimple"
+                        [checked]="isAllChecked()"
+                        [indeterminate]="isSomeChecked()"> </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *cdkCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="onCheck(row)"
+                        [checked]="isChecked(row)"> </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="barcode">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex="100px"
+                         i18n="@@columnHeaderBarcode"> Barcode </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex="100px"> {{row.barcode}} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="kind">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex="100px"
+                         i18n="@@columnHeaderKind"> Kind </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex="100px">
+          <mat-icon *ngIf="row.type === 1 && row.isIndustrial"
+                    svgIcon="request"
+                    i18n-matTooltip="@@requestIndustrialIconTooltip"
+                    matTooltip="Industrial Request"></mat-icon>
+          <mat-icon *ngIf="row.type === 1 && !row.isIndustrial"
+                    svgIcon="request"
+                    i18n-matTooltip="@@requestNonIndustrialIconTooltip"
+                    matTooltip="Intellectual Request"></mat-icon>
+          <mat-icon *ngIf="row.type === 2"
+                    svgIcon="protection-doc"
+                    i18n-matTooltip="@@protectionDocIconTooltip"
+                    matTooltip="Protection document"></mat-icon>
+          <mat-icon *ngIf="row.type === 3"
+                    svgIcon="contract"
+                    i18n-matTooltip="@@contractIconTooltip"
+                    matTooltip="Contract"></mat-icon>
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="dateCreate">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderDateCreate"> Date create </mat-header-cell>
+        <mat-cell *cdkCellDef="let row">{{ row.dateCreate | date: 'dd.MM.yyyy HH:mm:ss' }} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="typeName">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderTypeName"> Type name </mat-header-cell>
+        <mat-cell
+          [matTooltip]="row.typeNameRu"
+          *cdkCellDef="let row"
+        >{{ row.typeNameRu }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="nameRu">
+        <mat-header-cell *cdkHeaderCellDef
+                         i18n="@@columnNameRu"
+                         mat-sort-header> NameRu </mat-header-cell>
+        <mat-cell
+          [matTooltip]="row.nameRu"
+          *cdkCellDef="let row"
+        >{{ row.nameRu }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="regNumber">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderRequestNum"> Request number </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.number}} </mat-cell>
+      </ng-container>
+      <mat-header-row *cdkHeaderRowDef="requestColumns"></mat-header-row>
+      <mat-row *cdkRowDef="let row; columns: requestColumns;"></mat-row>
+    </mat-table>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button type="button"
+          i18n="@@dialogCancel"
+          mat-button
+          color="accent"
+          (click)="onCancel()">Cancel</button>
+          <!-- [disabled]="selectedItems.length === 0 || isAllSelected === true" -->
+  <button type="button"
+          i18n="@@buttonAttach"
+          mat-button
+          color="primary"
+          [disabled]="attachButtonDisabled()"
+
+          (click)="onSubmit()">Attach</button>
+</mat-dialog-actions>

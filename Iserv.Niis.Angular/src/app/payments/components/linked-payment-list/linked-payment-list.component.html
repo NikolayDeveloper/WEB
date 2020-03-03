@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Связанные Оплаты</h1>
+
+<app-table *ngIf="paymentList"
+           [columns]="columns"
+           [data]="paymentList"
+           [sortable]="true"
+           [paginable]="false"
+           [displayedColumns]="displayedColumns"
+           [defaultConfig]="columnsConfigs"
+           [sortButton]="true"
+           (columnSort)="onColumnsChange($event)"
+           class="table-medium"></app-table>
+<div fxLayout="row" fxLayoutAlign="center" *ngIf="!paymentList">
+  <h4>Нет данных для отображения</h4>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
+        <button mat-button (click)="onCancelClick()">Отмена</button>
+</div>

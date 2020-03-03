@@ -1,0 +1,27 @@
+<form novalidate
+      [formGroup]="formGroup">
+  <div>
+      <div fxLayout="row">
+          <app-common-input-string fxFlex
+                                    [disabled]="disabled"
+                                    (keydown)="onKeydown($event)"
+                                    i18n-placeholder="@@comment"
+                                    placeholder="Comment"
+                                    formControlName="comment"
+                                    i18n-matTooltip="@@commentTooltip"
+                                    matTooltipPosition="above"></app-common-input-string>
+          <button type="button"
+                [disabled]="disabled"
+                mat-icon-button
+                color="primary"
+                i18n-placeholder="@@textSelect"
+                placeholder="Select"
+                (click)="onClick()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <app-table [columns]="columns"
+        [data]="tableComments"
+        class="table-small table-stripped"></app-table>
+  </div>
+</form>

@@ -1,0 +1,12 @@
+<div fxFlexFill
+     fxLayout="column">
+  <app-table [columns]="columns"
+             [source]="source"
+             [sortable]="true"
+             [filterable]="true"
+             [paginable]="true"
+             [paginatorOnTop]="true"
+             [selectable]="true"
+             (select)="onSelect($event)"
+             class="table-medium"></app-table>
+</div>

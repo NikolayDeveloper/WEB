@@ -1,0 +1,36 @@
+.attachment {
+  display: flex;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .attachment__group {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  .attachment__name,
+  .attachment__size {
+    margin: 0;
+  }
+
+  .attachment__name {
+    padding: 0 10px;
+  }
+
+  .attachment__size {
+    font-style: italic;
+    color: #aaaaaa;
+  }
+
+  .attachment__button {
+    flex-shrink: 0;
+  }
+}

@@ -1,0 +1,16 @@
+<div fxFlexFill
+     fxLayout="column">
+<div class="table-container">
+  <app-table [columns]="columns"
+             [uniqTableName]="'requestsContractTable'"
+             [sortButton]="true"
+             [data]="contracts"
+             [sortable]="true"
+             [filterable]="true"
+             [paginable]="true"
+             [paginatorOnTop]="true"
+             [selectable]="true"
+             (select)="onSelect($event)"
+             class="table-medium"></app-table>
+</div>
+</div>

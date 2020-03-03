@@ -1,0 +1,37 @@
+<div
+    fxFlexFill
+    fxLayout="column"
+>
+    <nav
+        mat-tab-nav-bar
+        class="tabs-colored tabs-medium"
+    >
+        <a
+            *ngxPermissionsOnly="'AdvancedSearch'"
+            matTabLink
+            [routerLink]="['advanced']"
+            routerLinkActive
+            #rla1="routerLinkActive"
+            [active]="rla1.isActive"
+            i18n="@@textAdvancedSearch"
+        >Advanced search</a>
+        <a
+            matTabLink
+            [routerLink]="['expert']"
+            routerLinkActive
+            #rla2="routerLinkActive"
+            [active]="rla2.isActive"
+            i18n="@@textExpertSearch"
+        >Expert search</a>
+    </nav>
+    <div
+        fxFlex="grow"
+        class="search-container"
+    >
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<spinner
+    backgroundColor="#00695c"
+    spinner="sk-cube-grid"
+></spinner>

@@ -1,0 +1,7 @@
+@import '~styles/mixin';
+
+h4 {
+    span {
+        color: mat-color($accent);
+    }
+}

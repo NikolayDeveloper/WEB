@@ -1,0 +1,305 @@
+<h1 mat-dialog-title>
+  <ng-container *ngIf="mode === modes.Insert || mode === modes.InsertOnAttach">Создание контрагента</ng-container>
+  <ng-container *ngIf="mode === modes.Attach">Прикрепление контрагента</ng-container>
+  <ng-container *ngIf="mode === modes.Edit">Изменение контрагента</ng-container>
+</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formGroup" class="form">
+    <mat-form-field [hidden]="hideRole">
+      <mat-select
+        placeholder="Тип"
+        [formControlName]="fields.Role"
+        [disabled]="mode === modes.Edit"
+      >
+        <ng-container *ngFor="let formType of formTypes">
+          <mat-option
+            *ngIf="formType.available"
+            [value]="formType.code"
+          >{{ formType.name }}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+    <div class="form__group">
+      <mat-form-field *ngIf="isAvailable(fields.Resident)">
+        <mat-select
+          placeholder="Статус резиденства"
+          [formControlName]="fields.Resident"
+        >
+          <mat-option [value]="residentStatus.False">Не резидент</mat-option>
+          <mat-option [value]="residentStatus.True">Резидент</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="isAvailable(fields.CountryCode)">
+        <input
+          matInput
+          type="text"
+          maxlength="2"
+          placeholder="Код страны"
+          [formControlName]="fields.CountryCode"
+          [matAutocomplete]="auto"
+        >
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let countryCode of filteredCountryCodes | async"
+            [value]="countryCode.code"
+          >{{ countryCode.code }}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field *ngIf="isAvailable(fields.CustomerType)">
+        <mat-select
+          placeholder="Тип контрагента"
+          [formControlName]="fields.CustomerType"
+        >
+          <mat-option [value]="customerType.Individual">Физическое лицо</mat-option>
+          <mat-option [value]="customerType.LegalEntity">Юридическое лицо</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="isAvailable(fields.IIN)">
+        <input
+          matInput
+          type="text"
+          minlength="12"
+          maxlength="12"
+          placeholder="{{ isLegalEntity() ? 'БИН' : 'ИИН' }}"
+          [formControlName]="fields.IIN"
+        >
+        <mat-hint *ngIf="!formGroup.get(fields.IIN).disabled">Длина {{ formGroup.get(fields.IIN).value?.length || 0 }}/12</mat-hint>
+      </mat-form-field>
+      <button
+        mat-icon-button
+        type="button"
+        *ngIf="isAvailable(fields.IIN)"
+        (click)="openSearchCustomerDialog()"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+    <mat-form-field *ngIf="isAvailable(fields.RegisterNumber)">
+      <input
+        matInput
+        type="text"
+        placeholder="Номер регистрации"
+        [formControlName]="fields.RegisterNumber"
+      >
+    </mat-form-field>
+    <mat-form-field *ngIf="isAvailable(fields.Status)">
+      <input
+        matInput
+        type="text"
+        placeholder="Статус"
+        [formControlName]="fields.Status"
+      >
+    </mat-form-field>
+    <div class="form__group">
+      <mat-form-field *ngIf="isAvailable(fields.BeginDate)">
+        <input
+          matInput
+          type="text"
+          placeholder="Дата выдачи доверенности"
+          [matDatepicker]="picker"
+          [formControlName]="fields.BeginDate"
+        >
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field *ngIf="isAvailable(fields.EndDate)">
+        <input
+          matInput
+          type="text"
+          placeholder="Дата окончания срока действия доверенности"
+          [min]="formGroup.get(fields.BeginDate).value"
+          [matDatepicker]="picker"
+          [formControlName]="fields.EndDate"
+        >
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <mat-form-field *ngIf="isAvailable(fields.NameRu)">
+      <input
+        matInput
+        type="text"
+        placeholder="ФИО / Наименование на русском"
+        [formControlName]="fields.NameRu"
+      >
+    </mat-form-field>
+    <mat-form-field *ngIf="isAvailable(fields.NameEn)">
+      <input
+        matInput
+        type="text"
+        placeholder="ФИО / Наименование на английском"
+        [formControlName]="fields.NameEn"
+      >
+    </mat-form-field>
+    <mat-form-field *ngIf="isAvailable(fields.NameKz)">
+      <input
+        matInput
+        type="text"
+        placeholder="ФИО / Наименование на казахском"
+        [formControlName]="fields.NameKz"
+      >
+    </mat-form-field>
+    <mat-form-field *ngIf="isAvailable(fields.Country)">
+      <input
+        matInput
+        type="text"
+        placeholder="Страна / Республика"
+        [formControlName]="fields.Country"
+      >
+    </mat-form-field>
+    <div class="form__group">
+      <mat-form-field *ngIf="isAvailable(fields.Region)">
+        <input
+          matInput
+          type="text"
+          placeholder="Область"
+          [formControlName]="fields.Region"
+        >
+      </mat-form-field>
+      <mat-form-field *ngIf="isAvailable(fields.City)">
+        <input
+          matInput
+          type="text"
+          placeholder="Город / Село"
+          [formControlName]="fields.City"
+        >
+      </mat-form-field>
+      <mat-form-field *ngIf="isAvailable(fields.District)">
+        <input
+          matInput
+          type="text"
+          placeholder="Район"
+          [formControlName]="fields.District"
+        >
+      </mat-form-field>
+      <mat-form-field *ngIf="isAvailable(fields.Street)">
+          <input
+            matInput
+            type="text"
+            placeholder="Адрес"
+            [formControlName]="fields.Street"
+          >
+        </mat-form-field>
+    </div>
+    <mat-form-field *ngIf="isAvailable(fields.AddressRu)">
+      <input
+        matInput
+        type="text"
+        placeholder="Полный адрес на русском"
+        [formControlName]="fields.AddressRu"
+      >
+    </mat-form-field>
+    <mat-form-field *ngIf="isAvailable(fields.AddressEn)">
+      <input
+        matInput
+        type="text"
+        placeholder="Полный адрес на английском"
+        [formControlName]="fields.AddressEn"
+      >
+    </mat-form-field>
+    <mat-form-field *ngIf="isAvailable(fields.AddressKz)">
+      <input
+        matInput
+        type="text"
+        placeholder="Полный адрес на казахском"
+        [formControlName]="fields.AddressKz"
+      >
+    </mat-form-field>
+    <mat-form-field *ngIf="isAvailable(fields.Category)">
+      <mat-select
+        placeholder="Категория контрагента"
+        [formControlName]="fields.Category"
+      >
+        <ng-container
+          *ngFor="let category of availableCategories"
+        >
+          <mat-option
+            *ngIf="category.isAvailable()"
+            [value]="category.id"
+          >{{ category.text }}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+    <div class="form__group">
+      <mat-form-field *ngIf="isAvailable(fields.OrganizationNameRu)">
+        <input
+          matInput
+          type="text"
+          placeholder="Краткое наименование организации на русском"
+          [formControlName]="fields.OrganizationNameRu"
+        >
+      </mat-form-field>
+      <mat-form-field *ngIf="isAvailable(fields.OrganizationNameKz)">
+        <input
+          matInput
+          type="text"
+          placeholder="Краткое наименование организации на казахском"
+          [formControlName]="fields.OrganizationNameKz"
+        >
+      </mat-form-field>
+    </div>
+    <mat-form-field *ngIf="isAvailable(fields.DirectorName)">
+      <input
+        matInput
+        type="text"
+        placeholder="ФИО первого руководителя"
+        [formControlName]="fields.DirectorName"
+      >
+    </mat-form-field>
+    <div class="form__group">
+      <app-contacts
+        [type]="fields.Tel"
+        placeholder="Телефон"
+        [required]="isRequired(fields.Tel)"
+        *ngIf="isAvailable(fields.Tel)"
+        [formControlName]="fields.Tel"
+      ></app-contacts>
+      <app-contacts
+        [type]="fields.MobileTel"
+        placeholder="Мобильный телефон"
+        [required]="isRequired(fields.MobileTel)"
+        *ngIf="isAvailable(fields.MobileTel)"
+        [formControlName]="fields.MobileTel"
+      ></app-contacts>
+    </div>
+    <div class="form__group">
+      <app-contacts
+        [type]="fields.Fax"
+        placeholder="Факс"
+        [required]="isRequired(fields.Fax)"
+        *ngIf="isAvailable(fields.Fax)"
+        [formControlName]="fields.Fax"
+      ></app-contacts>
+      <app-contacts
+        [type]="fields.Email"
+        placeholder="Почта"
+        [required]="isRequired(fields.Email)"
+        *ngIf="isAvailable(fields.Email)"
+        [formControlName]="fields.Email"
+      ></app-contacts>
+    </div>
+    <mat-checkbox
+      *ngIf="isAvailable(fields.NotNotify)"
+      [formControlName]="fields.NotNotify"
+    >Не упоминать при публикации</mat-checkbox>
+  </form>
+</div>
+<mat-dialog-actions>
+  <button
+    mat-button
+    type="button"
+    (click)="close()"
+  >Отмена</button>
+  <button
+    mat-button
+    type="submit"
+    color="primary"
+    [mat-dialog-close]="formData"
+    [disabled]="!canSubmit()"
+    *ngIf="isRoleSelected()"
+  >
+    <ng-container *ngIf="mode === modes.Insert || mode === modes.InsertOnAttach">Создать</ng-container>
+    <ng-container *ngIf="mode === modes.Attach">Прикрепить</ng-container>
+    <ng-container *ngIf="mode === modes.Edit">Сохранить</ng-container>
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,90 @@
+<div mat-dialog-content>
+  <form
+    novalidate
+    [formGroup]="formGroup"
+    class="form-full-width form-medium-input columns"
+  >
+    <div class="column">
+      <app-common-input-string
+        placeholder="Name in Russian"
+        formControlName="nameRu"
+        i18n-placeholder="@@inputNameRu"
+      ></app-common-input-string>
+      <app-common-input-string
+        placeholder="Name in Kazakh"
+        formControlName="nameKz"
+        i18n-placeholder="@@inputNameKz"
+      ></app-common-input-string>
+      <app-common-input-string
+        placeholder="Name in English"
+        formControlName="nameEn"
+        i18n-placeholder="@@inputNameEn"
+      ></app-common-input-string>
+      <app-common-input-string
+        placeholder="Code"
+        formControlName="code"
+        i18n-placeholder="@@inputCode"
+      ></app-common-input-string>
+      <h1
+        class="column__title"
+        i18n="@@textPermissions"
+      >Permissions</h1>
+      <mat-selection-list
+        fxFlex
+        [(ngModel)]="selectedPermissions"
+        [ngModelOptions]="{standalone: true}"
+        (selectionChange)="onPermissionsSelectionChanged($event)"
+      >
+        <mat-list-option
+          *ngFor="let entry of perms"
+          [value]="entry.value"
+          [checkboxPosition]="'before'"
+          color="primary"
+        >{{ entry.nameRu }}</mat-list-option>
+      </mat-selection-list>
+    </div>
+    <div class="column">
+      <input
+        matInput
+        hidden
+        formControlName="roleStages"
+      >
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Поиск"
+          formControlName="filter"
+        >
+      </mat-form-field>
+      <div class="column__container">
+        <p-tree
+          (selectionChange)="setRoleStagesValue($event)"
+          [value]="filteredValues"
+          selectionMode="checkbox"
+          [(selection)]="selectedNodes"
+          [propagateSelectionDown]="true"
+          [styleClass]="'material-tree-fill'"
+        ></p-tree>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+<button
+  mat-button
+  type="button"
+  color="warn"
+  mat-dialog-close
+  (click)="onCancel()"
+  i18n="@@textCancel"
+>Cancel</button>
+<button
+  mat-button
+  type="submit"
+  [disabled]="formGroup.invalid"
+  color="primary"
+  (click)="onSubmit()"
+  i18n="@@textSave"
+>Save</button>
+</div>

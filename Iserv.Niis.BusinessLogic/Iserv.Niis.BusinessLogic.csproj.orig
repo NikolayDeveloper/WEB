@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7BB37155-73DE-45BA-AD10-CA5C9685652B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Iserv.Niis.BusinessLogic</RootNamespace>
+    <AssemblyName>Iserv.Niis.BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.Internal.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.KeyDerivation.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DotNet.PlatformAbstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DotNet.PlatformAbstractions.1.1.0\lib\net451\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=2.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.0.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Memory.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyModel.1.1.0\lib\net451\Microsoft.Extensions.DependencyModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Identity.Core.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Identity.Stores, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Identity.Stores.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NetCoreCQRS, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetCoreCQRS.1.2.3\lib\netstandard2.0\NetCoreCQRS.dll</HintPath>
+    </Reference>
+    <Reference Include="NetCoreDataAccess, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetCoreDataAccess.1.4.0\lib\netstandard2.0\NetCoreDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="NetCoreDataAccessSpecification, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetCoreDataAccessSpecification.1.0.0\lib\netstandard2.0\NetCoreDataAccessSpecification.dll</HintPath>
+    </Reference>
+    <Reference Include="NetCoreDI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetCoreDI.1.0.0\lib\netstandard2.0\NetCoreDI.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.1.1\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Scrutor, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scrutor.2.2.1\lib\net451\Scrutor.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.4.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Interactive.Async, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.4.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attachments\CreateAttachmentCommand.cs" />
+    <Compile Include="Attachments\DeleteAttachmentCommand.cs" />
+    <Compile Include="Bibliographics\ColorTzs\ProtectionDoc\AddColorTzProtectionDocRelationsCommand.cs" />
+    <Compile Include="Bibliographics\ColorTzs\ProtectionDoc\GetColorTzsByProtectionDocIdQuery.cs" />
+    <Compile Include="Bibliographics\ColorTzs\ProtectionDoc\RemoveColorTzProtectionDocRelationsCommand.cs" />
+    <Compile Include="Bibliographics\ColorTzs\Request\AddColorTzRequestRelationCommand.cs" />
+    <Compile Include="Bibliographics\ColorTzs\Request\GetColorTzsByRequestIdQuery.cs" />
+    <Compile Include="Bibliographics\ColorTzs\Request\RemoveColorTzRequestRelationCommand.cs" />
+    <Compile Include="Bibliographics\ConventionInfos\ProtectionDoc\AddProtectionDocConventionInfosRangeCommand.cs" />
+    <Compile Include="Common\FilterAddEntityCollectionIdsHandler.cs" />
+    <Compile Include="Bibliographics\ConventionInfos\ProtectionDoc\GetConventionInfosByProtectionDocIdQuery.cs" />
+    <Compile Include="Common\FilterAddIntegerListIdsHandler.cs" />
+    <Compile Include="Common\FilterRemoveEntityCollectionIdsHandler.cs" />
+    <Compile Include="Common\FilterRemoveIntegerListIdsHandler.cs" />
+    <Compile Include="Common\FilterUpdateEntityCollectionIdsHandler.cs" />
+    <Compile Include="Bibliographics\ConventionInfos\ProtectionDoc\RemoveProtectionDocConventionInfosRangeCommand.cs" />
+    <Compile Include="Bibliographics\ConventionInfos\ProtectionDoc\UpdateProtectionDocConventionInfosRangeCommand.cs" />
+    <Compile Include="Bibliographics\ConventionInfos\Request\AddRequestConventionInfosRangeCommand.cs" />
+    <Compile Include="Bibliographics\ConventionInfos\Request\GetConventionInfosByRequestIdQuery.cs" />
+    <Compile Include="Bibliographics\ConventionInfos\Request\RemoveRequestConventionInfosRangeCommand.cs" />
+    <Compile Include="Bibliographics\ConventionInfos\Request\UpdateRequestConventionInfosRangeCommand.cs" />
+    <Compile Include="Bibliographics\EarlyRegs\ProtectionDoc\AddProtectionDocEarlyRegsRangeCommand.cs" />
+    <Compile Include="Bibliographics\EarlyRegs\ProtectionDoc\GetEarlyRegsByProtectionDocIdQuery.cs" />
+    <Compile Include="Bibliographics\EarlyRegs\ProtectionDoc\RemoveProtectionDocEarlyRegsRangeCommand.cs" />
+    <Compile Include="Bibliographics\EarlyRegs\ProtectionDoc\UpdateProtectionDocEarlyRegsRangeCommand.cs" />
+    <Compile Include="Bibliographics\EarlyRegs\Request\AddRequestEarlyRegsRangeCommand.cs" />
+    <Compile Include="Bibliographics\EarlyRegs\Request\GetEarlyRegsByRequestIdQuery.cs" />
+    <Compile Include="Bibliographics\EarlyRegs\Request\RemoveRequestEarlyRegsRangeCommand.cs" />
+    <Compile Include="Bibliographics\EarlyRegs\Request\UpdateRequestEarlyRegsRangeCommand.cs" />
+    <Compile Include="Bibliographics\GetProtectionDocTypeBibliographicQuery.cs" />
+    <Compile Include="Bibliographics\GetRequestTypeBibliographicQuery.cs" />
+    <Compile Include="Calendar\CreateCalendarEventsRangeCommand.cs" />
+    <Compile Include="Calendar\DeleteCalendarEventCommand.cs" />
+    <Compile Include="Calendar\GetCalendarEventsQuery.cs" />
+    <Compile Include="Calendar\UpdateCalendarEventsRangeCommand.cs" />
+    <Compile Include="Bibliographics\Icfem\ProtectionDoc\AddIcfemProtectionDocRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Icfem\ProtectionDoc\GetIcfemByProtectionDocIdQuery.cs" />
+    <Compile Include="Bibliographics\Icfem\ProtectionDoc\RemoveIcfemProtectionDocRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Icfem\Request\AddIcfemRequestRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Icfem\Request\GetIcfemByRequestIdQuery.cs" />
+    <Compile Include="Bibliographics\Icfem\Request\RemoveIcfemRequestRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Icgs\ProtectionDoc\AddIcgsProtectionDocRangeCommand.cs" />
+    <Compile Include="Bibliographics\Icgs\ProtectionDoc\GetIcgsByProtectionDocIdQuery.cs" />
+    <Compile Include="Bibliographics\Icgs\ProtectionDoc\RemoveIcgsProtectionDocRangeCommand.cs" />
+    <Compile Include="Bibliographics\Icgs\ProtectionDoc\UpdateIcgsProtectionDocRangeCommand.cs" />
+    <Compile Include="Bibliographics\Icgs\Request\AddIcgsRequestRangeCommand.cs" />
+    <Compile Include="Bibliographics\Icgs\Request\GetIcgsByRequestIdQuery.cs" />
+    <Compile Include="Bibliographics\Icgs\Request\RemoveIcgsRequestRangeCommand.cs" />
+    <Compile Include="Bibliographics\Icgs\Request\UpdateIcgsRequestRangeCommand.cs" />
+    <Compile Include="Bibliographics\Icis\ProtectionDoc\AddIcisProtectionDocRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Icis\ProtectionDoc\GetIcisByProtectionDocIdQuery.cs" />
+    <Compile Include="Bibliographics\Icis\ProtectionDoc\RemoveIcisProtectionDocRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Icis\Request\AddIcisRequestRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Icis\Request\GetIcisByRequestIdQuery.cs" />
+    <Compile Include="Bibliographics\Icis\Request\RemoveIcisRequestRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Ipc\ProtectionDoc\AddIpcProtectionDocRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Ipc\ProtectionDoc\GetIpcByProtectionDocIdQuery.cs" />
+    <Compile Include="Bibliographics\Ipc\ProtectionDoc\RemoveIpcProtectionDocRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Ipc\Request\AddIpcRequestRelationsCommand.cs" />
+    <Compile Include="Bibliographics\Ipc\Request\GetIpcByRequestIdQuery.cs" />
+    <Compile Include="Bibliographics\Ipc\Request\RemoveIpcRequestRelationsCommand.cs" />
+    <Compile Include="Common\FilterUpdateIntegerListIdsHandler.cs" />
+    <Compile Include="ContractCustomers\CreateContractCustomerCommand.cs" />
+    <Compile Include="ContractCustomers\DeleteContractCustomerCommand.cs" />
+    <Compile Include="ContractCustomers\GetContractCustomerByIdQuery.cs" />
+    <Compile Include="ContractCustomers\GetContractCustomersByContractIdQuery.cs" />
+    <Compile Include="ContractCustomers\UpdateContractCustomerCommand.cs" />
+    <Compile Include="ContractRequestICGSRequestRelations\UpdateContractRequestIcgsRequestRelationsCommand.cs" />
+    <Compile Include="ContractRequestICGSRequestRelations\CreateContractRequestIcgsRequestRelationsCommand.cs" />
+    <Compile Include="ContractRequestICGSRequestRelations\DeleteContractRequestIcgsRequestRelationsCommand.cs" />
+    <Compile Include="ContractRequestRelations\UpdateContractRequestRelationsCommand.cs" />
+    <Compile Include="ContractRequestRelations\CreateContractRequestRelationsCommand.cs" />
+    <Compile Include="ContractRequestRelations\DeleteContractRequestRelationsCommand.cs" />
+    <Compile Include="Contracts\CreateContractCommand.cs" />
+    <Compile Include="Contracts\DeleteContractCommand.cs" />
+    <Compile Include="Contracts\GetContractByIdQuery.cs" />
+    <Compile Include="Contracts\GetContractsQuery.cs" />
+    <Compile Include="Contracts\RegisterContractCommand.cs" />
+    <Compile Include="Contracts\UpdateContractAsReadCommand.cs" />
+    <Compile Include="Contracts\UpdateContractCommand.cs" />
+    <Compile Include="Dictionaries\DicCommon\GetDitionaryTreeQuery.cs" />
+    <Compile Include="Dictionaries\DicCommon\UpdateDictionaryRowByDtoObjectCommand.cs" />
+    <Compile Include="Dictionaries\DicCommon\GetDictionaryByEntityNameQuery.cs" />
+    <Compile Include="Dictionaries\DicCommon\GetDictionaryByEntityNameAndCodesQuery.cs" />
+    <Compile Include="Dictionaries\DicCommon\GetDictionaryRowByEntityNameAndIdQuery.cs" />
+    <Compile Include="Dictionaries\DicCustomers\GetDicCostumersByXinQuery.cs" />
+    <Compile Include="Dictionaries\DicCustomers\Requests\GetDicCustomersRequest.cs" />
+    <Compile Include="Dictionaries\DicDetailICGS\GetDicDetailICGSByIcgsIdQuery.cs" />
+    <Compile Include="Dictionaries\DicCustomers\GetDicCustomersQuery.cs" />
+    <Compile Include="Dictionaries\DicCustomers\UpdateDicCustomerCommand.cs" />
+    <Compile Include="Dictionaries\DicCustomers\CreateDicCustomerCommand.cs" />
+    <Compile Include="Dictionaries\DicCustomers\IsCustomerAlreadyExistsByNameQuery.cs" />
+    <Compile Include="Dictionaries\DicCustomers\IsCustomerAlreadyExistsByXinQuery.cs" />
+    <Compile Include="Dictionaries\DicDocumentType\GetDicDocumentTypeWithFileTemplate.cs" />
+    <Compile Include="Dictionaries\DicDocumentType\GetDicDocumentTypeByClassificationCodeQuery.cs" />
+    <Compile Include="Dictionaries\DicProtectionDocStatuses\GetDicProtectionDocStatusByCodeQuery.cs" />
+    <Compile Include="Dictionaries\DicProtectionDocStatuses\GetDicProtectionDocStatusByIdQuery.cs" />
+    <Compile Include="Dictionaries\DicRouteStages\GetDicRouteStageByCodeQuery.cs" />
+    <Compile Include="Dictionaries\DicEarlyRegTypes\GetDicEarlyRegTypeByCodeQuery.cs" />
+    <Compile Include="Dictionaries\DicProtectionDocTypes\GetDicProtectionDocTypeByIdQuery.cs" />
+    <Compile Include="Dictionaries\DicProtectionDocTypes\GetProtectionDocTypeByCodeQuery.cs" />
+    <Compile Include="Dictionaries\DicRouteStages\GetDicRouteStageByIdQuery.cs" />
+<<<<<<< HEAD
+    <Compile Include="Dictionaries\DicRouteStages\GetDicRouteStagesQuery.cs" />
+=======
+    <Compile Include="Dictionaries\DicProtectionDocTypes\GetDicProtectionDocTypesQuery.cs" />
+    <Compile Include="Dictionaries\DicRoutes\GetDicRoutesQuery.cs" />
+>>>>>>> origin/roles-controller-transfer
+    <Compile Include="Dictionaries\DicTariffs\GetDicTariffsByProtectionDocTypeId.cs" />
+    <Compile Include="Dictionaries\RouteStageOrders\GetRouteStageOrderAllQuery.cs" />
+    <Compile Include="Documents\AddMainAttachToDocumentHandler.cs" />
+    <Compile Include="Dictionaries\DicTypeTrademarks\GetDicTypeTrademarkByCodeQuery.cs" />
+    <Compile Include="Documents\DocumentMarkAsDeletedCommand.cs" />
+    <Compile Include="Documents\GenerateDocumentOutgoingNumberHandler.cs" />
+    <Compile Include="Documents\GetDocumentByIdQuery.cs" />
+    <Compile Include="Documents\GetDocumentsByContractIdQuery.cs" />
+    <Compile Include="Documents\GetDocumentsByProtectionDocIdQuery.cs" />
+    <Compile Include="Documents\GetDocumentsByRequestIdQuery.cs" />
+    <Compile Include="Documents\GetDocumentsQuery.cs" />
+    <Compile Include="Documents\GetRequstDocumentsQuery.cs" />
+    <Compile Include="Documents\UpdateDocumentCommand.cs" />
+    <Compile Include="DocumentUserInput\GetDoumentUserInputByDocumentIdQuery.cs" />
+    <Compile Include="Documents\GetDocumentWithIncludesByDocumentIdQuery.cs" />
+    <Compile Include="Documents\UpdateDocumentSetFinishedFlagCommand.cs" />
+    <Compile Include="DocumentUserSignature\CreateDocumentUserSignatureCommand.cs" />
+    <Compile Include="DocumentWorkflows\GetDocumentWorkflowByIdQuery.cs" />
+    <Compile Include="ProtectionDocCustomers\GetProtectionDocCustomersByProtectionDocIdQuery.cs" />
+    <Compile Include="NeedRefactoring\AttachmentHelper.cs" />
+    <Compile Include="NeedRefactoring\IAttachmentHelper.cs" />
+    <Compile Include="NiisBusinessLogicDependencyInjectionExtensions.cs" />
+    <Compile Include="PaymentInvoices\CreatePaymentInvoiceCommand.cs" />
+    <Compile Include="Notifications\GetNotificationsQuery.cs" />
+    <Compile Include="PaymentInvoices\GetPaymentInvoiceByIdQuery.cs" />
+    <Compile Include="PaymentInvoices\GetPaymentInvoicesByContractIdQuery.cs" />
+    <Compile Include="PaymentInvoices\GetPaymentInvoicesByProtectionDocIdQuery.cs" />
+    <Compile Include="PaymentInvoices\GetPaymentInvoicesByRequestIdQuery.cs" />
+    <Compile Include="PaymentInvoices\UpdatePaymentInvoiceCommand.cs" />
+    <Compile Include="Payments\GetPaymentsByCustomerIdQuery.cs" />
+    <Compile Include="PaymentUses\CreatePaymentUseCommand.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtectionDocs\AddProtectionDocPaymentsCommand.cs" />
+    <Compile Include="ProtectionDocs\AddProtectionDocCustomersCommand.cs" />
+    <Compile Include="ProtectionDocs\ApplyProtectionDocInfoFromRequestCommand.cs" />
+    <Compile Include="ProtectionDocs\CreateProtectionDocCommand.cs" />
+    <Compile Include="ProtectionDocs\GenerateGosNumbersForMultipleProtectionDocsCommand.cs" />
+    <Compile Include="ProtectionDocs\GetProtectionDocsQuery.cs" />
+    <Compile Include="ProtectionDocs\GetProtectionDocByIdQuery.cs" />
+    <Compile Include="ProtectionDocs\GetProtectionDocsByBarcodeQuery.cs" />
+    <Compile Include="ProtectionDocs\GenerateProtectionDocBarcodeHandler.cs" />
+    <Compile Include="ProtectionDocs\LinkProtectionDocToRequestCommand.cs" />
+    <Compile Include="ProtectionDocs\UpdateProtectionDocProtectionDocInfoCommand.cs" />
+    <Compile Include="ProtectionDocs\UpdateProtectionDocCommand.cs" />
+    <Compile Include="Requests\CreateRequestCommand.cs" />
+    <Compile Include="Requests\DeleteRequestCommand.cs" />
+    <Compile Include="Requests\GetRequestByProtectionDocTypeIdCodeAndRequestNumQuery.cs" />
+    <Compile Include="Requests\GetRequestsByProtectionDocCodesQuery.cs" />
+    <Compile Include="Requests\GetICGSRequestsByRequestIdsQuery.cs" />
+    <Compile Include="Requests\GetRequestsQuery.cs" />
+    <Compile Include="Requests\GetRequestByIdQuery.cs" />
+    <Compile Include="RequestCustomers\CreateRequestCustomerCommand.cs" />
+    <Compile Include="RequestCustomers\DeleteRequestCustomerCommand.cs" />
+    <Compile Include="RequestCustomers\GetRequestCustomerByIdQuery.cs" />
+    <Compile Include="RequestCustomers\GetRequestCustomersByRequestIdQuery.cs" />
+    <Compile Include="RequestCustomers\UpdateRequestCustomerCommand.cs" />
+    <Compile Include="Requests\GetRequestNamesByIdQuery.cs" />
+    <Compile Include="Requests\GetRequsetCurrentWorkflowByIdQuery.cs" />
+    <Compile Include="Requests\GetRequsetImageByIdQuery.cs" />
+    <Compile Include="Requests\UpdateRequestHandler.cs" />
+    <Compile Include="Requests\UpdateRequestCommand.cs" />
+    <Compile Include="Requests\UpdateRequestAsReadCommand.cs" />
+    <Compile Include="Search\ClearExpertSearchSimilarsCommand.cs" />
+    <Compile Include="Search\GetExpertSearchSimilarByIdRangeQuery.cs" />
+    <Compile Include="Search\UpdateExpertSearchSimilarsCommand.cs" />
+    <Compile Include="Search\CreateExpertSearchSimilarsCommand.cs" />
+    <Compile Include="Search\DeleteExpertSearchSimilarRangeCommand.cs" />
+    <Compile Include="Search\GetExpertSearchSimilarByIdQuery.cs" />
+    <Compile Include="Search\GetExpertSearchSimilarsByRequestIdQuery.cs" />
+    <Compile Include="Search\GetExpertSearchViewEntitiesQuery.cs" />
+    <Compile Include="Search\GetSearchViewEntitiesQuery.cs" />
+    <Compile Include="Roles\CreateRoleHandler.cs" />
+    <Compile Include="ClaimConstants\GetClaimConstantsQuery.cs" />
+    <Compile Include="Roles\GetRoleByIdQuery.cs" />
+    <Compile Include="Roles\GetRoleClaimsQuery.cs" />
+    <Compile Include="Roles\GetRolesQuery.cs" />
+    <Compile Include="Roles\UpdateRoleHandler.cs" />
+    <Compile Include="Sing\ValidateSingHandler.cs" />
+    <Compile Include="Workflows\Contracts\GetContractInitialWorkflowQuery.cs" />
+    <Compile Include="Workflows\Contracts\CreateContractWorkflowCommand.cs" />
+    <Compile Include="Workflows\Contracts\GetContractWorkflowsByOwnerIdQuery.cs" />
+    <Compile Include="Workflows\Contracts\ProcessContractWorkflowHandler.cs" />
+    <Compile Include="Workflows\GetWorkflowStageUsersQuery.cs" />
+    <Compile Include="Workflows\GetWorkflowTaskQueuesByRequestIdQuery.cs" />
+    <Compile Include="Workflows\ProtectionDoc\GetProtectionDocWorkflowsByOwnerIdQuery.cs" />
+    <Compile Include="Workflows\Requests\CreateRequestWorkflowCommand.cs" />
+    <Compile Include="Workflows\Requests\GetInitialRequestWorkflowQuery.cs" />
+    <Compile Include="Workflows\Requests\GetRequestWorkflowsByIdQuery.cs" />
+    <Compile Include="Workflows\Requests\GetRequestWorkflowsByOwnerIdQuery.cs" />
+    <Compile Include="Workflows\Requests\ProcessRequestWorkflowHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Niis.Authentication\Iserv.Niis.Authentication.csproj">
+      <Project>{4DFF0D89-ED42-4D59-BE82-57DC88DDF696}</Project>
+      <Name>Iserv.Niis.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Business.Notifications\Iserv.Niis.Business.Notifications.csproj">
+      <Project>{297D854A-1162-40DC-AC65-6B324DB1B55C}</Project>
+      <Name>Iserv.Niis.Business.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Business\Iserv.Niis.Business.csproj">
+      <Project>{08FE3DBF-BC33-4444-BA68-AA19FC2C41FB}</Project>
+      <Name>Iserv.Niis.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Common\Iserv.Niis.Common.csproj">
+      <Project>{DA5A3570-8C30-4745-AA74-96591DA5022D}</Project>
+      <Name>Iserv.Niis.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.DI\Iserv.Niis.DI.csproj">
+      <Project>{7829EE6E-2672-4FD1-B329-C847B2AF0128}</Project>
+      <Name>Iserv.Niis.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Documents\Iserv.Niis.Documents.csproj">
+      <Project>{f0b944fa-a400-454e-9e13-8007e7973de5}</Project>
+      <Name>Iserv.Niis.Documents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Domain\Iserv.Niis.Domain.csproj">
+      <Project>{3FAF8FDF-F227-4C2D-AA8F-7B8DBFFD0907}</Project>
+      <Name>Iserv.Niis.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.FileConverter\Iserv.Niis.FileConverter.csproj">
+      <Project>{E191D962-0D1D-4572-862F-21554F147222}</Project>
+      <Name>Iserv.Niis.FileConverter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.FileStorage\Iserv.Niis.FileStorage.csproj">
+      <Project>{914844b3-6785-47b4-b218-efc8b4375c69}</Project>
+      <Name>Iserv.Niis.FileStorage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Infrastructure\Iserv.Niis.Infrastructure.csproj">
+      <Project>{3E4DCD5F-639B-4287-98A4-B5BAA15B8B29}</Project>
+      <Name>Iserv.Niis.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Model\Iserv.Niis.Model.csproj">
+      <Project>{33FBEC25-6834-4221-8201-429C7C139098}</Project>
+      <Name>Iserv.Niis.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.WorkflowBusinessLogic\Iserv.Niis.WorkflowBusinessLogic.csproj">
+      <Project>{6afa6514-ad6e-4e07-bd8e-7b8281e7a54c}</Project>
+      <Name>Iserv.Niis.WorkflowBusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Workflow\Iserv.Niis.Workflow.csproj">
+      <Project>{ED842946-D899-403B-928A-07E6A70B1093}</Project>
+      <Name>Iserv.Niis.Workflow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetCoreWorkflow\NetCoreWorkflow.csproj">
+      <Project>{80DFAB52-031E-4E2D-9886-9D2F6CFD0B52}</Project>
+      <Name>NetCoreWorkflow</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

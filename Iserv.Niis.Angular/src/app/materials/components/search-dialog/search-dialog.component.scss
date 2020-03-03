@@ -1,0 +1,26 @@
+mat-header-cell,
+mat-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-column-id {
+    max-width: 50px;
+}
+
+.mat-column-checkboxes {
+    max-width: 25px;
+}
+
+.mat-column-barcode {
+    max-width: 75px;
+}
+
+.mat-column-requestNumber {
+    max-width: 75px;
+}
+
+.mat-column-dateCreate {
+    max-width: 100px;
+}

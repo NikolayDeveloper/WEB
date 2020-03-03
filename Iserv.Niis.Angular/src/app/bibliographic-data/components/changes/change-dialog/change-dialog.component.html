@@ -1,0 +1,84 @@
+<form>
+  <mat-dialog-content>
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+      <mat-tab label="Choose Changes" i18n-label="@@textChooseChanges">
+        <app-change-type-choose
+          [details]="details"
+          (changed)="onChoiceMade($event)"
+          #choose
+        ></app-change-type-choose>
+      </mat-tab>
+      <mat-tab
+        [disabled]="isTabDisabled(1)"
+        label="Make Changes"
+        i18n-label="@@textMakeChanges"
+      >
+        <app-make-changes
+          [details]="details"
+          [fieldChangeTypes]="fieldChangeTypes"
+          [formChangeTypes]="formChangeTypes"
+          [fullChangeTypes]="fullChangeTypes"
+          [subjectChangeTypes]="subjectChangeTypes"
+          #make
+        ></app-make-changes>
+      </mat-tab>
+      <mat-tab
+        [disabled]="isTabDisabled(2)"
+        label="Confirm Changes"
+        i18n-label="@@textConfirmChanges"
+      >
+        <app-confirm-changes
+          [details]="newDetails"
+          [changeDtos]="changes"
+          [subjectsToAttach]="subjectsToAttach"
+          [subjectsToDelete]="subjectsToDelete"
+          [subjectsToEdit]="subjectsToEdit"
+          #confirm
+        ></app-confirm-changes>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button
+      mat-fab
+      type="button"
+      (click)="onBack()"
+      color="primary"
+      i18n-matTooltip="@@buttonBack"
+      matTooltip="Back"
+      matTooltipPosition="above"
+      [disabled]="selectedIndex === 0"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div [ngSwitch]="selectedIndex === 2">
+      <div *ngSwitchCase="false">
+        <button
+          mat-fab
+          type="button"
+          (click)="onForward()"
+          [disabled]="isNextDisabled()"
+          color="primary"
+          i18n-matTooltip="@@buttonForward"
+          matTooltip="Forward"
+          matTooltipPosition="above"
+        >
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+      <div *ngSwitchDefault>
+        <button
+          mat-fab
+          type="button"
+          (click)="onOk()"
+          color="primary"
+          i18n-matTooltip="@@buttonOk"
+          matTooltip="Ok"
+          matTooltipPosition="above"
+        >
+          <mat-icon>done</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-dialog-actions>
+</form>

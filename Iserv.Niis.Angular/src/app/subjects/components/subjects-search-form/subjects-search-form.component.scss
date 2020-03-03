@@ -1,0 +1,32 @@
+@import '~@angular/material/theming';
+
+.component {
+  height: 100%;
+  padding: 10px;
+  margin: -10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+
+  mat-form-field ~ button {
+    margin-bottom: 20px;
+  }
+}
+
+.input-invalid {
+  border: 1px solid mat-color($mat-red, 500);
+  border-radius: 2px;
+}
+
+.expansion-panel {
+  margin-top: 10px;
+
+  mat-expansion-panel {
+    width: 100%;
+  }
+}

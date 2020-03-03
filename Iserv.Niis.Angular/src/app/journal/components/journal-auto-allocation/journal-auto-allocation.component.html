@@ -1,0 +1,97 @@
+<div fxFlexFill
+     fxLayout="column">
+  <div fxLayout="row"
+       fxLayoutAlign="space-between stretch"
+       class="table-header">
+    <mat-form-field floatPlaceholder="never">
+      <input matInput
+             #filter
+             i18n-placeholder="@@filterPlaceholder"
+             placeholder="Filter">
+    </mat-form-field>
+    <mat-paginator #paginator
+                   [length]="dataSource.resultsLength">
+    </mat-paginator>
+  </div>
+  <div fxFlex
+       class="table-container">
+    <mat-table #table
+               [dataSource]="dataSource"
+               matSort
+               matSortDisableClear
+               class="table-medium">
+      <ng-container cdkColumnDef="select">
+        <mat-header-cell *cdkHeaderCellDef
+                         fxFlex="50px">
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selectionModel.hasValue() && isAllSelected()"
+                        [indeterminate]="selectionModel.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex="50px">
+          <mat-checkbox [checked]="isChecked(row)"
+                        (click)="$event.stopPropagation()"
+                        (change)="$event ? selectionModel.toggle(row) : null">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="id">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex="100px"
+                         i18n="@@columnHeaderId"> ID </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex="100px"> {{row.id}} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="dateCreate">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderDateCreate"> Date create </mat-header-cell>
+        <mat-cell *cdkCellDef="let row">{{ row.dateCreate | date: 'dd.MM.yyyy' }} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="protectionDocTypeValue">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderTypeName"> Type name </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.protectionDocTypeValue}} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="requestNum">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderRequestNum"> Request number </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.requestNum}} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="currentStageValue">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderCurrentStage"> Stage </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.currentStageValue}} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="ipcCodes">
+        <mat-header-cell *cdkHeaderCellDef
+                         fxFlex="200px"
+                         mat-sort-header
+                         i18n="@@columnHeaderIPC">IPC</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex="200px"> {{ row.ipcCodes }} </mat-cell>
+      </ng-container>
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *cdkRowDef="let row; columns: displayedColumns"
+               (click)="onSelect(row)">
+      </mat-row>
+    </mat-table>
+  </div>
+  <div class="actions-container ac-bottom ac-right">
+    <button type="button"
+            [disabled]="false"
+            color="accent"
+            i18n-matTooltip="@@AllocateTooltip"
+            mat-fab
+            matTooltip="Allocate"
+            matTooltipPosition="above"
+            (click)="prepareAllocate()">
+      <mat-icon>apps</mat-icon>
+    </button>
+  </div>
+</div>

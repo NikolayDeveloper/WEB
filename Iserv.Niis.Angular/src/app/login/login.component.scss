@@ -1,0 +1,26 @@
+.logo-background{
+  background-color: rgba(0,0,0,.08);
+  background-image: url(/assets/logo.png)
+}
+
+.login-form{
+  max-width: 450px;
+  h3{
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .mat-card-content{
+    margin: 0 -24px;
+    
+    .tab-content{
+      margin: 24px;
+      height: 150px;
+      min-height: 150px;
+    }
+    .tab-content-cert{
+      margin: 24px;
+      height: 200px;
+      min-height: 150px;
+    }
+  }
+}

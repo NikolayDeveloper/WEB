@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.9.1" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.14.1" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Integration.1C\Iserv.Niis.Integration.OneC.Model\Iserv.Niis.Integration.OneC.Model.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DataAccess.EntityFramework\Iserv.Niis.DataAccess.EntityFramework.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Domain\Iserv.Niis.Domain.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Exceptions\Iserv.Niis.Exceptions.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.FileConverter\Iserv.Niis.FileConverter.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.FileStorage\Iserv.Niis.FileStorage.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Integration.ApiResult\Iserv.Niis.Integration.ApiResult.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.InternalServices.Features\Iserv.Niis.InternalServices.Features.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Model\Iserv.Niis.Model.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Utils\Iserv.Niis.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+</Project>

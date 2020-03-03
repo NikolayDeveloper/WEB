@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <UserSecretsId>aspnet-Iserv.Niis.Portal-c72afe1c-de7d-4901-912c-242c4c85e031</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Compile Remove="Features\**" />
+    <Content Remove="Data\**" />
+    <Content Remove="Features\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Features\**" />
+    <None Remove="Data\**" />
+    <None Remove="Features\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\DocumentTemplates\Приложение 78Old.docx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.0.1" />
+    <PackageReference Include="FluentValidation" Version="7.2.0" />
+    <PackageReference Include="MediatR" Version="3.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" PrivateAssets="All" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="2.5.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="3.4.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Niis.Business\Iserv.Niis.Business.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DataAccess.EntityFramework\Iserv.Niis.DataAccess.EntityFramework.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DIExtensions\Iserv.Niis.DIExtensions.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Documents\Iserv.Niis.Documents.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Domain\Iserv.Niis.Domain.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Features\Iserv.Niis.Features.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.FileStorage\Iserv.Niis.FileStorage.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Infrastructure\Iserv.Niis.Infrastructure.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.InternalServices.Features\Iserv.Niis.InternalServices.Features.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Model\Iserv.Niis.Model.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Workflow\Iserv.Niis.Workflow.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Utils\Iserv.Niis.Utils.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Resources\DocumentTemplates\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+    </None>
+  </ItemGroup>
+
+</Project>

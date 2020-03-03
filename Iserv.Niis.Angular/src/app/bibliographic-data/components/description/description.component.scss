@@ -1,0 +1,54 @@
+@import '~styles/mixin';
+
+:host {
+  height: 100%;
+  display: block;
+}
+
+.info {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: 1fr;
+}
+
+.info__column {
+  padding: 0 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  &:not(:last-child) {
+    border-right: 1px solid #dee2e6;
+  }
+}
+
+/deep/.title {
+  margin: 20px 0;
+  font-weight: 400;
+  color: map-get($primary, 800);
+}
+
+textarea {
+  resize: none;
+}
+
+.chip-list {
+  width: 100%;
+  height: 100%;
+}
+
+.nmpt-textarea {
+  width: 100%;
+  height: 100%;
+}
+
+.formarray-container-request-early-reg {
+  height: 200px;
+  overflow: auto;
+}
+
+.early-regs-block {
+  box-shadow: 1px 1px 1px black
+}

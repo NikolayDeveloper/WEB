@@ -1,0 +1,553 @@
+<mat-expansion-panel class="expansion-panel-colored-light">
+  <mat-expansion-panel-header
+    matTooltip="Expand search form"
+    i18n-matTooltip="@@textExpandSearchForm"
+    matTooltipPosition="below"
+  >
+    <mat-panel-title i18n="@@textSearchForm">Search form</mat-panel-title>
+    <mat-panel-description
+      fxLayout="row"
+      fxLayoutAlign="none"
+      i18n="@@titleAdvancedRequestSearch"
+    >Advanced request search</mat-panel-description>
+  </mat-expansion-panel-header>
+  <div
+    fxLayout="row"
+    fxLayoutAlign="end none"
+  >
+    <!-- Тип документа поиска -->
+    <mat-form-field fxFlex="300px">
+      <mat-select
+        placeholder="Поиск по типу"
+        [(ngModel)]="searchType"
+        (change)="onSearchTypeChange($event.value)"
+      >
+        <mat-option
+          *ngFor="let searchType of searchTypeSelectOptions"
+          [value]="searchType.id"
+        >{{ searchType.nameRu }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- Форма поиска -->
+  <form
+    novalidate
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit()"
+    class="form-full-width border-top"
+  >
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between none"
+    >
+      <div
+        fxLayout="column"
+        fxFlex="20"
+      >
+        <div
+          fxLayout="row"
+          fxFlex="10"
+        >
+          <app-common-input-string
+            fxFlex
+            formControlName="searchText"
+            placeholder="Search"
+            i18n-placeholder="@@textSearch"
+          ></app-common-input-string>
+          <span fxFlex="3"></span>
+          <button
+            mat-icon-button
+            type="button"
+            class="mat-mini-button"
+            (click)="searchByTree()"
+            i18n-matTooltip="@@textSearch"
+            matTooltip="Search"
+            matTooltipPosition="above"
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            type="button"
+            class="mat-mini-button"
+            (click)="resetSearch()"
+            i18n-matTooltip="@@textReset"
+            matTooltip="Reset"
+            matTooltipPosition="above"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+        <span fxFlex="3"></span>
+        <div fxFlex>
+          <p-tree
+            [value]="viewUserNodes"
+            selectionMode="checkbox"
+            [(selection)]="selectedNodes"
+            (onNodeSelect)="formGroup.markAsDirty()"
+            [propagateSelectionDown]="true"
+            [styleClass]="'material-tree tree-height-196'"
+          ></p-tree>
+        </div>
+      </div>
+      <span fxFlex="1"></span>
+      <div
+        fxLayout="column"
+        fxFlex="19"
+      >
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- Статус заявки -->
+          <mat-form-field>
+            <mat-select
+              i18n-placeholder="@@inputRequestStatus"
+              placeholder="Request status"
+              formControlName="statusId"
+            >
+              <mat-option
+                *ngFor="let selectOption of dicRequestStatuses"
+                [value]="selectOption.id"
+                [matTooltip]="selectOption.nameRu"
+                matTooltipPosition="left"
+              >{{ selectOption.nameRu }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the request status"
+            i18n-matTooltip="@@hintRequestStatus"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- Тип ОД -->
+          <mat-form-field>
+            <mat-select
+              (change)="onProtectionDocTypeChange($event.value)"
+              i18n-placeholder="@@inputProtectionDocType"
+              placeholder="PD type"
+              formControlName="protectionDocTypeId"
+            >
+              <mat-option
+                *ngFor="let selectOption of dicProtectionDocTypes"
+                [value]="selectOption.id"
+                [matTooltip]="selectOption.nameRu"
+                matTooltipPosition="left"
+              >{{ selectOption.nameRu }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the PD type"
+            i18n-matTooltip="@@hintProtectionDocType"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- Этап -->
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Stage"
+              i18n-placeholder="@@inputStage"
+              formControlName="currentStageId"
+              [matAutocomplete]="stagesList"
+            >
+            <mat-autocomplete
+              #stagesList="matAutocomplete"
+              (optionSelected)="onStageChange($event)"
+            >
+              <mat-option
+                *ngFor="let user of filteredRouteStages | async"
+                [value]="user.nameRu"
+              >{{ user.nameRu }}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the stage"
+            i18n-matTooltip="@@hintStage"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- Дата этапа с -->
+          <mat-form-field>
+            <input
+              matInput
+              #workflowDateFrom
+              [matDatepicker]="workflowDateFromPicker"
+              [max]="toDate(workflowDateTo.value)"
+              i18n-placeholder="@@inputWorkflowDateFrom"
+              placeholder="Workflow date from"
+              formControlName="workflowDateFrom"
+            >
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="workflowDateFromPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #workflowDateFromPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the workflow date"
+            i18n-matTooltip="@@hintWorkflowDate"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center">
+          <!-- Дата заявки с -->
+          <mat-form-field>
+            <input
+              matInput
+              #requestDateFrom
+              [matDatepicker]="requestDateFromPicker"
+              [max]="toDate(requestDateTo.value)"
+              i18n-placeholder="@@inputRequestDateFrom"
+              placeholder="Request date from"
+              formControlName="requestDateFrom"
+            >
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="requestDateFromPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #requestDateFromPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the request date"
+            i18n-matTooltip="@@hintRequestDate"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+        </div>
+      </div>
+      <span fxFlex="1"></span>
+      <div
+        fxLayout="column"
+        fxFlex="19"
+      >
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- Номер заявки -->
+          <app-common-input-string
+            fxFlex
+            i18n-placeholder="@@inputRequestNum"
+            placeholder="Request number"
+            formControlName="requestNum"
+          ></app-common-input-string>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the request number"
+            i18n-matTooltip="@@hintRequestNum"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+          <span fxFlex="4px"></span>
+          <app-search-mode-toggle formControlName="requestNum_mode"></app-search-mode-toggle>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- Тип заявки -->
+          <mat-form-field>
+            <mat-select
+              i18n-placeholder="@@inputRequestType"
+              placeholder="Request type"
+              formControlName="requestTypeId"
+            >
+              <mat-option
+                *ngFor="let selectOption of filteredPDSubTypes"
+                [value]="selectOption.id"
+                [matTooltip]="selectOption.nameRu"
+                matTooltipPosition="left"
+              >{{ selectOption.nameRu }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the request type"
+            i18n-matTooltip="@@hintRequestType"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- Наименование -->
+          <app-common-input-string
+            fxFlex
+            i18n-placeholder="@@inputName"
+            placeholder="Name"
+            formControlName="name"
+          ></app-common-input-string>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the name"
+            i18n-matTooltip="@@hintName"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+          <span fxFlex="4px"></span>
+          <app-search-mode-toggle formControlName="name_mode"></app-search-mode-toggle>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- По (дата этапа) -->
+          <mat-form-field>
+            <input
+              matInput
+              #workflowDateTo
+              [matDatepicker]="workflowDateToPicker"
+              [min]="toDate(workflowDateFrom.value)"
+              i18n-placeholder="@@inputTo"
+              placeholder="To"
+              formControlName="workflowDateTo"
+            >
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="workflowDateToPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #workflowDateToPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the workflow date"
+            i18n-matTooltip="@@hintWorkflowDate"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- По (дата заявки) -->
+          <mat-form-field>
+            <input
+              matInput
+              #requestDateTo
+              [matDatepicker]="requestDateToPicker"
+              [min]="toDate(requestDateFrom.value)"
+              i18n-placeholder="@@inputTo"
+              placeholder="To"
+              formControlName="requestDateTo"
+            >
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="requestDateToPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #requestDateToPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the request date"
+            i18n-matTooltip="@@hintRequestDate"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+        </div>
+      </div>
+      <span fxFlex="1"></span>
+      <div
+        fxLayout="column"
+        fxFlex="19"
+      >
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- ИИН/БИН контрагента -->
+          <app-common-input-string
+            fxFlex
+            i18n-placeholder="@@inputCustomerXin"
+            placeholder="Customer XIN"
+            formControlName="customerXin"
+            i18n-errorText="@@errorXin"
+            errorText="Please enter a valid xin"
+            [mask]="numberMask"
+          ></app-common-input-string>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the customer XIN"
+            i18n-matTooltip="@@hintCustomerXin"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+          <span fxFlex="4px"></span>
+          <app-search-mode-toggle formControlName="customerXin_mode"></app-search-mode-toggle>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- Контрагент -->
+          <app-common-input-string
+            fxFlex
+            i18n-placeholder="@@inputCustomer"
+            placeholder="Customer"
+            formControlName="customerNameRu"
+          ></app-common-input-string>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the customer"
+            i18n-matTooltip="@@hintCustomer"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+          <span fxFlex="4px"></span>
+          <app-search-mode-toggle formControlName="customerNameRu_mode"></app-search-mode-toggle>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- Адрес контрагента -->
+          <app-common-input-string
+            fxFlex
+            i18n-placeholder="@@inputCustomerAddress"
+            placeholder="Customer address"
+            formControlName="customerAddress"
+          ></app-common-input-string>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the customer address"
+            i18n-matTooltip="@@hintCustomerAddress"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+          <span fxFlex="4px"></span>
+          <app-search-mode-toggle formControlName="customerAddress_mode"></app-search-mode-toggle>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center"
+        >
+          <!-- Страна контрагента -->
+          <app-common-autocomplete
+            [dictionary]="dicCountries"
+            i18n-placeholder="@@inputCustomerCountry"
+            placeholder="Customer country"
+            formControlName="customerCountryId"
+            fxFlex
+          ></app-common-autocomplete>
+          <mat-icon
+            class="help-icon"
+            matTooltip="I am showing a hint for the customer country"
+            i18n-matTooltip="@@hintCustomerCountry"
+            matTooltipPosition="left"
+          >help_outline</mat-icon>
+        </div>
+      </div>
+      <div
+        fxLayout="column"
+        fxFlex="19"
+        fxLayoutAlign="space-between none"
+      >
+        <div>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="center"
+          >
+            <!-- Тип подачи -->
+            <mat-form-field>
+              <mat-select
+                i18n-placeholder="@@inputReceiveType"
+                placeholder="Receive type"
+                formControlName="receiveTypeId"
+              >
+                <!-- <mat-option i18n="@@None">None</mat-option> -->
+                <mat-option
+                  *ngFor="let selectOption of dicReceiveTypes"
+                  [value]="selectOption.id"
+                  [matTooltip]="selectOption.nameRu"
+                  matTooltipPosition="left"
+                >{{ selectOption.nameRu }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-icon
+              class="help-icon"
+              matTooltip="I am showing a hint for the receive type"
+              i18n-matTooltip="@@hintReceiveType"
+              matTooltipPosition="left"
+            >help_outline</mat-icon>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="center"
+          >
+            <!-- Штрихкод -->
+            <mat-form-field>
+              <input
+                matInput
+                type="number"
+                min="0"
+                placeholder="Barcode"
+                i18n-placeholder="@@inputBarcode"
+                formControlName="barcode"
+              >
+            </mat-form-field>
+            <mat-icon
+              class="help-icon"
+              matTooltip="I am showing a hint for the barcode"
+              i18n-matTooltip="@@hintBarcode"
+              matTooltipPosition="left"
+            >help_outline</mat-icon>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="center"
+          >
+            <!-- Входящий номер -->
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                placeholder="Incoming Number"
+                i18n-placeholder="@@inputIncomingNumber"
+                formControlName="incomingNumber"
+              >
+            </mat-form-field>
+            <mat-icon
+              class="help-icon"
+              matTooltip="I am showing a hint for the incoming number"
+              i18n-matTooltip="@@hintIncomingNumber"
+              matTooltipPosition="left"
+            >help_outline</mat-icon>
+          </div>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="end none"
+        >
+          <button
+            mat-button
+            type="button"
+            [disabled]="(resultsLength | async) <= 0 && formGroup.pristine"
+            color="accent"
+            i18n="@@textReset"
+            (click)="onReset()"
+          >Reset</button>
+          <button
+            mat-button
+            type="submit"
+            [disabled]="formGroup.invalid || formGroup.pristine"
+            color="primary"
+            i18n="@@textSearch"
+          >Search</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-expansion-panel>

@@ -1,0 +1,127 @@
+.search-container {
+  background-color: #DFDFDF;
+
+  & > .delimiter {
+    margin-top: 0;
+  }
+}
+.form-wrapper {
+  height: 30px;
+  margin: 20px 20px 20px 20px;
+}
+.form-wrapper_datepicker {
+  margin-top: 0;
+}
+.form-wrapper_delim {
+  height: 30px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+.header {
+  height: 40px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin: 20px 20px 0 20px;
+}
+.delimiter {
+  margin: 10px 0 10px 0;
+  padding-left: 20px;
+  vertical-align: middle;
+  width: 100%;
+  height: 30px;
+  background-color: #A8B9B7;
+  color: #29655E;
+  span {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 10px;
+    font-weight: bold;
+  }
+}
+.search-input, .datepicker {
+  border: 1px solid rgba(69, 75, 96, 0.4);
+  box-sizing: border-box;
+  border-radius: 4px;
+  max-width: 150px;
+}
+/deep/.mat-input-underline {
+  display: none;
+}
+/deep/.mat-form-field-infix {
+  width: 120px !important;
+  border-top: none;
+}
+label {
+  vertical-align: baseline;
+  width: 100px;
+  height: 25px;
+  color: #353A4D;
+  font-size: 12px;
+  font-family: Roboto, sans-serif;
+}
+.datepicker {
+  position: relative;
+  background-color: #fff;
+  width: 100px;
+  height: 30px;
+  input {
+    padding: 5px;
+    height: 100%;
+    vertical-align: center;
+    font-size: 12px;
+  }
+}
+
+.mat-toggle-date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /deep/button.mat-icon-button {
+    width: 25px;
+    height: 25px;
+    svg {
+      vertical-align: baseline!important;
+      width: 16px;
+      height: 18px;
+    }
+  }
+}
+.mat-toggle-date_from:before {
+  font-size: 12px;
+  content: 'c';
+  top: 6px;
+  left: -90px;
+  position: absolute;
+}
+.mat-toggle-date_to:before {
+  font-size: 12px;
+  content: 'по';
+  top: 6px;
+  left: -100px;
+  position: absolute;
+}
+.datepicker-container_from, .datepicker-container_to {
+  width: 100px;
+  height: 50px;
+}
+mat-option.mat-option {
+  line-height: 3em!important;
+}
+mat-option.mat-option.select-option {
+  line-height: 0.7em!important;
+}
+/deep/div.mat-autocomplete-panel {
+  min-width: 215px;
+  mat-option.mat-option {
+    line-height: 2em!important;
+  }
+}
+.margin-top {
+  margin-top: 40px;
+}
+

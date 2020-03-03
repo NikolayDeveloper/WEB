@@ -1,0 +1,23 @@
+<div class="linked-payments-dialog">
+  <h2 mat-dialog-title>Связанные платежи</h2>
+
+  <mat-dialog-content>
+    <div class="grid-area">
+      <div fxFlexFill>
+        <app-table [columns]="columns"
+                   [data]="listData"
+                   [sortable]="true"
+                   [paginable]="false"
+                   class="table-medium"></app-table>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button
+            type="button"
+            color="accent"
+            (click)="onCloseClick()">Закрыть
+    </button>
+  </mat-dialog-actions>
+</div>

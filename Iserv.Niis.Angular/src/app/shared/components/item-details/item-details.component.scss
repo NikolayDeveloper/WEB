@@ -1,0 +1,157 @@
+.img-label {
+  min-width: 40px;
+  height: 40px;
+  background-color: #E4EAFF;
+  border-radius: 30%;
+  display: inline-flex;
+  vertical-align: center;
+  .td-logo {
+    display: inline-flex;
+    vertical-align: middle;
+    border-radius: 50%;
+    box-sizing: border-box;
+    width: 22px;
+    height: 22px;
+    border: 2px solid darken(#E4EAFF, 10);
+    color: darken(#E4EAFF, 10);
+    text-transform: uppercase;
+    font-size: 9px;
+    margin: auto;
+    div {
+      margin: auto;
+    }
+  }
+}
+.label {
+  display: flex;
+  justify-content: space-around;
+  justify-items: center;
+}
+.info-container {
+  padding: 10px;
+}
+
+.trade-sign {
+  border-bottom: 2px solid darken(#E4EAFF, 10);
+  font-size: 14px;
+  max-width: 150px;
+}
+.label-props {
+
+}
+.labels {
+  color: rgba(0, 0, 0, 0.4);
+  display: block;
+  font-size: 10px;
+  span {
+    font-size: 12px;
+    color: #353A4D
+  }
+}
+mat-grid-tile {
+  background-color: #fff;
+  /deep/.mat-figure {
+    margin: 10px;
+    justify-content: stretch;
+    align-items: stretch;
+  }
+  .labels {
+    text-transform: uppercase;
+  }
+  div {
+    max-width: 100px;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+  }
+  span {
+    text-transform: none;
+  }
+}
+.name {
+  font-size: 16px;
+}
+img {
+  width: 170px;
+}
+.image {
+  padding: 15px 50px 15px 50px;
+}
+.image-container {
+  width: 100%;
+  background-color: #EEEEEE;
+  .labels {
+    padding: 10px;
+    text-transform: uppercase;
+  }
+}
+.namings {
+  div {
+    .labels {
+      font-size: 12px;
+      line-height: 12px;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+.title {
+  text-align: right;
+}
+mat-grid-list {
+  margin: 5px 0 5px 0;
+  background-color: #EEEEEE;
+}
+
+.footer-labels {
+  .labels {
+    display: inline;
+  }
+  .content {
+    font-size: 12px;
+    color: black;
+  }
+}
+.cal-icon {
+  // position: fixed;
+}
+.go-to-card {
+  cursor: pointer;
+  color: white;
+  text-transform: uppercase;
+  height: 40px;
+  background-color: #EAA623;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdf-wrapper-container {
+  width: 350px;
+  height: 460px;
+  background-color: #fff;
+  border: 1px solid #EEEEEE;
+  border-radius: 5%;
+  box-sizing: border-box;
+  padding: 15px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.pdf-frame {
+  width: 320px;
+  height: 420px;
+}
+.new-window-button {
+  margin: 15px;
+}
+.sidenav-container {
+  height: 100%;
+}
+.footer-container,
+.namings,
+mat-grid-list {
+  padding: 10px;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

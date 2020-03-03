@@ -1,0 +1,403 @@
+<form
+  novalidate
+  [formGroup]="formGroup"
+  class="info"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="info__column">
+    <h4 class="info__title" i18n="@@mainParameters">Main request parameters</h4>
+    <div class="info__group">
+      <!-- Штрихкод -->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputBarcode"
+        placeholder="Barcode"
+        formControlName="barcode"
+      ></app-common-input-string>
+      <!-- Статус договора -->
+      <mat-form-field class="info__group-item">
+        <mat-select
+          matInput
+          i18n-placeholder="@@inputStatus"
+          placeholder="Status"
+          formControlName="statusId"
+        >
+          <mat-option
+            *ngFor="let selectOption of dicContractStatuses"
+            [value]="selectOption.id"
+          >{{ selectOption.nameRu }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="info__group">
+      <!-- Тип доставки -->
+      <mat-form-field class="info__group-item">
+        <mat-select
+          matInput
+          i18n-placeholder="@@inputReceiveType"
+          placeholder="Receive type"
+          formControlName="receiveTypeId"
+        >
+          <mat-option
+            *ngFor="let selectOption of dicReceiveTypes"
+            [value]="selectOption.id"
+          >{{ selectOption.nameRu }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Вид договора -->
+      <mat-form-field class="info__group-item">
+        <mat-select
+          matInput
+          i18n-placeholder="@@inputContractType"
+          placeholder="Contract type"
+          formControlName="typeId"
+        >
+          <mat-option
+            *ngFor="let selectOption of dicContractType"
+            [value]="selectOption.id"
+          >{{ selectOption.nameRu }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="info__group">
+      <!-- Исходящий номер -->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputOutgoingNumber"
+        placeholder="Outgoing number"
+        formControlName="outgoingNumber"
+      ></app-common-input-string>
+      <!-- Дата исходящего  -->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          [matDatepicker]="outgoingDatePicker"
+          i18n-placeholder="@@inputRequestOutgoingDate"
+          placeholder="Request outgoing date"
+          formControlName="outgoingDate"
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="outgoingDatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #outgoingDatePicker
+          [disabled]="formGroup.controls.outgoingDate.disabled"
+        ></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="info__group">
+      <!-- Номер договора -->
+      <div class="info__group-item info__group-item--center">
+        <app-common-input-string
+          class="info__group-item"
+          i18n-placeholder="@@inputApplicationNumber"
+          placeholder="Contract number"
+          formControlName="contractNum"
+        ></app-common-input-string>
+        <button
+          mat-icon-button
+          type="button"
+          class="mat-mini-button"
+          [disabled]="isDisabledGenerateContractNum()"
+          (click)="setContractNum()"
+          i18n-matTooltip="@@GenerateContractNum"
+          matTooltip="Generate"
+          matTooltipPosition="above"
+        >
+          <mat-icon>rotate_right</mat-icon>
+        </button>
+      </div>
+      <!-- Дата создания заявления -->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          [matDatepicker]="applicationDateCreatePicker"
+          i18n-placeholder="@@inputCreationDate"
+          placeholder="Creation date"
+          formControlName="applicationDateCreate"
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="applicationDateCreatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #applicationDateCreatePicker
+          [disabled]="formGroup.controls.applicationDateCreate.disabled"
+        ></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="info__group">
+      <!-- Входящий номер -->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputContractIncomingNumber"
+        placeholder="Incoming number"
+        formControlName="incomingNumber"
+      ></app-common-input-string>
+      <!-- Дата приема -->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          [matDatepicker]="incomingDatePicker"
+          i18n-placeholder="@@inputIncomingDate"
+          placeholder="Incoming Date"
+          formControlName="incomingDate"
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="incomingDatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #incomingDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <app-subjects-search-form
+      placehoder="Customer search"
+      formControlName="customerSearch"
+      [protectionDocTypeCode]="contractDetails.protectionDocTypeCode"
+      [disabled]="!editMode || formGroup.controls.addresseeId.disabled"
+    ></app-subjects-search-form>
+    <div class="info__group">
+      <!-- Количество страниц -->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          type="number"
+          i18n-placeholder="@@inputPageCount"
+          placeholder="Page count"
+          formControlName="pageCount"
+        >
+      </mat-form-field>
+      <!-- Количество копий -->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          type="number"
+          i18n-placeholder="@@inputCopyCount"
+          placeholder="Copy count"
+          formControlName="copyCount"
+        >
+      </mat-form-field>
+    </div>
+    <!-- Связанные заявки -->
+    <app-attach-to-owner-form
+      formControlName="owners"
+      [ownerType]="requestOwnerType"
+      [protectionDocTypeId]="selectedProtectionDocTypeId"
+      [disabled]="!editMode"
+      (selectProtectionDocTypeId)="onSelectProtectionDocTypeId($event)"
+    ></app-attach-to-owner-form>
+    <!-- Связанные ОД -->
+    <app-attach-to-owner-form
+      formControlName="protectionDocsOwners"
+      [ownerType]="protectionDocOwnerType"
+      [protectionDocTypeId]="selectedProtectionDocTypeId"
+      [disabled]="!editMode"
+      (selectProtectionDocTypeId)="onSelectProtectionDocTypeId($event)"
+    ></app-attach-to-owner-form>
+    <div class="info__group">
+      <!-- Филиал -->
+      <mat-form-field class="info__group-item">
+        <mat-select
+          i18n-placeholder="@@inputDivision"
+          placeholder="Division"
+          formControlName="divisionId"
+          (change)="onDivisionChange($event.value)"
+        >
+          <mat-option
+            *ngFor="let selectOption of dicDivisions"
+            [value]="selectOption.id"
+          >{{ selectOption.nameRu }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Служба -->
+      <app-common-autocomplete
+        class="info__group-item"
+        [dictionary]="filteredDepartments"
+        i18n-placeholder="@@inputDepartment"
+        placeholder="Department"
+        formControlName="departmentId"
+      ></app-common-autocomplete>
+    </div>
+  </div>
+  <div class="info__column">
+    <h4 class="info__title" i18n="@@descriptionContract">Description contract</h4>
+    <!-- <div [ngClass]="{'input-invalid': !doNamesHaveValue()}"> -->
+    <div>
+      <app-common-input-string
+        i18n-placeholder="@@inputNameRu"
+        placeholder="Name in Russian"
+        formControlName="nameRu"
+      ></app-common-input-string>
+      <app-common-input-string
+        i18n-placeholder="@@inputNameKz"
+        placeholder="Name in Kazakh"
+        formControlName="nameKz"
+      ></app-common-input-string>
+      <app-common-input-string
+        i18n-placeholder="@@inputNameEn"
+        placeholder="Name in English"
+        formControlName="nameEn"
+      ></app-common-input-string>
+    </div>
+
+    <app-common-input-string
+      i18n-placeholder="@@inputNote"
+      placeholder="Description"
+      formControlName="description"
+    ></app-common-input-string>
+    <ng-container *ngIf="isPublication || formGroup.controls.gosNumber.value || formGroup.controls.gosDate.value">
+      <h4 class="info__title" i18n="@@mainContractParameters">Main contract parameters</h4>
+      <div class="info__group">
+        <!-- Номер государственной регистрации -->
+        <app-common-input-string
+          class="info__group-item"
+          i18n-placeholder="@@inputGosNumber"
+          placeholder="Gos number"
+          formControlName="gosNumber"
+        ></app-common-input-string>
+        <!-- Дата государственной регистрации -->
+        <mat-form-field class="info__group-item">
+          <input
+            matInput
+            [matDatepicker]="gosDatePicker"
+            i18n-placeholder="@@inputGosDate"
+            placeholder="Gos date"
+            formControlName="gosDate"
+          >
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="gosDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            #gosDatePicker
+            [disabled]="formGroup.controls.gosDate.disabled"
+          ></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div
+        class="info__group"
+        *ngIf="isPublication"
+      >
+        <!-- Номер публикации -->
+        <app-common-input-string
+          class="info__group-item"
+          i18n-placeholder="@@inputNumberBulletin"
+          placeholder="Number Bulletin"
+          formControlName="numberBulletin"
+        ></app-common-input-string>
+        <!-- Дата публикации -->
+        <mat-form-field class="info__group-item">
+          <input
+            matInput
+            [matDatepicker]="bulletinDatePicker"
+            i18n-placeholder="@@inputBulletinDate"
+            placeholder="Bulletin date"
+            formControlName="bulletinDate"
+          >
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="bulletinDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            #bulletinDatePicker
+            [disabled]="formGroup.controls.bulletinDate.disabled"
+          ></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </ng-container>
+    <h4 class="info__title" i18n="@@documentRoute">Document route</h4>
+    <div class="info__table">
+      <app-table
+        [columns]="columns"
+        [data]="workflows"
+        class="table-small table-stripped table-height-40"
+      ></app-table>
+    </div>
+  </div>
+  <!-- Buttons -->
+  <div class="actions-container ac-right ac-bottom" fxLayout="row">
+    <div class="read-mode-actions">
+      <button
+        mat-mini-fab
+        type="button"
+        class="rotate-90"
+        (click)="onShowBarcodeClick()"
+        color="primary"
+        i18n-matTooltip="@@showBarcodeTooltip"
+        matTooltip="Show barcode"
+        matTooltipPosition="above"
+      >
+        <mat-icon>format_align_justify</mat-icon>
+      </button>
+    </div>
+    <div
+      class="read-mode-actions"
+      *ngIf="!editMode"
+    >
+      <button
+        mat-fab
+        type="button"
+        (click)="onEdit()"
+        [disabled]="!(availableAtStage | async)"
+        color="accent"
+        i18n-matTooltip="@@editTooltip"
+        matTooltip="Edit"
+        matTooltipPosition="above"
+      >
+        <mat-icon>mode_edit</mat-icon>
+      </button>
+      <button
+        mat-fab
+        type="button"
+        [disabled]="!registerAvailable"
+        (click)="onRegister()"
+        color="primary"
+        i18n-matTooltip="@@registerTooltip"
+        matTooltip="Register"
+        matTooltipPosition="above"
+      >
+        <mat-icon>play_for_work</mat-icon>
+      </button>
+    </div>
+    <div
+      class="edit-mode-actions"
+      *ngIf="editMode"
+    >
+      <button
+        mat-mini-fab
+        type="button"
+        [disabled]="contractDetails.id === 0"
+        (click)="onDelete()"
+        [color]="'warn'"
+        i18n-matTooltip="@@deleteTooltip"
+        matTooltip="Delete"
+        matTooltipPosition="above"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        type="button"
+        (click)="onUndo()"
+        [color]="formGroup.dirty ? 'warn' : 'accent'"
+        i18n-matTooltip="@@undoTooltip"
+        matTooltip="Undo"
+        matTooltipPosition="above"
+      >
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button
+        mat-fab
+        type="submit"
+        [disabled]="isDisabledSaveButton()"
+        color="primary"
+        i18n-matTooltip="@@saveTooltip"
+        matTooltip="Save"
+        matTooltipPosition="above"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+  </div>
+</form>

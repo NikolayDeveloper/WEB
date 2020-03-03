@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Niis.Business\Iserv.Niis.Business.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DataAccess.EntityFramework\Iserv.Niis.DataAccess.EntityFramework.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.FileStorage\Iserv.Niis.FileStorage.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Migration.Common\Iserv.Niis.Migration.Common.csproj" />
+    <ProjectReference Include="..\Iserv.OldNiis.DataAccess.EntityFramework\Iserv.OldNiis.DataAccess.EntityFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CreateLogs.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="PrepareOldData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="InsertDicDetailICGSs.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,2 @@
+﻿insert into DicRouteStages(Code, DateCreate, DateUpdate, IsFirst, IsLast, IsMultiUser, IsReturnable, IsSystem, NameRu, OnlineRequisitionStatusId, RouteId, IsAuto, IsMain, RequestStatusId, ExpirationType)
+  values('TMConvert', GETDATE(), GETDATE(), 0,1,0,0,0,'Преобразование заявки',838,6,1,1,14, 0)

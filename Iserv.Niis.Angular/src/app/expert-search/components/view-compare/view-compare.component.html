@@ -1,0 +1,38 @@
+<div fxFlexFill
+     fxLayout="column">
+  <div fxFlex
+       class="content-wrapper table-container">
+    <div>
+      <div fxFlex>
+        <h4 class="title"
+            i18n="@@viewCompareOriginalText">Original text</h4>
+        <mat-card>
+          <pre processingDiff
+               [left]="originalText"
+               [right]="originalText"></pre>
+        </mat-card>
+      </div>
+      <div fxFlex="16px"></div>
+      <div fxFlex>
+        <h4 class="title"
+            i18n="@@viewCompareText">Compare text</h4>
+        <mat-card>
+          <pre processingDiff
+               [left]="originalText"
+               [right]="changedText"></pre>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="actions-container ac-bottom ac-right">
+  <button mat-fab
+          type="button"
+          color="primary"
+          i18n-matTooltip="@@docsCopmareAccept"
+          matTooltip="Accept"
+          matTooltipPosition="above"
+          (click)="makeDocumentFinished()">
+    <mat-icon>done</mat-icon>
+  </button>
+</div>

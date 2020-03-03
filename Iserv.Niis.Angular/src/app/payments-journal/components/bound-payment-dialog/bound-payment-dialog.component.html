@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Зачесть оплату</h2>
+<div
+  mat-dialog-content
+  class="form-full-width form-medium-input"
+>
+  <!--Сумма оплаты с НДС-->
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      placeholder="Сумма оплаты с НДС"
+      [(ngModel)]="amount"
+      (ngModelChange)="onAmountChange()"
+    >
+  </mat-form-field>
+
+  <ng-container *ngIf="amountBiggerThanRemainder">
+    <p class="warning">Не корректная сумма</p>
+  </ng-container>
+
+  <!--Описание-->
+  <mat-form-field>
+    <textarea
+      matInput
+      rows="6"
+      placeholder="Описание"
+      [(ngModel)]="description"
+    ></textarea>
+  </mat-form-field>
+
+  <!--Признать зачтенной-->
+  <div style="margin-top: 15px;">
+    <mat-checkbox
+      [(ngModel)]="force"
+    >Признать зачтенной</mat-checkbox>
+  </div>
+</div>
+<div
+  mat-dialog-actions
+  align="end"
+>
+  <button
+    mat-button
+    type="button"
+    color="accent"
+    (click)="onCancelClick()"
+  >Отмена</button>
+  <button
+    mat-button
+    type="submit"
+    color="primary"
+    [disabled]="!amount || !description || amount <= 0"
+    (click)="onOkClick()"
+    cdkFocusInitial
+  >Зачесть</button>
+</div>

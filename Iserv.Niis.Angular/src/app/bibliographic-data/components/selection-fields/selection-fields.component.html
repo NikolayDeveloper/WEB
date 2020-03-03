@@ -1,0 +1,34 @@
+<!-- Поля для Селекционных достижений -->
+<div [formGroup]="formGroup"
+     fxLayout="column">
+  <!-- <mat-form-field>
+    <mat-select i18n-placeholder="@@inputSelectionAchieveType"
+                placeholder="Selection achieve type"
+                formControlName="selectionAchieveTypeId">
+      <mat-option *ngFor="let selectOption of dicSelectionAchieveTypes"
+                  [value]="selectOption.id">
+        {{ selectOption.nameRu }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->
+  <div fxLayout="row">
+    <!-- Род, вид -->
+    <app-common-input-string i18n-placeholder="@@inputGenus"
+                             placeholder="Genus"
+                             formControlName="genus"></app-common-input-string>
+  </div>
+  <div fxLayout="row">
+    <!-- Селекционный номер -->
+    <app-common-input-string i18n-placeholder="@@inputBreedingNumber"
+                             placeholder="Breeding number"
+                             formControlName="breedingNumber"></app-common-input-string>
+  </div>
+  <div>
+    <!-- Селекционное достижение выведено в стране -->
+    <app-common-autocomplete [dictionary]="dicCountries"
+                             i18n-placeholder="@@inputBreedCountry"
+                             placeholder="Breed country"
+                             formControlName="breedCountryId"
+                             fxFlex></app-common-autocomplete>
+  </div>
+</div>

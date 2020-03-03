@@ -1,0 +1,93 @@
+<mat-toolbar color="primary">
+    <button
+        mat-button
+        [routerLink]="['/']"
+    ><img class="logo" src="./assets/logo.png" /></button>
+    <div *ngIf="auth.isAuthorized() | async">
+        <button
+            *ngxPermissionsOnly="'JournalModule'"
+            mat-button
+            [routerLink]="['/journal']"
+            routerLinkActive="router-link-active"
+        >
+            <mat-icon>assignment</mat-icon>
+            <span i18n="@@headerJournal">Journal</span>
+        </button>
+        <button 
+            *ngxPermissionsOnly="'SearchModule'"
+            mat-button
+            [routerLink]="['/search']"
+            routerLinkActive="router-link-active"
+        >
+            <mat-icon>search</mat-icon>
+            <span i18n="@@headerSearch">Search</span>
+        </button>
+        <button
+            *ngxPermissionsOnly="'BulletinModule'"
+            mat-button
+            [routerLink]="['/bulletin']"
+            routerLinkActive="router-link-active"
+        >
+            <mat-icon>toc</mat-icon>
+            <span i18n="@@headerBulletin">Bulletin</span>
+        </button>
+        <button
+            *ngxPermissionsOnly="'JournalModule'"
+            mat-button
+            [routerLink]="['/paymentsJournal']"
+            routerLinkActive="router-link-active"
+        >
+            <mat-icon>payment</mat-icon>
+            <span i18n="@@headerPaymentsJournal">Платежи</span>
+        </button>
+        <button
+            *ngxPermissionsOnly="'ReportsModule'"
+            mat-button
+            [routerLink]="['/reports']"
+            routerLinkActive="router-link-active"
+        >
+            <mat-icon>layers</mat-icon>
+            <span i18n="@@headerReports">Reports</span>
+        </button>
+        <button
+            *ngxPermissionsOnly="'AdministrationModule'"
+            mat-button
+            [routerLink]="['/admin']"
+            routerLinkActive="router-link-active"
+        >
+            <mat-icon>settings</mat-icon>
+            <span i18n="@@headerAdministration">Admininstration</span>
+    </button>
+    </div>
+    <span fxFlex="grow"></span>
+    <div
+        *ngIf="!(auth.isAuthorized() | async); else profile">
+        <button
+            mat-button
+            [routerLink]="['/login']"
+            routerLinkActive="router-link-active"
+        >Login</button>
+    </div>
+    <ng-template #profile>
+        <button
+            mat-button
+            [matMenuTriggerFor]="userMenu"
+            class="profile-container"
+        >
+            <span class="profile-name">{{ auth.name.substring(0, 30) }}</span>
+            <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu
+            #userMenu="matMenu"
+            xPosition="before"
+        >
+            <button
+                mat-menu-item
+                (click)="auth.logout()"
+            >
+                <mat-icon>lock_outline</mat-icon>
+                <span>Logout</span>
+            </button>
+        </mat-menu>
+    </ng-template>
+</mat-toolbar>

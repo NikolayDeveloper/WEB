@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Редактировать</h1>
+<form novalidate
+      [formGroup]="formGroup"
+      (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <p>Дата исправления</p>
+    <mat-form-field>
+      <input matInput
+             [matDatepicker]="EditDate"
+             formControlName="editDate">
+      <mat-datepicker-toggle matSuffix
+                             [for]="EditDate">
+      </mat-datepicker-toggle>
+      <mat-datepicker #EditDate></mat-datepicker>
+      
+    </mat-form-field>
+    <p>Причина изменения</p>
+    <mat-form-field>
+      <textarea matInput
+                formControlName="editReason"></textarea>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions
+       align="end">
+    <button type="button"
+            mat-button
+            color="accent"
+            (click)="onCancelClick()">Отмена</button>
+    <button type="submit"
+            color="primary"
+            [disabled]="formGroup.invalid"
+            mat-button
+            cdkFocusInitial>Сохранить</button>
+  </div>
+</form>

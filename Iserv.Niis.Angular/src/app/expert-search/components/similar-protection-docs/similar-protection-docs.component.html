@@ -1,0 +1,476 @@
+<div fxFlexFill
+     fxLayout="column">
+  <div class="table-container"
+       fxFlex>
+    <div [formGroup]="formGroup"
+         *ngIf="['B', 'A4', 'A'].includes(this.protectionDocTypeCode)">
+      <app-common-input-string i18n-placeholder="@@inputQuery"
+                               placeholder="Query"
+                               formControlName="query"></app-common-input-string>
+    </div>
+    <mat-table #table
+               [dataSource]="imageDataSource"
+               matSort
+               matSortDisableClear
+               class="table-stripped table-medium">
+      <ng-container cdkColumnDef="select">
+        <mat-header-cell *cdkHeaderCellDef
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selectionModel.hasValue() && isAllSelected()"
+                        [indeterminate]="selectionModel.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selectionModel.toggle(row) : null"
+                        [checked]="selectionModel.isSelected(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+      <!--
+      <ng-container cdkColumnDef="barcode">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnBarcode">Barcode</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.barcode}}</mat-cell>
+      </ng-container>
+      -->
+      <ng-container cdkColumnDef="previewImage">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnPicture"
+                         class="width-70">Picture</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex
+                  class="width-70">
+          <div (click)="openImageDialog(row.previewImage)">
+            <img [src]="row.previewImage">
+          </div>
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="nameRu">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnNameRu">Name Ru</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.nameRu}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="nameKz">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnNameKz">Name Kz</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.nameKz}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="nameEn">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnNameEn">Name En</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.nameEn}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="gosNumber">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnProtectionDocNumber"
+                         class="width-70">Gos Number</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex
+                  class="width-70">{{row.gosNumber}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="regNumber">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnRequestNum"
+                         class="width-70">Reg Number</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex
+                  class="width-70">{{row.regNumber}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="validDate">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnValidDate"
+                         class="width-70">Valid Date</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex
+                  class="width-70">{{row.validDate | date: 'dd.MM.yyyy'}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="gosDate">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnProtectionDocDate"
+                         class="width-70">Gos Date</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex
+                  class="width-70">{{row.gosDate | date: 'dd.MM.yyyy'}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="regDate">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnFilingDate"
+                         class="width-70">Reg Date</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex
+                  class="width-70">{{row.regDate | date: 'dd.MM.yyyy'}}</mat-cell>
+      </ng-container>
+      <!--
+      <ng-container cdkColumnDef="requestTypeNameRu">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnRequestType">Request Type</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.requestTypeNameRu}}</mat-cell>
+      </ng-container>
+      -->
+      <ng-container cdkColumnDef="statusNameRu">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnRequestStatus">Status</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.statusNameRu}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="declarant">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnDeclarant">Declarant</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.declarant}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="ownerName">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnOwner">Owner</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.ownerName}}</mat-cell>
+      </ng-container>
+      <!--
+      <ng-container cdkColumnDef="patentAttorney">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnPatentAttorney">Patent</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.patentAttorney}}</mat-cell>
+      </ng-container>
+      -->
+      <!--
+      <ng-container cdkColumnDef="addressForCorrespondence">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnCorrespondenceAddress">Address</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.addressForCorrespondence}}</mat-cell>
+      </ng-container>
+      -->
+      <!--
+      <ng-container cdkColumnDef="confidant">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnConfidant">Confidant</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.confidant}}</mat-cell>
+      </ng-container>
+      -->
+      <!--
+      <ng-container cdkColumnDef="receiveTypeNameRu">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnReceiveType">Receive Type</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.receiveTypeNameRu}}</mat-cell>
+      </ng-container>
+      -->
+      <ng-container cdkColumnDef="icgs">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnICGS">icgs</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{ stringifyICGS(row.icgs) }}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="icfems">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnICFEM">icfems</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.icfems}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="colors">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnColors">Colors</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.colors}}</mat-cell>
+      </ng-container>
+      <!--
+      <ng-container cdkColumnDef="transliteration">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnTransliteration">Transliteration</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.transliteration}}</mat-cell>
+      </ng-container>
+      -->
+      <ng-container cdkColumnDef="priorityData">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnPriorityData">Priority Data</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.priorityData}}</mat-cell>
+      </ng-container>
+      <!--
+      <ng-container cdkColumnDef="numberBulletin">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnNumberBulletin">Number Bulletin</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.numberBulletin}}</mat-cell>
+      </ng-container>
+      -->
+      <!--
+      <ng-container cdkColumnDef="publicDate">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnPublicDate"
+                         class="width-70">Public Date</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex
+                  class="width-70">{{row.publicDate | date: 'dd.MM.yyyy'}}</mat-cell>
+      </ng-container>
+      -->
+      <ng-container cdkColumnDef="extensionDateTz">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnExtensionDate"
+                         class="width-70">Extension Date</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex
+                  class="width-70">{{row.extensionDateTz | date: 'dd.MM.yyyy'}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="disclaimerRu">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnDisclaimerRu">Disclaimer Ru</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.disclaimerRu}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="disclaimerKz">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnDisclaimerKz">Disclaimer Kz</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.disclaimerKz}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="gosreestr">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnGosreestr">Делопроизводство (госреестр)</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>{{row.gosreestr}}</mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="protectionDocCategory">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex.sm="70px"
+                         fxFlex.md="70px"
+                         fxFlex
+                         i18n="@@columnProtectionDocCategory">Comment</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex.sm="70px"
+                  fxFlex.md="70px"
+                  fxFlex>
+          <input type="text"
+                 [(ngModel)]="row.protectionDocCategory">
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <div fxLayout="row">
+    <mat-paginator fxFlex
+                   #paginator
+                   [length]="imageDataSource?.resultLength">
+    </mat-paginator>
+    <span fxFlex="190px"></span>
+  </div>
+</div>
+<div class="actions-container ac-bottom ac-right">
+  <button mat-mini-fab
+          type="button"
+          (click)="onColumnsChange()"
+          color="primary"
+          matTooltip="Columns"
+          i18n-mdTooltip="@@textColumns"
+          matTooltipPosition="above">
+    <mat-icon>view_column</mat-icon>
+  </button>
+  <button mat-fab
+          type="button"
+          [disabled]="imageDataSource.resultLength <= 0 || selectionModel && selectionModel.selected.length===0"
+          (click)="delete.emit(selectionModel.selected);"
+          matTooltip="Delete"
+          i18n-matTooltip="@@textDelete"
+          matTooltipPosition="above">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <button mat-fab
+          type="button"
+          (click)="onSave()"
+          mdTooltip="Save"
+          i18n-mdTooltip="@@textUpdateSimilarities"
+          mdTooltipPosition="above">
+    <mat-icon>save</mat-icon>
+  </button>
+</div>

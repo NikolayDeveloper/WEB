@@ -1,0 +1,137 @@
+<form
+  novalidate
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+  class="form-full-width form-medium-input"
+>
+  <form class="form">
+    <h1
+      class="form__status"
+      [ngSwitch]="status"
+    >
+      <ng-container *ngSwitchCase="conventionType.NoPriority">Нет приориета</ng-container>
+      <ng-container *ngSwitchCase="conventionType.Convention">Конвенционная</ng-container>
+      <ng-container *ngSwitchCase="conventionType.PCT">PCT</ng-container>
+      <ng-container *ngSwitchCase="conventionType.PCTConvention">PCT (Конвенционная)</ng-container>
+      <ng-container *ngSwitchCase="conventionType.EurasianApplication">На основе евразийской заявки</ng-container>
+      <ng-container *ngSwitchDefault>Если Вы видите это сообщение, пожалуйста, обратитесь к разработчику.</ng-container>
+    </h1>
+
+    <!-- PCT -->
+    <mat-expansion-panel
+      class="form__category"
+      *ngIf="applicationType === protectionDocTypes.Invention"
+      expanded
+    >
+      <mat-expansion-panel-header>
+        <h1 class="form__title">PCT</h1>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let configuration of pctConfigurations">
+        <app-priority-container
+          class="form__block"
+          [configuration]="configuration"
+          [dataSource]="storage[configuration.name].data"
+          [isChecked]="storage[configuration.name].active"
+          [canEdited]="editMode"
+          [edit]="edit"
+          [needSubmit]="needSubmit"
+          (toggle)="onToggle($event)"
+          (update)="onCanSubmitUpdate(configuration.name, $event)"
+        ></app-priority-container>
+      </ng-container>
+    </mat-expansion-panel>
+
+    <!-- Евразийская заявка -->
+    <mat-expansion-panel
+      class="form__category"
+      *ngIf="false"
+      expanded
+    >
+      <mat-expansion-panel-header>
+        <h1 class="form__title">На основе евразийской заявки</h1>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let configuration of eurasianApplicationConfigurations">
+        <app-priority-container
+          class="form__block"
+          [configuration]="configuration"
+          [dataSource]="storage[configuration.name].data"
+          [isChecked]="storage[configuration.name].active"
+          [canEdited]="editMode"
+          [edit]="edit"
+          [needSubmit]="needSubmit"
+          (toggle)="onToggle($event)"
+          (update)="onCanSubmitUpdate(configuration.name, $event)"
+        ></app-priority-container>
+      </ng-container>
+    </mat-expansion-panel>
+
+    <!-- Приоритетные данные -->
+    <mat-expansion-panel
+      class="form__category"
+      expanded
+    >
+      <mat-expansion-panel-header>
+        <h1 class="form__title">Приоритетные данные</h1>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let configuration of priorityDataConfigurations">
+        <app-priority-container
+          class="form__block"
+          [configuration]="configuration"
+          [dataSource]="storage[configuration.name].data"
+          [isChecked]="storage[configuration.name].active"
+          [canEdited]="editMode"
+          [edit]="edit"
+          [needSubmit]="needSubmit"
+          (toggle)="onToggle($event)"
+          (update)="onCanSubmitUpdate(configuration.name, $event)"
+          *ngIf="configuration.available ? configuration.available(applicationType) : storage[configuration.name].data.length > 0"
+        ></app-priority-container>
+      </ng-container>
+    </mat-expansion-panel>
+  </form>
+  <!-- Buttons -->
+  <div
+    class="actions-container ac-bottom ac-right"
+    fxLayout="row"
+    *ngIf="!isChangeMode"
+  >
+    <div class="read-mode-actions" *ngIf="isDisabled()">
+      <button
+        mat-fab
+        type="button"
+        (click)="onEdit()"
+        [disabled]="isDisabledEditButton()"
+        color="accent"
+        i18n-matTooltip="@@editTooltip"
+        matTooltip="Edit"
+        matTooltipPosition="above"
+      >
+        <mat-icon>mode_edit</mat-icon>
+      </button>
+    </div>
+    <div class="edit-mode-actions" *ngIf="editMode">
+      <button
+        mat-mini-fab
+        type="button"
+        (click)="onUndo()"
+        [color]="formGroup.dirty ? 'warn' : 'accent'"
+        i18n-matTooltip="@@undoTooltip"
+        matTooltip="Undo"
+        matTooltipPosition="above"
+      >
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button
+        mat-fab
+        type="submit"
+        [disabled]="isDisabledSaveButton()"
+        color="primary"
+        i18n-matTooltip="@@saveTooltip"
+        matTooltip="Save"
+        matTooltipPosition="above"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+  </div>
+</form>

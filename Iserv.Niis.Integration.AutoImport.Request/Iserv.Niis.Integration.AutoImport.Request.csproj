@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
+    <PackageReference Include="FluentScheduler" Version="5.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Logging" Version="5.5.0" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Niis.BusinessLogic\Iserv.Niis.BusinessLogic.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Business\Iserv.Niis.Business.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DataAccess.EntityFramework\Iserv.Niis.DataAccess.EntityFramework.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DI\Iserv.Niis.DI.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Documents\Iserv.Niis.Documents.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Exceptions\Iserv.Niis.Exceptions.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Infrastructure\Iserv.Niis.Infrastructure.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Model\Iserv.Niis.Model.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.WorkflowBusinessLogic\Iserv.Niis.WorkflowBusinessLogic.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.WorkflowServices\Iserv.Niis.WorkflowServices.csproj" />
+    <ProjectReference Include="..\Niis.Services\Niis.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

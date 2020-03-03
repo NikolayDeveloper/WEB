@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iserv.Niis.Integration.OneC.API", "Iserv.Niis.Integration.OneC.API\Iserv.Niis.Integration.OneC.API.csproj", "{13CD1507-262A-4DB0-9218-AA66A310DAEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iserv.Niis.Integration.OneC.Infrastructure", "Iserv.Niis.Integration.OneC.Infrastructure\Iserv.Niis.Integration.OneC.Infrastructure.csproj", "{F07037B0-F56C-4B16-AC44-6F2875F0C49A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iserv.Niis.Integration.OneC.Model", "Iserv.Niis.Integration.OneC.Model\Iserv.Niis.Integration.OneC.Model.csproj", "{EED0AFCA-6643-460B-9101-9E84BB93A6FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Iserv.Niis.Exceptions", "..\Iserv.Niis.Exceptions\Iserv.Niis.Exceptions.csproj", "{8BF478E4-BFD8-4625-AC8A-F7A5E898F69E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Iserv.Niis.Integration.ApiResult", "..\Iserv.Niis.Integration.ApiResult\Iserv.Niis.Integration.ApiResult.csproj", "{865E73F4-F7C0-4A7A-9756-A77B5C5E6933}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13CD1507-262A-4DB0-9218-AA66A310DAEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13CD1507-262A-4DB0-9218-AA66A310DAEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13CD1507-262A-4DB0-9218-AA66A310DAEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13CD1507-262A-4DB0-9218-AA66A310DAEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F07037B0-F56C-4B16-AC44-6F2875F0C49A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F07037B0-F56C-4B16-AC44-6F2875F0C49A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F07037B0-F56C-4B16-AC44-6F2875F0C49A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F07037B0-F56C-4B16-AC44-6F2875F0C49A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EED0AFCA-6643-460B-9101-9E84BB93A6FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EED0AFCA-6643-460B-9101-9E84BB93A6FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EED0AFCA-6643-460B-9101-9E84BB93A6FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EED0AFCA-6643-460B-9101-9E84BB93A6FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BF478E4-BFD8-4625-AC8A-F7A5E898F69E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BF478E4-BFD8-4625-AC8A-F7A5E898F69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BF478E4-BFD8-4625-AC8A-F7A5E898F69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BF478E4-BFD8-4625-AC8A-F7A5E898F69E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{865E73F4-F7C0-4A7A-9756-A77B5C5E6933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{865E73F4-F7C0-4A7A-9756-A77B5C5E6933}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{865E73F4-F7C0-4A7A-9756-A77B5C5E6933}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{865E73F4-F7C0-4A7A-9756-A77B5C5E6933}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FA7F78D-59AC-4AE9-AED1-3634B1D9A5D1}
+	EndGlobalSection
+EndGlobal

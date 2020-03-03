@@ -1,0 +1,49 @@
+<div
+    fxFlexFill
+    fxLayout="column"
+>
+    <nav
+        mat-tab-nav-bar
+        class="tabs-colored-light tabs-small"
+    >
+        <a
+            mat-tab-link
+            [routerLink]="['trademark']"
+            routerLinkActive
+            #trademarkLinkActive="routerLinkActive"
+            [active]="trademarkLinkActive.isActive"
+            i18n="@@textTrademark"
+        >Trademark</a>
+        <a
+            mat-tab-link
+            [routerLink]="['invention']"
+            routerLinkActive
+            #inventionLinkActive="routerLinkActive"
+            [active]="inventionLinkActive.isActive"
+            i18n="@@textInvention"
+        >Invention</a>
+        <a
+            mat-tab-link
+            [routerLink]="['usefulmodel']"
+            routerLinkActive
+            #usefulmodelLinkActive="routerLinkActive"
+            [active]="usefulmodelLinkActive.isActive"
+            i18n="@@textUsefulmodel"
+        >Useful model</a>
+        <a
+            mat-tab-link
+            [routerLink]="['industrialdesign']"
+            routerLinkActive
+            #industrialdesignLinkActive="routerLinkActive"
+            [active]="industrialdesignLinkActive.isActive"
+            i18n="@@textIndustrialdesign"
+        >Industrial design</a>
+    </nav>
+    <div class="tab-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<spinner
+    backgroundColor="#00695c"
+    spinner="sk-cube-grid"
+></spinner>

@@ -1,0 +1,32 @@
+<div
+  fxFlexFill
+  fxLayout="column"
+>
+  <mat-tab-group
+    class="tabs-small tabs-colored-light"
+    [selectedIndex]="0"
+  >
+    <mat-tab
+      label="Search"
+      i18n-label="@@tabSearch"
+    >
+      <app-industrialdesign
+        [checkable]="true"
+        [checkedIndustrialDesignDtos]="checkedSearchDtos"
+        (checkChanged)="onCheckChanged($event)"
+      ></app-industrialdesign>
+    </mat-tab>
+    <mat-tab
+      label="Similar Protection Docs"
+      i18n-label="@@tabSimilarProtectionDocs"
+    >
+      <app-similar-protection-docs
+        [requestId]="requestId"
+        [checkedSearchDtos]="checkedSearchDtos"
+        [protectionDocTypeCode]="'S2'"
+        (delete)="onDelete($event)"
+        (save)="onSave($event)">
+      </app-similar-protection-docs>
+    </mat-tab>
+  </mat-tab-group>
+</div>

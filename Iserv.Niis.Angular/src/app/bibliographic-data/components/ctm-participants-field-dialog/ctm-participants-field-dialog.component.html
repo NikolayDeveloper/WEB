@@ -1,0 +1,32 @@
+<form class="form-full-width" fxFlexFill [formGroup]="formGroup">
+  <h1 mat-dialog-title i18n="Заполните значение!">Заполните значение!</h1>
+  <div mat-dialog-content>
+    <app-common-input-string
+      i18n-placeholder="@@inputColectiveTrademarkParticipantsInfo"
+      placeholder="Colective Trademark Participants Info"
+      formControlName="colectiveTrademarkParticipantsInfo"
+    ></app-common-input-string>
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button
+      mat-button
+      type="button"
+      color="warn"
+      (click)="onCancel()"
+      i18n="@@textCancel"
+    >
+      Cancel
+    </button>
+    <button
+      [disabled]="formGroup.invalid"
+      mat-button
+      type="button"
+      color="primary"
+      (click)="onOk()"
+      i18n="@@textOk"
+    >
+      OK
+    </button>
+  </div>
+</form>

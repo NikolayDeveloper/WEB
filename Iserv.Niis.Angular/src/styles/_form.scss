@@ -1,0 +1,226 @@
+@import 'theme';
+@import 'mixin';
+
+$font-size: 14px;
+$height: 42px;
+$primary-color: map-get($primary, 800);
+$border-color: lightgray;
+
+.form-full-width{
+    .mat-form-field {
+        width: 100%;
+    }
+}
+
+.form-medium-input {
+  .mat-form-field, .mat-checkbox {
+    min-width: 60px;
+    height: 42px;
+    font-size: $font-size;
+  }
+
+  .mat-input-wrapper {
+    padding-bottom: 1em;
+  }
+}
+
+  .form-small-input {
+    font-size: 14px;
+    .mat-form-field{
+      height: 32px;
+    }
+
+    .mat-input-wrapper {
+      padding-bottom: .75em;
+      .mat-form-field-label-wrapper {
+        top: -.6em;
+        padding-top: -.6em;
+      }
+
+      mat-datepicker-toggle {
+        mat-icon {
+          margin-top: -6px;
+        }
+      }
+    }
+
+    .mat-input-placeholder, .mat-input-element {
+      font-size: 12px;
+      width: inherit !important;
+    }
+  }
+
+  .operator-mat-select {
+    width: 60px !important;
+
+    .mat-select-trigger {
+      min-width: 60px;
+      width: 38px;
+      // .mat-select-placeholder {
+      //     width: 30px!important;
+      // }
+    }
+  }
+
+
+
+    .check-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+
+  .mat-select-disabled .mat-select-value, .mat-checkbox-disabled .mat-checkbox-label {
+    color: black !important;
+    cursor: not-allowed !important;
+  }
+
+  .mat-form-field {
+    .mat-input-element:disabled, .mat-checkbox-disabled .mat-checkbox-label {
+      color: black;
+      cursor: not-allowed;
+    }
+  }
+
+  form div.container {
+    min-height: 720px;
+    min-width: 1280px;
+    height: calc(100vh - 140px);
+  }
+
+  .content-wrapper {
+    padding: 16px;
+
+    h4 {
+      margin: 0 0 4px;
+      border-left: 4px solid map-get($accent, 800);
+      padding-left: 4px;
+      color: map-get($primary, 800);
+
+      &:not(:first-child) {
+        margin-top: 32px;
+      }
+    }
+  }
+
+  .dialog-content-wrapper {
+    max-height: inherit;
+    padding: 16px;
+    justify-content: space-between;
+  }
+
+  .spacer {
+    margin-bottom: 16px;
+  }
+
+  .border-top {
+    border-top: 1px solid $border-color;
+  }
+
+  .border-right {
+    border-right: 1px solid $border-color;
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid $border-color;
+  }
+
+  .border-left {
+    border-left: 1px solid $border-color;
+  }
+  /* Скролл для formarray. 2 элемента */
+  .formarray-container-items-2 {
+    height: 84px;
+    overflow: auto;
+  }
+  /* Скролл для formarray. 3 элемента */
+  .formarray-container-items-3 {
+    height: 126px;
+    overflow: auto;
+  }
+  /* Скролл для formarray. 4 элемента */
+  .formarray-container-items-4 {
+    height: 300px;
+    overflow: auto;
+  }
+
+  .formarray-container-items-5 {
+    height: 500px;
+    overflow: auto;
+  }
+
+  .formarray-container-items-max {
+    height: 800px;
+    overflow: auto;
+  }
+
+  .container-height-90 {
+    min-height: 90%;
+    max-height: 90%;
+    overflow: auto;
+  }
+
+  .attachment-form-group {
+    h5 {
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
+  }
+
+  .help-icon {
+    opacity: .4;
+    height: 8px!important;
+    width: 16px!important;
+    font-size: 18px!important;
+    cursor: pointer;
+
+    &:hover {
+      opacity: inherit;
+    }
+  }
+
+  .material-tree {
+    border: 0px !important;
+    margin-top: 14px;
+    width: auto !important;
+    max-width: 400px;
+
+    .ui-treenode-icon {
+      color: rgba(0,0,0,.54);
+    }
+  }
+
+  .tree-height-196 {
+    max-height: 196px;
+    overflow: auto;
+  }
+
+  .tree-height-240 {
+    max-height: 240px;
+    overflow: auto;
+}
+
+.material-tree-fill {
+    border: 0px !important;
+    margin-top: 0px;
+    width: auto !important;
+    max-width: 100%;
+    min-height: 100%;
+    height: 100%!important;
+
+    // .ui-tree-container {
+    //   overflow-x: hidden!important;
+    // }
+  }
+
+.mat-slide-toggle .mat-slide-toggle-content {
+  font-size: 12px;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #00695c;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #00a494;
+}

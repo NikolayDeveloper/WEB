@@ -1,0 +1,11 @@
+<app-usefulmodel-form
+  [resultsLength]="resultsLength"
+  (search)="onSearch($event)"
+  (reset)="onReset()"
+></app-usefulmodel-form>
+<app-usefulmodel-list
+  [checkable]="checkable"
+  [checkedUsefulModelDtos]="checkedUsefulModelDtos"
+  (resultsLength)="resultsLength.next($event)"
+  (checkChanged)="checkChanged.emit($event)"
+></app-usefulmodel-list>

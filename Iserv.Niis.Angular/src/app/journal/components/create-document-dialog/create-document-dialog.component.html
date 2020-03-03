@@ -1,0 +1,45 @@
+<h2 mat-dialog-title
+    i18n="@@CreateDocumentDialog">Create document dialog</h2>
+<form novalidate
+      [formGroup]="formGroup"
+      (ngSubmit)="onSubmit()"
+      class="form-full-width form-medium-input">
+	<mat-dialog-content>
+		<div class="dialog-content-wrapper">
+			<mat-form-field>
+				<mat-select i18n-placeholder="@@inputDocumentKind"
+				            placeholder="Document kind"
+				            formControlName="kind"
+				            (change)="onKindChange($event.value)">
+					<mat-option *ngFor="let kindDic of documentKindDic"
+					            [value]="kindDic.kind">
+						{{ kindDic.displayValue }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<div *ngIf="(selectedKind===documentKind.Request || selectedKind===documentKind.ProtectionDoc) && !this.ownerId">
+				<mat-form-field>
+					<mat-select i18n-placeholder="@@inputDocumentType"
+					            placeholder="Document type"
+					            formControlName="typeId">
+						<mat-option *ngFor="let selectOption of dicPdTypes"
+						            [value]="selectOption.id">
+							{{ selectOption.nameRu }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button mat-button
+		        type="button"
+		        color="accent"
+		        (click)="onCancel()"
+		        i18n="@@dialogCancel">Cancel</button>
+		<button mat-button
+		        type="submit"
+		        color="primary"		        
+		        i18n="@@dialogCreate">Create</button>
+	</mat-dialog-actions>
+</form>

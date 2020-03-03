@@ -1,0 +1,11 @@
+<app-invention-form
+  [resultsLength]="resultsLength"
+  (search)="onSearch($event)"
+  (reset)="onReset()"
+></app-invention-form>
+<app-invention-list
+  [checkable]="checkable"
+  [checkedInventionDtos]="checkedInventionDtos"
+  (resultsLength)="resultsLength.next($event)"
+  (checkChanged)="checkChanged.emit($event)"
+></app-invention-list>

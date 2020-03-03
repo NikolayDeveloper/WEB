@@ -1,0 +1,158 @@
+<app-sidenav
+  [mode]="'side'"
+  [position]="'start'"
+  [bgc]="'#DFDFDF'"
+  [width]="'320px'"
+  [state]="opened"
+>
+  <app-document-flow-filter sidenav></app-document-flow-filter>
+  <app-sidenav
+    content
+    [bgc]="'white'"
+    [mode]="'over'"
+    [position]="'end'"
+    [state]="tableState"
+    [width]="'365px'"
+    (closed)="closed($event)"
+  >
+    <div sidenav>
+      <app-item-details
+        [ngClass]="{'item-details': !itemDetailsState?.row.taskType}"
+        [itemDetailsState]="itemDetailsState"
+        [clearState]="willClose"
+        (tableState)="detailsSidebarState($event)">
+      </app-item-details>
+    </div>
+    <div class="content-container" content>
+    <div class="search-button">
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="opened = !opened"
+        >
+          <mat-icon *ngIf="!opened">search</mat-icon>
+          <mat-icon *ngIf="opened">arrow_back</mat-icon>
+        </button>
+      </div>
+        <mat-tab-group
+          class="tabs-colored-light tabs-small"
+          (selectedIndexChange)="onSelectedTabChange($event)"
+        >
+          <mat-tab label="Заявки">
+            <ng-container *ngIf="visible[0]">
+              <div class="table-container">
+                <app-table
+                  id="request-table"
+                  [columns]="columns"
+                  [source]="dataSource"
+                  [selectable]="true"
+                  [sortable]="true"
+                  [filterable]="false"
+                  [reset]="resetParams"
+                  [paginable]="true"
+                  [paginatorOnTop]="true"
+                  [addButton]="true"
+                  [importButton]="true"
+                  [sortButton]="true"
+                  [queryData]="requestParams"
+                  [onlyQueriedData]="true"
+                  [isCheckBoxColumn]="true"
+                  [uniqTableName]="'requestDocumentFlow'"
+                  (tableOpened)="tableOpened($event)"
+                  (columnSort)="onColumnsChange($event)"
+                  (onAddButton)="onAddButton($event)"
+                  (onImportButton)="onImportButton($event)"
+                  (checkedData)="checkedData($event)"
+                  (onNumberClicked)="onNumberClicked($event)"
+                  class="table-medium"
+                ></app-table>
+              </div>
+            </ng-container>
+          </mat-tab>
+          <mat-tab label="Договора">
+            <ng-container *ngIf="visible[1]">
+              <div class="table-container">
+                <app-table
+                  id="contract-table"
+                  [columns]="columns"
+                  [source]="dataSource"
+                  [selectable]="true"
+                  [sortable]="true"
+                  [filterable]="false"
+                  [reset]="resetParams"
+                  [paginable]="true"
+                  [paginatorOnTop]="true"
+                  [addButton]="true"
+                  [sortButton]="true"
+                  [queryData]="contractParams"
+                  [onlyQueriedData]="true"
+                  [isCheckBoxColumn]="true"
+                  [uniqTableName]="'contractDocumentFlow'"
+                  (tableOpened)="tableOpened($event)"
+                  (columnSort)="onColumnsChange($event)"
+                  (onAddButton)="onAddButton($event)"
+                  (checkedData)="checkedData($event)"
+                  (onNumberClicked)="onNumberClicked($event)"
+                  class="table-medium"
+                ></app-table>
+              </div>
+            </ng-container>
+          </mat-tab>
+          <mat-tab label="Охранные документы">
+            <ng-container *ngIf="visible[2]">
+              <div class="table-container">
+                <app-table
+                  id="protection-doc-table"
+                  [columns]="columns"
+                  [source]="dataSource"
+                  [selectable]="true"
+                  [sortable]="true"
+                  [filterable]="false"
+                  [reset]="resetParams"
+                  [paginable]="true"
+                  [paginatorOnTop]="true"
+                  [addButton]="true"
+                  [sortButton]="true"
+                  [queryData]="protectionDocParams"
+                  [onlyQueriedData]="true"
+                  [isCheckBoxColumn]="true"
+                  [uniqTableName]="'protectionDocDocumentFlow'"
+                  (tableOpened)="tableOpened($event)"
+                  (columnSort)="onColumnsChange($event)"
+                  (onAddButton)="onAddButton($event)"
+                  (checkedData)="checkedData($event)"
+                  (onNumberClicked)="onNumberClicked($event)"
+                  class="table-medium"
+                ></app-table>
+              </div>
+            </ng-container>
+          </mat-tab>
+          <mat-tab label="Материалы">
+            <ng-container *ngIf="visible[3]">
+              <div class="table-container">
+                <app-table
+                  id="material-table"
+                  [columns]="materialColumns"
+                  [source]="matService"
+                  [selectable]="true"
+                  [queryData]="materialParams"
+                  [sortable]="true"
+                  [filterable]="false"
+                  [paginable]="true"
+                  [paginatorOnTop]="true"
+                  [addButton]="true"
+                  [onlyQueriedData]="false"
+                  [sortButton]="true"
+                  [uniqTableName]="'materialDocumentFlow'"
+                  (tableOpened)="tableOpened($event)"
+                  (columnSort)="onColumnsChange($event)"
+                  (onAddButton)="onAddButton($event)"
+                  class="table-medium"
+                ></app-table>
+              </div>
+            </ng-container>
+          </mat-tab>
+        </mat-tab-group>
+    </div>
+  </app-sidenav>
+</app-sidenav>

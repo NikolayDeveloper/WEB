@@ -1,0 +1,84 @@
+@import '~styles/mixin';
+
+.documents {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas: 'search header details' 'search table-list details' 'search table-invoices details';
+  grid-template-columns: 380px 1fr 260px;
+  grid-template-rows: auto 1fr minmax(100px, 1fr);
+}
+
+.documents__search,
+.documents__header {
+  padding: 10px;
+}
+
+.documents__search {
+  border-right: 2px solid map-get($primary, 800);
+  grid-area: search;
+  overflow-y: auto;
+}
+
+.documents__header {
+  border-bottom: 1px solid #ccc;
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .documents__title {
+    margin-bottom: 0;
+    font-size: 20px;
+  }
+}
+
+.documents__buttons {
+  display: flex;
+}
+
+.documents__table {
+  overflow: hidden;
+}
+
+.documents__table-list {
+  grid-area: table-list;
+}
+
+.documents__table-invoices {
+  grid-area: table-invoices;
+}
+
+.documents__details {
+  border-left: 2px solid map-get($primary, 800);
+  grid-area: details;
+  overflow-y: auto;
+
+  app-document-details {
+    display: block;
+  }
+}
+
+.documents__title {
+  margin: 0 0 10px 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/deep/.table-component {
+  height: 100%;
+
+  .headers-element-container {
+    padding: 10px !important;
+  }
+
+  .main-table-container {
+    height: 100% !important;
+    padding: 0 !important;
+  }
+
+  .table-container {
+    height: 100%;
+  }
+}

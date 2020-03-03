@@ -1,0 +1,64 @@
+@import '~styles/mixin';
+
+.payments {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas: 'search header' 'search table-list' 'search table-uses';
+  grid-template-columns: 380px 1fr;
+  grid-template-rows: auto 1fr minmax(100px, 1fr);
+}
+
+.payments__search,
+.payments__header {
+  padding: 10px;
+}
+
+.payments__search {
+  border-right: 2px solid map-get($primary, 800);
+  grid-area: search;
+  overflow-y: auto;
+}
+
+.payments__header {
+  border-bottom: 1px solid #ccc;
+  grid-area: header;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.payments__table {
+  overflow: hidden;
+}
+
+.payments__table-list {
+  grid-area: table-list;
+}
+
+.payments__table-uses {
+  grid-area: table-uses;
+}
+
+.payments__title {
+  margin: 0 0 10px 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/deep/.table-component {
+  height: 100%;
+
+  .headers-element-container {
+    padding: 10px !important;
+  }
+
+  .main-table-container {
+    height: 100% !important;
+    padding: 0 !important;
+  }
+
+  .table-container {
+    height: 100%;
+  }
+}

@@ -1,0 +1,55 @@
+<DIV>Charged Payment Invoices Repots</DIV>
+<div [formGroup]="formGroup"
+     fxLayout="column">
+  <input matInput
+         hidden
+         formControlName="reportCode">
+  <div fxLayout="row">
+    <mat-form-field fxFlex>
+      <input matInput
+             [matDatepicker]="picker"
+             i18n-placeholder="@@inputFromDate"
+             placeholder="From date"
+             formControlName="dateFrom">
+      <mat-datepicker-toggle matSuffix
+                             [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <span fxFlex="5px"></span>
+    <mat-form-field fxFlex>
+      <input matInput
+             [matDatepicker]="topicker"
+             i18n-placeholder="@@inputToDate"
+             placeholder="To date"
+             formControlName="dateTo">
+      <mat-datepicker-toggle matSuffix
+                             [for]="topicker"></mat-datepicker-toggle>
+      <mat-datepicker #topicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <mat-form-field>
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let selectedType of selectedProtectionDocTypes"
+                [removable]="formGroup.controls.pdTypeSearchText.enabled"
+                (remove)="onRemovePdType(selectedType)">
+        {{selectedType.nameRu}}
+        <mat-icon matChipRemove
+                  *ngIf="formGroup.controls.pdTypeSearchText.enabled">cancel</mat-icon>
+      </mat-chip>
+      <input #pdTypeSearchText
+             matInput
+             i18n-placeholder="@@inputIntellectualPropertyType"
+             placeholder="Protection doc types"
+             formControlName="pdTypeSearchText"
+             [matAutocomplete]="auto"
+             [matChipInputFor]="chipList" />
+      <mat-autocomplete #auto
+                        (optionSelected)="pdTypeSearchText.value='';onAddPdType($event)">
+        <mat-option *ngFor="let pdType of dicPdTypes"
+                    [value]="pdType">
+          {{pdType.nameRu}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-chip-list>
+  </mat-form-field>
+</div>

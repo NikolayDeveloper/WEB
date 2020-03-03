@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LinqKit.Core" Version="1.1.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Niis.Authentication\Iserv.Niis.Authentication.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Business\Iserv.Niis.Business.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Common\Iserv.Niis.Common.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DataBridge\Iserv.Niis.DataBridge.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DI\Iserv.Niis.DI.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Documents\Iserv.Niis.Documents.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Domain\Iserv.Niis.Domain.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.FileConverter\Iserv.Niis.FileConverter.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.FileStorage\Iserv.Niis.FileStorage.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Infrastructure\Iserv.Niis.Infrastructure.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Model\Iserv.Niis.Model.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Notifications\Iserv.Niis.Notifications.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Utils\Iserv.Niis.Utils.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.WorkflowBusinessLogic\Iserv.Niis.WorkflowBusinessLogic.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.WorkflowServices\Iserv.Niis.WorkflowServices.csproj" />
+    <ProjectReference Include="..\NetCoreRules\NetCoreRules.csproj" />
+    <ProjectReference Include="..\NetCoreWorkflow\NetCoreWorkflow.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Data.Entity" />
+  </ItemGroup>
+
+</Project>

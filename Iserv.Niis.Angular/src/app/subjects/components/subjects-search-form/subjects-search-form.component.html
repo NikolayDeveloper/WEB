@@ -1,0 +1,163 @@
+<!-- [ngClass]="{ 'input-invalid': !this.formGroup.controls.addresseeId.value }" -->
+<div
+  novalidate
+  [formGroup]="formGroup"
+  class="component"
+>
+  <input [class.hidden]="true" formControlName="addresseeId" />
+  <div fxLayout="row">
+    <div class="group" fxLayout="row" fxFlex="48">
+      <!-- ИИН -->
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="XIN"
+          type="string"
+          maxlength="12"
+          (input)="parseToNumeric($event)"
+          formControlName="addresseeXin"
+          i18n-placeholder="@@textXin"
+          i18n-matTooltip="@@InsertXinTooltip"
+          matTooltip="Insert XIN"
+          matTooltipPosition="above"
+        />
+        <mat-error i18n="@@errorXin">Please enter a valid xin</mat-error>
+      </mat-form-field>
+      <span fxFlex="4"></span>
+      <button
+        type="button"
+        mat-mini-fab
+        color="primary"
+        (click)="onFindCustomerClick()"
+        i18n-matTooltip="@@searchTooltip"
+        matTooltip="Search for customer"
+        matTooltipPosition="above"
+        [disabled]="!editMode"
+      >
+        <mat-icon>zoom_in</mat-icon>
+      </button>
+    </div>
+    <span fxFlex="4"></span>
+    <!-- Адресат -->
+    <mat-form-field fxFlex="48">
+      <!-- <textarea
+        class="addressee-textarea"
+        matInput
+        i18n-placeholder="@@inputAddressee"
+        placeholder="Addressee"
+        formControlName="addresseeNameRu"
+      ></textarea> -->
+      <input
+        matInput
+        i18n-placeholder="@@inputAddressee"
+        placeholder="Addressee"
+        formControlName="addresseeNameRu"
+      >
+      <button mat-button
+              [matTooltip]="formGroup.value.addresseeNameRu"
+              matTooltipPosition="above"
+              matSuffix mat-icon-button>
+        <mat-icon>help</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxflex="100" class="expansion-panel">
+    <mat-expansion-panel [expanded]="false" fxFill>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <!-- Адрес -->
+          <mat-form-field>
+            <!-- <textarea
+              matInput
+              [matAutocomplete]="auto"
+              i18n-placeholder="@@inputAddress"
+              placeholder="Address"
+              formControlName="addresseeAddress"
+              i18n-matTooltip="@@InsertAddressTooltip"
+              matTooltip="Insert address"
+              matTooltipPosition="above"
+              (keypress)="onAddressKeyPress($event)"
+            ></textarea> -->
+            <input
+              matInput
+              [matAutocomplete]="auto"
+              i18n-placeholder="@@inputAddress"
+              placeholder="Address"
+              formControlName="addresseeAddress"
+              i18n-matTooltip="@@InsertAddressTooltip"
+              matTooltip="Insert address"
+              matTooltipPosition="above"
+              (keypress)="onAddressKeyPress($event)"
+            >
+          </mat-form-field>
+
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let addr of filteredPostAddresses"
+              [value]="getAddresseeAddress(addr)"
+              (onSelectionChange)="onAddressSelect(addr)"
+            >
+              {{ getFullAdress(addr) }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div fxLayout="column" fxFlexFill>
+        <!-- <div fxLayout="row" fxFlex="100"> -->
+            <!--Республика-->
+            <app-common-input-string
+              formControlName="republic"
+              placeholder="Republic"
+              i18n-placeholder="@@republic"
+            ></app-common-input-string>
+            <!-- <span fxFlex="4"></span> -->
+            <!--Область-->
+            <app-common-input-string
+              formControlName="oblast"
+              placeholder="Oblast"
+              i18n-placeholder="@@oblast"
+            ></app-common-input-string>
+            <!-- <span fxFlex="4"></span> -->
+            <!--Район-->
+            <app-common-input-string
+              formControlName="region"
+              placeholder="Region"
+              i18n-placeholder="@@region"
+            ></app-common-input-string>
+            <!-- <span fxFlex="4"></span> -->
+            <!--Город-->
+            <app-common-input-string
+              formControlName="city"
+              placeholder="City"
+              i18n-placeholder="@@city"
+            ></app-common-input-string>
+            <!-- <span fxFlex="4"></span> -->
+            <!--Улица-->
+            <app-common-input-string
+              formControlName="street"
+              placeholder="Street"
+              i18n-placeholder="@@street"
+            ></app-common-input-string>
+        <!-- </div> -->
+      </div>
+    </mat-expansion-panel>
+  </div>
+  <div class="spacer"></div>
+  <div fxLayout="row">
+    <!-- Квартира/Офис -->
+    <app-common-input-string
+      fxFlex="48"
+      i18n-placeholder="@@inputApartment"
+      placeholder="Apartment"
+      formControlName="apartment"
+    ></app-common-input-string>
+    <span fxFlex="4"></span>
+    <!-- Email -->
+    <app-common-input-string
+      fxFlex="48"
+      *ngIf="isVisableEmail()"
+      placeholder="Email"
+      formControlName="addresseeEmail"
+    ></app-common-input-string>
+  </div>
+</div>

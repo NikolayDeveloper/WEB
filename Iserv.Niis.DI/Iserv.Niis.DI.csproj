@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Niis.Authentication\Iserv.Niis.Authentication.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Business\Iserv.Niis.Business.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DataBridge\Iserv.Niis.DataBridge.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Documents.UserInput\Iserv.Niis.Documents.UserInput.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Documents\Iserv.Niis.Documents.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Domain\Iserv.Niis.Domain.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.FileConverter\Iserv.Niis.FileConverter.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.FileStorage\Iserv.Niis.FileStorage.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Infrastructure\Iserv.Niis.Infrastructure.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.InternalServices.Features\Iserv.Niis.InternalServices.Features.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Utils\Iserv.Niis.Utils.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+.linked-payments-dialog {
+  ::ng-deep .headers-element-container {
+    display: none;
+  }
+
+  ::ng-deep .table-container {
+    height: 100%;
+  }
+
+  ::ng-deep .main-table-container {
+    height: 100%;
+  }
+
+  ::ng-deep app-table {
+    height: 100%;
+  }
+
+  ::ng-deep .table-medium .mat-row {
+    min-height: 24px;
+  }
+
+  ::ng-deep .mat-table {
+    width: 100%;
+    display: table !important;
+    overflow-x: auto;
+  }
+
+  .grid-area {
+    height: 300px;
+  }
+}

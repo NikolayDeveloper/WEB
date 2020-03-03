@@ -1,0 +1,41 @@
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+::ng-deep.form {
+  .form__title {
+    margin: 0;
+  }
+
+  .form__group {
+    display: flex;
+    align-items: center;
+
+    mat-form-field {
+      &:not(:last-child) {
+        margin-right: 1.25em;
+      }
+    }
+
+    app-contacts {
+      max-width: 50%;
+      width: 100%;
+      margin-bottom: 1.25em;
+      box-sizing: border-box;
+      display: block;
+
+      &:not(:first-child) {
+        padding-left: 0.625em;
+      }
+
+      &:not(:last-child) {
+        padding-right: 0.625em;
+      }
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}

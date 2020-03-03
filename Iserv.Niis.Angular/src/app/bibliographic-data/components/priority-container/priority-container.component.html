@@ -1,0 +1,100 @@
+<mat-checkbox
+  [disabled]="!canEdited"
+  [(ngModel)]="isChecked"
+  (input)="onToggle()"
+>{{ configuration.title }}</mat-checkbox>
+<ng-container *ngIf="isChecked">
+  <form
+    class="form"
+    [formGroup]="formGroup"
+    *ngIf="canEdited"
+  >
+    <div
+      class="form__group"
+      *ngFor="let group of fieldGroups"
+    >
+      <ng-container *ngFor="let field of group">
+        <ng-container *ngIf="field.type === controlType.Input">
+          <mat-form-field>
+            <input
+              matInput
+              [placeholder]="field.placeholder"
+              [disabled]="field.disabled"
+              [required]="field.required"
+              [formControlName]="field.name"
+            >
+          </mat-form-field>
+        </ng-container>
+        <ng-container *ngIf="field.type === controlType.Select">
+          <mat-form-field>
+            <mat-select
+              [placeholder]="field.placeholder"
+              [disabled]="field.disabled"
+              [required]="field.required"
+              [formControlName]="field.name"
+            >
+              <mat-option
+                *ngFor="let entry of configuration.values[field.name]"
+                [value]="entry.id"
+              >{{ entry.value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+        <ng-container *ngIf="field.type === controlType.Date">
+          <mat-form-field>
+            <input
+              matInput
+              [placeholder]="field.placeholder"
+              [disabled]="field.disabled"
+              [required]="field.required"
+              [matDatepicker]="date"
+              [formControlName]="field.name"
+            >
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="date"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #date></mat-datepicker>
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
+    </div>
+    <button
+      mat-button
+      (click)="add()"
+      [disabled]="isDisabled()"
+    >Добавить</button>
+  </form>
+  <div class="table-wrapper">
+    <mat-table
+      #table
+      [dataSource]="dataSource"
+      *ngIf="dataSource.length"
+    >
+      <ng-container *ngFor="let field of configuration.fields">
+        <ng-container [matColumnDef]="field.name">
+          <mat-header-cell *matHeaderCellDef>{{ field.placeholder }}</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <ng-container *ngIf="field.type === controlType.Input">{{ element[field.name] }}</ng-container>
+            <ng-container *ngIf="field.type === controlType.Select">{{ getValue(field.name, element[field.name]) }}</ng-container>
+            <ng-container *ngIf="field.type === controlType.Date">{{ toDate(element[field.name]) }}</ng-container>
+          </mat-cell>
+        </ng-container>
+      </ng-container>
+      <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index">
+          <button
+            mat-icon-button
+            [disabled]="!canEdited"
+            (click)="remove(i)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</ng-container>

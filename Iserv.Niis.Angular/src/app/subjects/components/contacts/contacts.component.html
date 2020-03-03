@@ -1,0 +1,53 @@
+<mat-card>
+  <mat-card-subtitle [class.is-empty]="data.length === 0">
+    <button
+      mat-icon-button
+      (click)="add()"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+    {{ placeholder }}
+  </mat-card-subtitle>
+  <mat-card-content>
+    <form [formGroup]="formGroup">
+      <div
+        class="form"
+        formArrayName="items"
+      >
+        <div
+          class="form__group"
+          *ngFor="let entry of data; let index = index"
+        >
+          <mat-form-field>
+            <input
+              matInput
+              [type]="types[type]"
+              [imask]="{ mask: masks[type] }"
+              maxlength="255"
+              [value]="entry.value"
+              (input)="update()"
+              [formControlName]="index"
+              *ngIf="masks[type]"
+            >
+            <input
+              matInput
+              [type]="types[type]"
+              maxlength="255"
+              [value]="entry.value"
+              (input)="update()"
+              [formControlName]="index"
+              *ngIf="!masks[type]"
+            >
+            <mat-hint *ngIf="isHintVisible(index)">Например, {{ hints[types[type]] }}</mat-hint>
+          </mat-form-field>
+          <button
+            mat-icon-button
+            (click)="delete(index)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,45 @@
+<div fxLayout="column"
+     fxFlexFill
+     class="form-full-width">
+        <mat-form-field fxFlex="80">
+                <mat-select [(value)]="selectedIcgs"
+                            i18n-placeholder="@@inputICGS"
+                            placeholder="ICGS">
+                        <mat-option *ngFor="let selectOption of icgs"
+                                    [value]="selectOption.id"
+                                    [disabled]="isIcgsAlreadySelected(selectOption.id)">
+                                {{ selectOption.nameRu }}
+                        </mat-option>
+                </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+                <textarea [(ngModel)]="claimedDescription"
+                          rows="7"
+                          matInput
+                          i18n-placeholder="@@ClaimedDescriptionICGS"
+                          placeholder="Claimed Description"></textarea>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+                <textarea [(ngModel)]="claimedDescriptionEn"
+                          rows="7"
+                          matInput
+                          i18n-placeholder="@@ClaimedDescriptionEnICGS"
+                          placeholder="Claimed DescriptionEn"></textarea>
+        </mat-form-field>
+        <div mat-dialog-actions
+             align="end"
+             fxFlex="65px">
+                <button mat-button
+                        type="button"
+                        color="warn"
+                        mat-dialog-close
+                        (click)="onCancel()"
+                        i18n="@@textCancel">Cancel</button>
+                <button mat-button
+                        type="button"
+                        [disabled]="isDisabledButtonSave()"
+                        color="primary"
+                        (click)="onOk()"
+                        i18n="@@textOk">OK</button>
+        </div>
+</div>

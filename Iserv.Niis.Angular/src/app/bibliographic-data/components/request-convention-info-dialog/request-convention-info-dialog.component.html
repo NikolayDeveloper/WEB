@@ -1,0 +1,91 @@
+<div [formGroup]="formGroup"
+     fxLayout="column"
+     fxFlexFill
+     class="form-full-width">
+        <mat-dialog-content fxLayout="column">
+                <input hidden
+                       formControlName="id">
+                <!-- Регистрационный номер международной заявки -->
+                <app-common-input-string i18n-placeholder="@@inputRegistrationNumber"
+                                         placeholder="Registration number"
+                                         formControlName="regNumberInternationalApp"></app-common-input-string>
+                <span fxFlex="3"></span>
+                <!-- Дата подачи международной заявки -->
+                <mat-form-field>
+                        <input matInput
+                               [matDatepicker]="DateInternationalApp"
+                               i18n-placeholder="@@inputDateInternationalApp"
+                               placeholder="Date International App"
+                               formControlName="dateInternationalApp">
+                        <mat-datepicker-toggle matSuffix
+                                               [for]="DateInternationalApp">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #DateInternationalApp></mat-datepicker>
+                </mat-form-field>
+                <span fxFlex="3"></span>
+                <!-- Тип -->
+                <mat-form-field>
+                        <mat-select i18n-placeholder="@@inputEarlyRegType"
+                                    placeholder="EarlyRegType"
+                                    formControlName="earlyRegTypeId">
+                                <mat-option *ngFor="let selectOption of earlyRegTypes"
+                                            [value]="selectOption.id">
+                                        {{selectOption.nameRu}}
+                                </mat-option>
+                        </mat-select>
+                </mat-form-field>
+                <span fxFlex="3"></span>
+                <app-common-autocomplete [dictionary]="countries"
+                                         i18n-placeholder="@@inputCountryInternationalApp"
+                                         placeholder="Country International App"
+                                         formControlName="countryId"
+                                         fxFlex></app-common-autocomplete>
+                <span fxFlex="3"></span>
+
+                <!--Глава РСТ -->
+                <app-common-input-string i18n-placeholder="@@inputheadIps"
+                                         placeholder="Head IPS"
+                                         formControlName="headIps"></app-common-input-string>
+                <span fxFlex="3"></span>
+                <!-- Срок вхождения в национальную фазу по 1-й главе -->
+                <mat-form-field>
+                        <input matInput
+                               [matDatepicker]="RermNationalPhaseFirsChapter"
+                               i18n-placeholder="@@inputRermNationalPhaseFirsChapter"
+                               placeholder="Rerm National Phase Firs Chapter"
+                               formControlName="termNationalPhaseFirsChapter">
+                        <mat-datepicker-toggle matSuffix
+                                               [for]="RermNationalPhaseFirsChapter">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #RermNationalPhaseFirsChapter></mat-datepicker>
+                </mat-form-field>
+                <span fxFlex="3"></span>
+                <!-- Срок вхождения в национальную фазу по 2-й главе-->
+                <mat-form-field>
+                        <input matInput
+                               [matDatepicker]="TermNationalPhaseSecondChapter"
+                               i18n-placeholder="@@inputTermNationalPhaseSecondChapter"
+                               placeholder="Term National Phase Second Chapter"
+                               formControlName="termNationalPhaseSecondChapter">
+                        <mat-datepicker-toggle matSuffix
+                                               [for]="TermNationalPhaseSecondChapter">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #TermNationalPhaseSecondChapter></mat-datepicker>
+                </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end"
+                            fxFlex="65px">
+                <button mat-button
+                        type="button"
+                        color="warn"
+                        mat-dialog-close
+                        (click)="onCancel()"
+                        i18n="@@textCancel">Cancel</button>
+                <button mat-button
+                        type="button"
+                        [disabled]="formGroup.invalid || formGroup.pristine"
+                        color="primary"
+                        (click)="onOk()"
+                        i18n="@@textOk">OK</button>
+        </mat-dialog-actions>
+</div>

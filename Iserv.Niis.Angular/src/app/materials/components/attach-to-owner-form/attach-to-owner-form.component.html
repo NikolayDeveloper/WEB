@@ -1,0 +1,55 @@
+<div fxLayout="row"
+     [formGroup]="formGroup">
+  <!--Номера заявок-->
+  <app-common-input-string fxFlex
+                           placeholder="{{placeholder}}"
+                           formControlName="numbers"
+                           *ngIf="!hasOwners()"></app-common-input-string>
+  <div fxFlex *ngIf="hasOwners()">
+    <ul *ngIf="areOwnersRequest()"
+      placeholder="Request numbers"
+      i18n-placeholder="@@inputRequestNumber">
+      <li *ngFor="let item of requestNumbers">
+          <Label href="javascript:;" (click)="requestOnClick(item.id)">{{item.value}}</Label>
+          <a href="javascript:;" *ngIf="!disabled" aria-placeholder="Удалить" (click)="remove(item.id)">x</a>
+      </li>
+    </ul>
+    <ul *ngIf="areOwnersProtectionDoc()"
+      placeholder="Protection doc numbers"
+      i18n-placeholder="@@inputProtectionDocNumber">
+      <li *ngFor="let item of protectioNumbers">
+          <Label href="javascript:;" (click)="protectioOnClick(item.id)">{{item.value}}</Label>
+          <a href="javascript:;" *ngIf="!disabled" aria-placeholder="Удалить" (click)="remove(item.id)">x</a>
+      </li>
+    </ul>
+    <ul *ngIf="areOwnersContract()"
+      placeholder="Contract numbers"
+      i18n-placeholder="@@inputContractNumber">
+      <li *ngFor="let item of contractNumbers">
+          <Label href="javascript:;" (click)="contractOnClick(item.id)">{{item.value}}</Label>
+          <a href="javascript:;" *ngIf="!disabled" aria-placeholder="Удалить" (click)="remove(item.id)">x</a>
+      </li>
+    </ul>
+  </div>
+  <span fxflex="4"></span>
+  <input hidden
+         [value]="owners"
+         formControlName="owners">
+  <button type="button"
+          [disabled]="disabled || this.owners.length === 0"
+          mat-icon-button
+          color="primary"
+          placeholder="Clear"
+          (click)="onClearClick()">
+    <mat-icon>clear</mat-icon>
+  </button>
+  <button type="button"
+          [disabled]="disabled"
+          mat-icon-button
+          color="primary"
+          i18n-placeholder="@@textSelect"
+          placeholder="Select"
+          (click)="onSearchClick()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

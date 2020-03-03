@@ -1,0 +1,68 @@
+<div mat-dialog-content>
+  <mat-form-field>
+    <textarea disabled
+              matInput
+              i18n-placeholder="@@DicDescriptionICGS"
+              placeholder="Dictionary Description"
+              value="{{dicICGS.description}}"
+              rows="6"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea disabled
+              matInput
+              i18n-placeholder="@@ClaimedDescriptionICGS"
+              placeholder="Claimed Description"
+              value="{{icgsRequest.claimedDescription}}"
+              rows="6"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea disabled
+              matInput
+              i18n-placeholder="@@ClaimedDescriptionEnICGS"
+              placeholder="Claimed DescriptionEn"
+              value="{{icgsRequest.claimedDescriptionEn}}"
+              rows="6"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea [disabled]="!canEdit"
+              [(ngModel)]="icgsRequest.description"
+              matInput
+              i18n-placeholder="@@DescriptionICGS"
+              placeholder="Description"
+              rows="6"></textarea>
+  </mat-form-field>
+  <mat-form-field fxFlex
+                  *ngIf="isPartialRefused && data.isStageFullExpertise">
+    <textarea [disabled]="!data.isEdit"
+              rows="5"
+              matInput
+              i18n-placeholder="@@ReasonForPartialRefusedICGS"
+              placeholder="Reason For Partial Refused"
+              [(ngModel)]="reasonForPartialRefused"></textarea>
+  </mat-form-field>
+  <section fxLayout="row"
+           fxLayoutAlign="space-around center"
+           *ngIf="data.isStageFullExpertise">
+    <mat-checkbox [(ngModel)]="isRefused"
+                  i18n="@@textIsRefused"
+                  [disabled]="!data.isEdit"
+                  (change)="changeRefuse()">Is Refused</mat-checkbox>
+    <mat-checkbox [(ngModel)]="isPartialRefused"
+                  i18n="@@textIsPartialRefused"
+                  [disabled]="!data.isEdit"
+                  (change)="changePartialRefused()">Is Partial Refused</mat-checkbox>
+  </section>
+</div>
+<div mat-dialog-actions>
+    <button mat-button
+            type="button"
+            color="warn"
+            mat-dialog-close
+            (click)="onCancel()"
+            i18n="@@textCancel">Cancel</button>
+    <button mat-button
+            type="button"
+            color="primary"
+            (click)="onOk()"
+            i18n="@@textOk">OK</button>
+ </div>

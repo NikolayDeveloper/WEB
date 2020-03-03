@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+    <ng-container *ngFor="let part of message">
+        <p class="message">{{ part }}</p>
+    </ng-container>
+</mat-dialog-content>

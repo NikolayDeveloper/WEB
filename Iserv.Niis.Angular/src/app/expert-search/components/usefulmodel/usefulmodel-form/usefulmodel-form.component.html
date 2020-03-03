@@ -1,0 +1,96 @@
+<mat-expansion-panel class="expansion-panel-colored-light" expanded>
+  <mat-expansion-panel-header
+    matTooltip="Expand search form"
+    i18n-matTooltip="@@textExpandSearchForm"
+    matTooltipPosition="below"
+  >
+    <mat-panel-title i18n="@@textSearchForm">Search form</mat-panel-title>
+    <mat-panel-description
+      fxLayout="row"
+      fxLayoutAlign="end center"
+    ></mat-panel-description>
+  </mat-expansion-panel-header>
+  <form
+    #form="ngForm"
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit()"
+  >
+    <div
+      formArrayName="items"
+      fxLayout="row"
+    >
+      <div
+        fxFlex
+        fxLayout="column"
+      >
+        <div *ngFor="let itemGroup of formGroup.controls.items['controls']; let i = index">
+          <div
+            [formGroupName]="i"
+          >
+            <app-dynamic-field
+              [reset]="reset.asObservable()"
+              [hideOperator]="i === 0"
+              [formGroup]="itemGroup"
+              [configs]="configs"
+              [defaultField]="currentFields[i].enum"
+              [canChanged]="currentFields[i].canChanged"
+              [canDeleted]="currentFields[i].canDeleted"
+              [canSelectFirstOption]="currentFields[i].canSelectFirstOption"
+              [index]="i"
+              [filterParams]="getFilterParams()"
+              (enter)="form.ngSubmit.emit()"
+              (delete)="onFieldDelete($event)"
+              (change)="onFieldTypeChanged($event)"
+            ></app-dynamic-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between none"
+    >
+      <button
+        mat-button
+        type="button"
+        (click)="onAddAdditional()"
+      >Add More</button>
+      <span fxFlex="20"></span>
+      <mat-checkbox
+        class="check-input-container"
+        i18n="@@inputActivePatents"
+        formControlName="active"
+      >Active patents</mat-checkbox>
+      <mat-checkbox
+        class="check-input-container"
+        i18n="@@inputInProgress"
+        formControlName="inProgress"
+      >In progress</mat-checkbox>
+      <mat-checkbox
+        class="check-input-container"
+        i18n="@@inputExpiredPatent"
+        formControlName="expired"
+      >Expired patent</mat-checkbox>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="end none"
+      >
+        <button
+          mat-button
+          type="button"
+          [disabled]="(resultsLength | async) <= 0 && formGroup.pristine"
+          color="accent"
+          i18n="@@textReset"
+          (click)="onReset()"
+        >Reset</button>
+        <button
+          mat-button
+          type="submit"
+          [disabled]="formGroup.invalid || formGroup.pristine"
+          color="primary"
+          i18n="@@textSearch"
+        >Search</button>
+      </div>
+    </div>
+  </form>
+</mat-expansion-panel>

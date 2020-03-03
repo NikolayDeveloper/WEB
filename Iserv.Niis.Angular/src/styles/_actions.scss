@@ -1,0 +1,45 @@
+.actions-container {
+    z-index: 1;
+    position: fixed !important;
+
+    button:not(:last-child) {
+        margin-right: 4px;
+    }
+
+    &.ac-top {
+        top: 56px;
+    }
+
+    &.ac-top-menu {
+        top: 8px;
+    }
+
+    &.ac-bottom {
+        bottom: 64px;
+    }
+
+    &.ac-right {
+        right: 24px;
+    }
+
+    .rotate-90 {
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+}
+
+.actions-sub-container {
+    z-index: 1;
+    position: absolute !important;
+
+    &.ac-bottom {
+        bottom: 24px;
+    }
+
+    &.ac-right {
+        right: 24px;
+    }
+}

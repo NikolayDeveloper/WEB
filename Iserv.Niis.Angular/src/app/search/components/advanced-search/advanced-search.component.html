@@ -1,0 +1,64 @@
+<div
+  fxFlexFill
+  fxLayout="column"
+  *ngIf="selectedSearchType === searchType.AdvancedRequest"
+>
+  <app-request-search-form
+    [resultsLength]="resultsLength"
+    (search)="onSearch($event)"
+    (reset)="onReset()"
+    (selectedSearchType)="onSelectedSearchType($event)"
+  ></app-request-search-form>
+  <app-request-search-list
+    fxFlex="grow"
+    (resultsLength)="resultsLength.next($event)"
+  ></app-request-search-list>
+</div>
+<div
+  fxFlexFill
+  fxLayout="column"
+  *ngIf="selectedSearchType === searchType.AdvancedProtectionDoc"
+>
+  <app-protectiondoc-search-form
+    [resultsLength]="resultsLength"
+    (search)="onSearch($event)"
+    (reset)="onReset()"
+    (selectedSearchType)="onSelectedSearchType($event)"
+  ></app-protectiondoc-search-form>
+  <app-protectiondoc-search-list
+    fxFlex="grow"
+    (resultsLength)="resultsLength.next($event)"
+  ></app-protectiondoc-search-list>
+</div>
+<div
+  fxFlexFill
+  fxLayout="column"
+  *ngIf="selectedSearchType === searchType.AdvancedContract"
+>
+  <app-contract-search-form
+    [resultsLength]="resultsLength"
+    (search)="onSearch($event)"
+    (reset)="onReset()"
+    (selectedSearchType)="onSelectedSearchType($event)"
+  ></app-contract-search-form>
+  <app-contract-search-list
+    fxFlex="grow"
+    (resultsLength)="resultsLength.next($event)"
+  ></app-contract-search-list>
+</div>
+<div
+  fxFlexFill
+  fxLayout="column"
+  *ngIf="selectedSearchType === searchType.AdvancedDocument"
+>
+  <app-document-search-form
+    [resultsLength]="resultsLength"
+    (search)="onSearch($event)"
+    (reset)="onReset()"
+    (selectedSearchType)="onSelectedSearchType($event)"
+  ></app-document-search-form>
+  <app-document-search-list
+    fxFlex="grow"
+    (resultsLength)="resultsLength.next($event)"
+  ></app-document-search-list>
+</div>

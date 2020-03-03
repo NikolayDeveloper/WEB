@@ -1,0 +1,29 @@
+<div [formGroup]="formGroup" fxLayout="column">
+  <!-- Реферат -->
+  <mat-form-field *ngIf="isFieldActive(commonReferatType)">
+    <textarea
+      matInput
+      required
+      i18n-placeholder="@@inputReferat"
+      placeholder="Referat"
+      formControlName="referat"
+      matTooltipPosition="above"
+      rows="15"
+      maxlength="1000"
+    >
+    </textarea>
+  </mat-form-field>
+  <mat-form-field *ngIf="isFieldActive(industrialFieldType)">
+    <textarea
+      matInput
+      required
+      i18n-placeholder="@@inputReferatIndustrial"
+      placeholder="Referat industrial"
+      formControlName="referat"
+      matTooltipPosition="above"
+      rows="15"
+      maxlength="1000"
+    >
+    </textarea>
+  </mat-form-field>
+</div>

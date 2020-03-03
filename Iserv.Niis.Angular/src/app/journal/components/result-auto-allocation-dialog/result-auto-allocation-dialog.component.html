@@ -1,0 +1,97 @@
+<!--Результаты предварительного распределения заявок-->
+<div fxFlexFill
+     fxLayout="column">
+  <div fxLayout="row"
+       fxLayoutAlign="space-between stretch"
+       class="table-header">
+    <button mat-icon-button
+            type="button"
+            class="mat-mini-button"
+            i18n-matTooltip="@@employmentExperts"
+            matTooltip="Employment Experts"
+            matTooltipPosition="above"
+            (click)="openDialogResultEmploymentExperts()">
+      <mat-icon>equalizer</mat-icon>
+    </button>
+    <mat-paginator #paginator
+                   [length]="dataSource.data.length">
+    </mat-paginator>
+  </div>
+  <div fxFlex
+       class="table-container">
+    <mat-table #table
+               [dataSource]="dataSource"
+               matSort
+               matSortDisableClear
+               class="table-medium">
+      <ng-container cdkColumnDef="RequestNumber">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         fxFlex="100px"
+                         i18n="@@columnHeaderRequestNumber"> Request Number </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex="100px"> {{row.requestNum}} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="CoefficientComplexity">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderCoefficientComplexity"> Coefficient Complexity </mat-header-cell>
+        <mat-cell *cdkCellDef="let row">{{ row.coefficientComplexity }} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="IPC">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderIPC"> IPC </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.ipcCodes}} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="CountPages">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderCountPages"> Count Pages </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.pageCount}} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="CountIndependentItems">
+        <mat-header-cell *cdkHeaderCellDef
+                         mat-sort-header
+                         i18n="@@columnHeaderCountIndependentItems"> Count Independent Items </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.countIndependentItems}} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="Expert">
+        <mat-header-cell *cdkHeaderCellDef
+                         fxFlex="200px"
+                         mat-sort-header
+                         i18n="@@columnHeaderExpert">Expert</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"
+                  fxFlex="200px">
+          <mat-form-field>
+            <mat-select [(ngModel)]="row.expertId">
+              <mat-option *ngFor="let expert of experts"
+                          [value]="expert.userId">
+                {{ expert.userName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *cdkRowDef="let row; columns: displayedColumns"
+               [ngClass]="{ 'row-highlight-red': row.expertId === null }">
+      </mat-row>
+    </mat-table>
+  </div>
+
+  <div mat-dialog-actions
+       align="end">
+    <button mat-button
+            type="button"
+            color="warn"
+            mat-dialog-close
+            (click)="onCancel()"
+            i18n="@@textCancel">Cancel</button>
+    <button mat-button
+            type="button"
+            color="primary"
+            (click)="onSave()"
+            i18n="@@textSave">Save</button>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<form novalidate
+      [formGroup]="formGroup"
+      (ngSubmit)="onSubmit()"
+      class="form-full-width form-medium-input">
+  <div fxLayout="row">
+    <app-common-input-string fxFlex="49"
+                             placeholder="Payment number"
+                             i18n-placeholder="@@inputPaymentNumber"
+                             formControlName="paymentNumber"> </app-common-input-string>
+    <span fxFlex="2"></span>
+    <mat-form-field fxFlex>
+      <input matInput
+             type="number"
+             placeholder="Amount from"
+             i18n-placeholder="@@inputAmountFrom"
+             formControlName="amountFrom">
+    </mat-form-field>
+    <mat-form-field fxFlex>
+      <input matInput
+             type="number"
+             placeholder="To"
+             i18n-placeholder="@@inputAmountTo"
+             formControlName="amountTo">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row">
+    <mat-form-field fxFlex="49">
+      <input matInput
+             #dateFrom
+             [max]="toDate(dateTo.value)"
+             [matDatepicker]="pickerFrom"
+             i18n-placeholder="@@inputPaymentDateFrom"
+             placeholder="Payment date from"
+             formControlName="paymentDateFrom">
+      <mat-datepicker-toggle matSuffix
+                             [for]="pickerFrom"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFrom
+                      [disabled]="formGroup.controls.paymentDateFrom.disabled"></mat-datepicker>
+    </mat-form-field>
+    <span fxFlex="2"></span>
+    <mat-form-field fxFlex="49">
+      <input matInput
+             #dateTo
+             [min]="toDate(dateFrom.value)"
+             [matDatepicker]="pickerTo"
+             i18n-placeholder="@@inputPaymentDateTo"
+             placeholder="To"
+             formControlName="paymentDateTo">
+      <mat-datepicker-toggle matSuffix
+                             [for]="pickerTo"></mat-datepicker-toggle>
+      <mat-datepicker #pickerTo
+                      [disabled]="formGroup.controls.paymentDateTo.disabled"></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row">
+    <app-common-input-string fxFlex="49"
+                             i18n-placeholder="@@inputPayerXin"
+                             placeholder="Payer XIN"
+                             formControlName="customerXin"
+                             [mask]="numberMask"
+                             i18n-errorText="@@errorXin"
+                             errorText="Please enter a valid xin"></app-common-input-string>
+    <span fxFlex="2"></span>
+    <app-common-input-string fxFlex="49"
+                             i18n-placeholder="@@inputPayerName"
+                             placeholder="Payer name"
+                             formControlName="customerNameRu"></app-common-input-string>
+  </div>
+  <div fxLayout="row"
+       fxLayoutAlign="end none">
+    <button type="button"
+            mat-button
+            color="accent"
+            (click)="cancel.emit()"
+            i18n="@@dialogCancel">Cancel</button>
+    <button type="button"
+            mat-button
+            color="accent"
+            i18n="@@dialogReset"
+            (click)="onReset()">Reset</button>
+    <button type="submit"
+            mat-button
+            color="primary"
+            i18n="@@dialogSearch">Search</button>
+  </div>
+</form>

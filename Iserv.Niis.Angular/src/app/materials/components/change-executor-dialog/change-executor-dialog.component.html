@@ -1,0 +1,47 @@
+<h2
+    mat-dialog-title
+    i18n="@@changeExecutorDialog"
+>Change Executor</h2>
+<form
+    novalidate
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit()"
+    class="form-full-width form-medium-input"
+>
+    <mat-dialog-content>
+        <div class="dialog-content-wrapper">
+            <mat-form-field>
+                <input
+                    matInput
+                    type="text"
+                    placeholder="Next user"
+                    i18n-placeholder="@@inputNextUser"
+                    formControlName="currentUserId"
+                    [matAutocomplete]="userList"
+                >
+                <mat-autocomplete #userList="matAutocomplete">
+                    <mat-option
+                        *ngFor="let user of filteredStageUsers | async"
+                        [value]="user.nameRu"
+                    >{{ user.nameRu }}</mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button
+            type="button"
+            mat-button
+            color="warn"
+            (click)="onCancel()"
+            i18n="@@dialogCancel"
+        >Cancel</button>
+        <button
+            type="submit"
+            mat-button
+            color="primary"
+            [disabled]="isDisabledButtonSend()"
+            i18n="@@dialogSend"
+        >Send</button>
+    </mat-dialog-actions>
+</form>

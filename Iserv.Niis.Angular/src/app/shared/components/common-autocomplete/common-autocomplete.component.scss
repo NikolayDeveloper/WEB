@@ -1,0 +1,6 @@
+@import '~@angular/material/theming';
+
+.input-invalid {
+  border: 1px solid mat-color($mat-red, 500);
+  border-radius: 2px;
+}

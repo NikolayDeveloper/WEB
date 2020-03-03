@@ -1,0 +1,193 @@
+﻿$border-color: rgba(0, 0, 0, 0.1);
+
+@mixin defineWidth($size) {
+  .width-#{$size} {
+    --size: #{$size}px;
+    
+    min-width: #{$size}px;
+    max-width: #{$size}px;
+  }
+}
+
+mat-cell {
+  //  white-space: nowrap!important;
+  overflow: hidden;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+}
+
+mat-cell.mat-cell,
+mat-header-cell.mat-header-cell {
+  overflow: visible;
+}
+
+mat-header-cell,
+mat-cell {
+  text-align: left!important;
+  // word-wrap: break-word;
+  &:not(:last-child) {
+    padding-right: 4px;
+  }
+}
+
+.mat-sort-header-container {
+  justify-content: start;
+  align-items: center;
+ // margin: auto;
+  .mat-sort-header-button {
+    text-align: inherit;
+  }
+}
+
+.table-auto-width {
+  width: 100%;
+  display: table!important;
+  overflow-x: auto;
+
+  // mat-header-cell, mat-cell {
+  //   display: table-cell;
+  //   min-width: 100px!important;
+  //   max-width: 200px!important;
+  // }
+}
+
+.mat-header-row {
+  top: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1;
+  background-color: inherit;
+}
+
+/* Средняя высота строки для таблицы */
+.table-medium {
+  .mat-row,
+  .mat-header-row {
+    height: auto;
+    min-height: 32px;
+    .mat-cell {
+      font-size: 12px;
+    }
+  }
+}
+/* Маленькая высота строки для таблицы */
+.table-small {
+  .mat-row,
+  .mat-header-row {
+    height: 24px;
+    min-height: 24px;
+    max-height: 24px;
+    .mat-cell {
+      font-size: 10px;
+    }
+  }
+}
+
+/* Высота таблицы - 30 процентов. Скролл */
+.table-height-30 {
+  overflow: auto;
+  height: 30vh !important;
+}
+
+/* Высота таблицы - 40 процентов. Скролл */
+.table-height-40 {
+  overflow: auto;
+  height: 40vh !important;
+}
+
+/* Высота таблицы - 50 процентов. Скролл */
+.table-height-50 {
+  overflow: auto;
+  height: 50vh !important;
+}
+
+/* Common styles */
+.mat-row {
+  cursor: pointer;
+
+  &:hover {
+    background-color: $border-color;
+  }
+}
+
+.mat-header-cell,
+.row-text-bold {
+  font-weight: 500 !important;
+}
+
+.cell-small-text {
+  font-size: 12px !important;
+}
+
+.row-highlight-red {
+  background-color: rgba(255, 0, 0, 0.21);
+}
+
+.row-highlight-yellow {
+  background-color: rgba(250, 250, 20, 0.5);
+}
+
+.row-highlight-orange {
+  background-color: orange;
+}
+.row-highlight-gray {
+  background-color: grey;
+}
+
+@for $i from 1 through  20 {
+  @include defineWidth(25 * $i);
+}
+
+.width-25 {
+  /deep/.mat-icon-button {
+    width: 25px;
+    margin: -5px;
+  }
+
+  /deep/.mat-icon {
+    width: 16px;
+    font-size: 16px;
+  }
+}
+
+.width-50 {
+  .mat-button {
+    min-width: 20px;
+    padding: 0 12px;
+  }
+}
+
+.sticky {
+  --position: 0;
+  
+  position: sticky;
+  right: calc(var(--position, 0) * var(--size, 50px));
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Header */
+.table-header {
+  height: 56px;
+  padding-left: 24px;
+  border-bottom: 1px solid $border-color;
+}
+
+.table-container {
+  //height: inherit;
+  // min-height: 150px;
+  overflow-y: auto;
+  // border-bottom: 1px solid $border-color;
+  mat-header-row {
+    border-top: 1px solid $border-color;
+  }
+}
+
+.margin-right {
+  margin-right: 90px;
+}
+
+.highlight{
+  background: #808080;
+}
+

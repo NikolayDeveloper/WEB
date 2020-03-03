@@ -1,0 +1,62 @@
+@import '~@angular/material/theming';
+@import '~styles/mixin';
+
+:host {
+  height: 100%;
+  display: block;
+}
+
+.info {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: 1fr;
+
+  /deep/mat-form-field {
+    width: 100%;
+  }
+}
+
+.info__column {
+  padding: 0 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  &:not(:last-child) {
+    border-right: 1px solid #dee2e6;
+  }
+}
+
+.info__text {
+  margin: 0;
+}
+
+.info__group {
+  display: flex;
+
+  .info__group-item {
+    flex: 1 1 0px;
+
+    &.info__group-item--center {
+      display: flex;
+      align-items: center;
+    }
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
+
+/deep/.title,
+/deep/.info__title {
+  margin: 20px 0;
+  font-weight: 400;
+  color: map-get($primary, 800);
+}
+
+.info__table {
+  margin: 0 -20px -20px -20px;
+}

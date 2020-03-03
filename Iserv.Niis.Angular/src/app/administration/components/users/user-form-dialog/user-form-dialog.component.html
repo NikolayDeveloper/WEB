@@ -1,0 +1,164 @@
+<div fxLayout="column"
+     fxFlexFill>
+  <div mat-dialog-content
+       fxLayout="row"
+       fxFlex>
+    <form novalidate
+          [formGroup]="formGroup"
+          (ngSubmit)="onSubmit()"
+          class="form-full-width form-medium-input"
+          fxLayout="row"
+          fxFlexFill>
+      <div fxFlex="40"
+           fxLayout="column">
+        <mat-form-field>
+          <input matInput
+                 placeholder="XIN"
+                 type="string"
+                 formControlName="xin"
+                 maxlength="12"
+                 (input)="parseToNumeric($event)"
+                 i18n-placeholder="@@textXin"
+                 i18n-matTooltip="@@InsertXinTooltip"
+                 matTooltip="Insert XIN"
+                 matTooltipPosition="above">
+          <mat-error i18n="@@errorXin"
+                     *ngIf="formGroup.controls.xin.invalid">{{ getError(formGroup.controls.xin) }}</mat-error>
+        </mat-form-field>
+        <app-common-input-string placeholder="Full name"
+                                 formControlName="nameRu"
+                                 i18n-placeholder="@@textFullName"></app-common-input-string>
+        <app-common-input-string placeholder="Email"
+                                 formControlName="email"
+                                 i18n-placeholder="@@textEmail"></app-common-input-string>
+        <app-common-input-string placeholder="Password"
+                                 formControlName="password"
+                                 i18n-placeholder="@@textPassword"></app-common-input-string>
+        <mat-checkbox matInput
+                      formControlName="isLocked"
+                      i18n="@@textIsLocked">Is locked</mat-checkbox>
+        <mat-form-field>
+          <mat-select matInput
+                      placeholder="Division"
+                      formControlName="divisionId"
+                      #divisionId
+                      i18n-placeholder="@@textDivision">
+            <mat-option *ngFor="let div of divisionOptions"
+                        [value]="div.id">
+              {{div.nameRu}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select matInput
+                      placeholder="Department"
+                      formControlName="departmentId"
+                      #departmentId
+                      i18n-placeholder="@@textDepartment">
+            <mat-option *ngFor="let dep of departmentOptions"
+                        [value]="dep.id">
+              {{dep.nameRu}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select matInput
+                      placeholder="Position"
+                      formControlName="positionId"
+                      i18n-placeholder="@@textPosition">
+            <mat-option *ngFor="let pos of positionOptions"
+                        [value]="pos.id">
+              {{pos.nameRu}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <input hidden
+               formControlName="customerId">
+
+        <!-- МПК -->
+        <h4 i18n="@@LablelIPC">IPC</h4>
+        <input hidden
+               formControlName="ipcIds">
+        <div *ngIf="labelsIpc.length === 0"
+             fxLayoutAlign="center none">
+          <button mat-button
+                  type="button"
+                  class="mat-mini-button"
+                  (click)="openDialogIpcTree()"
+                  i18n-matTooltip="@@ButtonAddIPC"
+                  matTooltip="Add IPC"
+                  matTooltipPosition="above">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="labelsIpc.length > 0"
+             class="formarray-container-items-4">
+          <p *ngFor="let item of labelsIpc">{{item}}</p>
+        </div>
+        <div *ngIf="labelsIpc.length !== 0"
+             fxLayoutAlign="end none">
+          <button mat-button
+                  type="button"
+                  class="mat-mini-button"
+                  (click)="openDialogIpcTree()"
+                  i18n-matTooltip="@@ButtonChangeIPC"
+                  matTooltip="Edit IPC"
+                  matTooltipPosition="above">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+
+      </div>
+      <div fxFlex
+           fxLayout="column">
+        <div style="overflow-y: auto">
+          <h5 i18n="@@textRoles">Roles</h5>
+          <mat-selection-list dense
+                              [(ngModel)]="selectedRoleIds"
+                              [ngModelOptions]="{standalone: true}"
+                              (selectionChange)="onRolesSelectionChanged($event)">
+            <mat-list-option *ngFor="let role of roleOptions"
+                             [value]="role.id"
+                             [checkboxPosition]="'before'"
+                             color="primary"
+                             style="font-size: 12px;">
+              {{role.nameRu}}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+        <div fxFlex="50"
+             [hidden]="!showMktu"
+             style="overflow-y: scroll">
+          <h5 i18n="@@textMktu">ICGS</h5>
+          <mat-selection-list [(ngModel)]="selectedIcgsIds"
+                              [ngModelOptions]="{standalone: true}"
+                              (selectionChange)="onIcgsSelectionChanged($event)">
+            <mat-list-option *ngFor="let icgs of icgsOptions"
+                             [value]="icgs.id"
+                             [checkboxPosition]="'before'"
+                             color="primary"
+                             style="font-size: 10px;">
+              {{icgs.description}}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions
+       align="end">
+    <button mat-button
+            type="button"
+            color="warn"
+            mat-dialog-close
+            (click)="onCancel()"
+            i18n="@@textCancel">Cancel</button>
+    <button mat-button
+            type="submit"
+            [disabled]="formGroup.invalid"
+            color="primary"
+            (click)="onSubmit()"
+            i18n="@@textSave">Save</button>
+  </div>
+
+</div>

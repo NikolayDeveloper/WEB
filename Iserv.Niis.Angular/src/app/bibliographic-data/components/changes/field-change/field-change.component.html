@@ -1,0 +1,39 @@
+<div [formGroup]="formGroup" fxFlexFill>
+  <div fxlayout="column">
+    <h4>{{ changeDto.name }}</h4>
+    <div [ngSwitch]="isAddress">
+      <div *ngSwitchCase="false">
+        <div fxlayout="row">
+          <app-common-input-string
+            formControlName="oldValue"
+            placeholder="Old Value"
+            i18n-placeholder="@@inputChangeOldValue"
+          ></app-common-input-string>
+          <span fxFlex="4"></span>
+          <app-common-input-string
+            formControlName="newValue"
+            placeholder="New Value"
+            i18n-placeholder="@@inputChangeNewValue"
+          ></app-common-input-string>
+        </div>
+      </div>
+      <div *ngSwitchDefault>
+        <div fxLayout="row">
+          <app-address-search
+            [disabled]="true"
+            formControlName="oldValue"
+            placeholder="Old Value"
+            i18n-placeholder="@@inputChangeOldValue"
+          ></app-address-search>
+          <span fxFlex="4"></span>
+          <app-address-search
+            [disabled]="false"
+            formControlName="newValue"
+            placeholder="New Value"
+            i18n-placeholder="@@inputChangeNewValue"
+          ></app-address-search>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

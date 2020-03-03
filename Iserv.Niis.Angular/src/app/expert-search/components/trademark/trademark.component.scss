@@ -1,0 +1,27 @@
+/deep/ .image-gallery-2 {
+    height: 90% !important;
+}
+
+.closeButton {
+    position: relative;
+    z-index: 100;
+    float: right;
+    margin-top: 17px;
+    margin-right: -40px;
+}
+
+/deep/ .hide {
+    display: none !important;
+}
+
+app-trademark-form + app-trademark-list {
+    margin-top: 10px;
+}
+
+/deep/ label {
+    margin-bottom: 0 !important;
+
+    &.mat-checkbox-layout {
+        margin-bottom: 0 !important;
+    }
+}

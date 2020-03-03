@@ -1,0 +1,14 @@
+IF OBJECT_ID(N'Logs','U') IS NULL
+ BEGIN
+	CREATE TABLE [dbo].[Logs](
+		[Id] [int] IDENTITY(1,1) NOT NULL,
+		[Time] [datetime] NULL,
+		[Level] [nvarchar](50) NULL,
+		[Logger] [nvarchar](50) NULL,
+		[Message] [text] NULL,
+	PRIMARY KEY CLUSTERED 
+	(
+		[Id] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+ END

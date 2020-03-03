@@ -1,0 +1,74 @@
+<div [formGroup]="formGroup"
+     fxLayout="column">
+  <!-- МПК -->
+  <h4 class="title" i18n="@@LablelIPC">IPC</h4>
+  <mat-form-field>
+    <mat-select i18n-placeholder="@@inputMainIPC"
+                placeholder="Main IPC"
+                formControlName="mainIpcId"
+                [disabled]="isDisabledIpc()">
+      <mat-option *ngFor="let selectOption of labelsIpc"
+                  [value]="selectOption.id">
+        {{ selectOption.nameRu}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <input hidden
+         formControlName="ipcIds">
+  <div *ngIf="labelsIpc.length === 0"
+       fxLayoutAlign="center none">
+    <button mat-mini-fab
+            type="button"
+            [disabled]="isDisabledIpc()"
+            [hidden]="!editMode"
+            (click)="openDialogIpcTree()"
+            i18n-matTooltip="@@ButtonAddIPC"
+            matTooltip="Add IPC"
+            matTooltipPosition="above">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="labelsIpc.length > 0"
+       class="formarray-container-items-3">
+    <div *ngFor="let item of labelsIpc"
+         fxLayout="row"
+         class="label-item">
+      <span>{{item.nameRu}}</span>
+      <button mat-mini-fab
+              type="button"
+              [disabled]="isDisabledIpc()"
+              [hidden]="!editMode"
+              (click)="deleteIpc(item.id)"
+              i18n-matTooltip="@@IPCDeleteTooltip"
+              matTooltip="Delete IPC"
+              matTooltipPosition="above">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="actions-container ac-bottom ac-left" *ngIf="labelsIpc.length !== 0"
+       fxLayoutAlign="row">
+    <button
+            mat-mini-fab
+            type="button"
+            [disabled]="isDisabledIpc()"
+            [hidden]="!editMode"
+            (click)="clearIpc()"
+            i18n-matTooltip="@@ButtonClearIPC"
+            matTooltip="Clear IPC"
+            matTooltipPosition="above">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <button mat-mini-fab
+            type="button"
+            [disabled]="isDisabledIpc()"
+            [hidden]="!editMode"
+            (click)="openDialogIpcTree()"
+            i18n-matTooltip="@@ButtonChangeIPC"
+            matTooltip="Edit IPC"
+            matTooltipPosition="above">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+</div>

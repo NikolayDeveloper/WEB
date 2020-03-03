@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <Configurations>Debug;Release;Development-iserv;Development-niis;Production-iserv;Production-niis;Staging-iserv;Staging-niis</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Enums\**" />
+    <Compile Remove="Implementations\Notifications\Emails\**" />
+    <EmbeddedResource Remove="Enums\**" />
+    <EmbeddedResource Remove="Implementations\Notifications\Emails\**" />
+    <None Remove="Enums\**" />
+    <None Remove="Implementations\Notifications\Emails\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.0.1" />
+    <PackageReference Include="NetCoreCQRS" Version="1.2.3" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="2.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Niis.Business\Iserv.Niis.Business.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DataAccess.EntityFramework\Iserv.Niis.DataAccess.EntityFramework.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.DI\Iserv.Niis.DI.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Documents\Iserv.Niis.Documents.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.FileConverter\Iserv.Niis.FileConverter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NetCoreCQRS">
+      <HintPath>..\packages\NetCoreCQRS.1.2.0\lib\netstandard2.0\NetCoreCQRS.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog">
+      <HintPath>C:\Users\Tom\.nuget\packages\serilog\2.3.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\MessageTemplates.Designer.cs">
+      <DependentUpon>MessageTemplates.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\MessageTemplates.resx">
+      <LastGenOutput>MessageTemplates.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

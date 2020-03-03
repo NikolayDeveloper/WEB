@@ -1,0 +1,78 @@
+<app-sidenav  [mode]="'side'"
+              [position]="'start'"
+              [bgc]="'#DFDFDF'"
+              [width]="'320px'"
+              [state]="opened">
+  <app-document-flow-filter
+    (docs)="tableSort($event)"
+    [templateForms]="true"
+    sidenav>
+    <div fxLayout="column"
+         search-form
+         fxLayoutAlign="center none"
+         class="search-container">
+       <span
+         class="header"
+         i18n="@@headerSearch">Поиск</span>
+      <form [formGroup]="usersSearch">
+        <div class="form-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+          <div class="label-field">
+            <label i18n="@@inputContractCategory">Категория</label>
+          </div>
+          <mat-form-field class="table-picker-field">
+            <mat-select placeholder="Сотрудники"
+                        formControlName="users"
+                        multiple
+                        class="selection-mat-option">
+              <mat-option *ngFor="let user of usersList" [value]="user.key">{{user.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <label class="form-wrapper_delim">Дата перехода на этап</label>
+        <div class="form-wrapper form-wrapper_datepicker" fxLayout="row" fxLayoutAlign="space-around">
+          <div class="datepicker-container_from" fxLayout="row" fxLayoutAlign="space-between">
+            <mat-form-field>
+              <div class="datepicker">
+                <input matInput formControlName="createDate_from" [matDatepicker]="creationDateFromPicker">
+                <mat-datepicker-toggle class="mat-toggle-date mat-toggle-date_from" matSuffix [for]="creationDateFromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #creationDateFromPicker></mat-datepicker>
+              </div>
+            </mat-form-field>
+          </div>
+          <div class="datepicker-container_to" fxLayout="row" fxLayoutAlign="space-between">
+            <mat-form-field>
+              <div class="datepicker">
+                <input matInput formControlName="createDate_to" [matDatepicker]="creationDateToPicker">
+                <mat-datepicker-toggle class="mat-toggle-date mat-toggle-date_to" matSuffix [for]="creationDateToPicker"></mat-datepicker-toggle>
+                <mat-datepicker #creationDateToPicker></mat-datepicker>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </app-document-flow-filter>
+  <div class="content-container" content>
+    <div class="btn-container">
+      <div class="icon" (click)="opened = !opened">
+        <mat-icon *ngIf="!opened">search</mat-icon>
+        <mat-icon *ngIf="opened">arrow_back</mat-icon>
+      </div>
+    </div>
+    <div class="table-container">
+      <mat-card *ngIf="!tableState">Выберите пользователей из списка в меню поиска</mat-card>
+      <app-table *ngIf="columns2 && tableState"
+                 [columns]="columns2"
+                 [data]="dataSet"
+                 [sortable]="true"
+                 [filterable]="false"
+                 [print]="true"
+                 [headerRowClass]="'staff-header'"
+                 [rowClass]="true"
+                 [paginable]="true"
+                 [paginatorOnTop]="true"
+                 class="table-medium"></app-table>
+    </div>
+  </div>
+</app-sidenav>

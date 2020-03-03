@@ -1,0 +1,28 @@
+<div fxFlexFill
+     fxLayout="column">
+    <mat-tab-group class="tabs-small tabs-colored-light"
+                   [selectedIndex]="0">
+        <mat-tab label="Search"
+                 i18n-label="@@tabSearch">
+            <app-trademark [checkable]="true"
+                           [checkedTrademarkDtos]="checkedSearchDtos"
+                           (checkChanged)="onCheckChanged($event)"></app-trademark>
+        </mat-tab>
+        <mat-tab label="Image Search"
+                 i18n-label="@@tabImageSearch"
+                 *ngIf="false"
+        >
+            <app-image-search [requestId]="requestId"
+                              [imageUrl]="imageUrl"
+                              [checkedTrademarkDtos]="checkedSearchDtos"
+                              (checkChanged)="onCheckChanged($event)"></app-image-search>
+        </mat-tab>
+        <mat-tab label="Similar Protection Docs"
+                 i18n-label="@@tabSimilarProtectionDocs">
+            <app-similar-protection-docs [requestId]="requestId"
+                                         [checkedSearchDtos]="checkedSearchDtos"
+                                         (delete)="onDelete($event)"
+                                         (save)="onSave($event)"></app-similar-protection-docs>
+        </mat-tab>
+    </mat-tab-group>
+</div>

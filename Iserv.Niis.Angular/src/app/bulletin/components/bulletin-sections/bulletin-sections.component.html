@@ -1,0 +1,17 @@
+<div fxFlexFill class="content-wrapper">
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-mini-fab
+            type="button"
+            matTooltip="Создать раздел"
+            color="primary"
+            (click)="onCreateBulletinSectionClick()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <app-sections-list>
+  </app-sections-list>
+</div>
+
+<spinner backgroundColor="#00695c"
+         spinner="sk-cube-grid">
+</spinner>

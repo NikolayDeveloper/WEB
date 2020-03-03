@@ -1,0 +1,48 @@
+@import '~@angular/material/theming';
+@import '../../../../styles/mixin';
+
+.content-container {
+    height: 100%;
+}
+
+.search-button {
+    position: absolute;
+    top: 28px;
+    left: 0;
+    height: 55px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+mat-sidenav-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    
+    app-table {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        
+        /deep/.table-component {
+            height: 100%;
+
+            .main-table-container {
+                height: 100%;
+
+                .table-container {
+                    height: 100%;
+                }
+            }
+        }
+    }
+}

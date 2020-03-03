@@ -1,0 +1,29 @@
+<div fxLayout="column"
+     fxFlexFill
+     class="form-full-width">
+  <mat-form-field fxFlex>
+    <textarea [(ngModel)]="text"
+              rows="7"
+              required
+              matInput
+              i18n-placeholder="@@EnterText"
+              placeholder="Enter text"
+              #enterText="ngModel"></textarea>
+  </mat-form-field>
+  <div mat-dialog-actions
+       align="end"
+       fxFlex="65px">
+    <button mat-button
+            type="button"
+            color="warn"
+            mat-dialog-close
+            (click)="onCancel()"
+            i18n="@@textCancel">Cancel</button>
+    <button mat-button
+            type="button"
+            [disabled]="!enterText.valid"
+            color="primary"
+            (click)="onOk()"
+            i18n="@@textOk">OK</button>
+  </div>
+</div>

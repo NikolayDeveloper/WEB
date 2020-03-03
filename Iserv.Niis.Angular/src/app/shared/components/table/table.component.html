@@ -1,0 +1,236 @@
+<div
+  fxLayout="column"
+  class="table-component"
+  [ngStyle]="{'max-height': tableMaxHeight}"
+>
+  <div class="main-table-container" fxLayout="column">
+    <div
+      class="table-header"
+      [class.hidden]="!(filterable || (paginable && paginatorOnTop) || addButton || (isCheckBoxColumn && !protectDocs) || print || sortButton)"
+    >
+      <h1
+        class="table-title"
+        *ngIf="header"
+      >{{ header }}</h1>
+      <mat-form-field
+        floatPlaceholder="never"
+        [class.hidden]="!filterable"
+        fxFlex="250px"
+      >
+        <input
+          matInput
+          #filter
+          i18n-placeholder="@@filterPlaceholder"
+          placeholder="Filter"
+        />
+      </mat-form-field>
+      <mat-paginator
+        *ngIf="!!paginatorOnTop"
+        #paginator
+        [class.hidden]="!paginable"
+        [length]="calculatedDataSource?.resultsLength || 0"
+        [pageIndex]="0"
+      ></mat-paginator>
+      <div class="table-elements" *ngIf="addButton || (isCheckBoxColumn && !protectDocs) || print || sortButton">
+        <button
+          mat-mini-fab
+          *ngIf="sortButton"
+          (click)="onColumnsChange()"
+        ><mat-icon>view_column</mat-icon></button>
+        <button
+          mat-mini-fab
+          *ngIf="addButton"
+          (click)="onCreateDocumentClick()"
+        ><mat-icon>add</mat-icon></button>
+        <button
+          mat-mini-fab
+          *ngIf="importButton"
+          (click)="onImportDocumentClick()"
+        ><mat-icon>attach_file</mat-icon></button>
+        <button
+          mat-mini-fab
+          *ngIf="isCheckBoxColumn && !protectDocs"
+          (click)="showCheckBox()"
+        ><mat-icon>next_week</mat-icon></button>
+        <button
+          mat-mini-fab
+          *ngIf="print"
+          (click)="printTable()"
+        ><mat-icon>print</mat-icon></button>
+        <button
+          mat-mini-fab
+          *ngIf="canExport"
+          (click)="exportTable()"
+        ><mat-icon>get_app</mat-icon></button>
+      </div>
+    </div>
+    <div
+      class="table-container"
+      fxLayout="column"
+    >
+      <div fxLayout="row" *ngIf="showTick">
+        <button
+          mat-icon-button
+          type="button"
+          class="mat-mini-button"
+          i18n-matTooltip="@@buttonConfirm"
+          matTooltip="OK"
+          matTooltipPosition="above"
+          [disabled]="!selection.selected.length"
+          (click)="confirmChecked()"
+        >
+          <mat-icon>done</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          type="button"
+          class="mat-mini-button"
+          i18n-matTooltip="@@buttonCancel"
+          matTooltip="Cancel"
+          matTooltipPosition="right"
+          (click)="dismissChecked()"
+        >
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+      <div fxLayout="row" *ngIf="protectDocs && !showTick">
+        <button
+          mat-icon-button
+          type="button"
+          class="mat-mini-button"
+          i18n-matTooltip="@@generateGosNumberTrademark"
+          matTooltip="Generate by request num"
+          matTooltipPosition="right"
+          (click)="showCheckBox(true, true)"
+        >
+          <mat-icon>rotate_right</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          type="button"
+          class="mat-mini-button"
+          i18n-matTooltip="@@generateGosNumber"
+          matTooltip="Generate by IPC"
+          matTooltipPosition="right"
+          (click)="showCheckBox(false, true)"
+        >
+          <mat-icon>rotate_right</mat-icon>
+        </button>
+      </div>
+      <mat-table
+        #table
+        id="mat-table"
+        [dataSource]="calculatedDataSource"
+        matSort
+        matSortDisableClear
+      >
+        <!-- Checkbox -->
+        <ng-container
+          *ngIf="selectAllView"
+          cdkColumnDef="select">
+          <mat-header-cell *cdkHeaderCellDef>
+            <mat-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </mat-header-cell>
+          <mat-cell
+            *cdkCellDef="let row">
+            <mat-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)"
+              [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <ng-container
+          *ngFor="let column of simpleColumns; trackBy: trackByIndex"
+          cdkColumnDef="{{ column.columnDef }}"
+          >
+          <mat-header-cell
+            *cdkHeaderCellDef
+            mat-sort-header
+            [ngClass]="getClasses(column)"
+          >
+            <ng-container *ngIf="!rowClass">{{ column.header }}</ng-container>
+            <div
+              *ngIf="rowClass"
+              [ngClass]="{'header-cell-container': rowClass}"
+              fxLayout="column"
+            >
+              {{ column.header }}
+              <span class="second-header">{{column.secondHeader}}</span>
+            </div>
+          </mat-header-cell>
+          <mat-cell
+            *cdkCellDef="let row"
+            [matTooltip]="getValue(column, row)"
+            [ngClass]="getClasses(column)"
+            [ngSwitch]="isBoolean(column, row)"
+          >
+        <span *ngSwitchCase="true">
+          <mat-icon>{{
+            getValue(column, row) ? 'check_box' : 'check_box_outline_blank'
+            }}</mat-icon>
+        </span>
+            <ng-container (click)="onSpanClick(column, row)" *ngSwitchDefault><span>{{ getValue(column, row) }}</span></ng-container>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container
+          *ngFor="let column of buttonColumns; let i = index"
+          cdkColumnDef="{{column.columnDef}}"
+        >
+          <mat-header-cell
+            *cdkHeaderCellDef
+            [style]="getPosition(buttonColumns.length - i - 1)"
+            [ngClass]="getClasses(column)"
+          >
+          </mat-header-cell>
+          <mat-cell
+            *cdkCellDef="let row"
+            [style]="getPosition(buttonColumns.length - i - 1)"
+            [ngClass]="getClasses(column)"
+            align="end"
+          >
+            <button
+              mat-icon-button
+              (click)="column.click(row); $event.stopPropagation()"
+              [disabled]="column.disable(row)"
+              [matTooltip]="column.header"
+              matTooltipPosition="above"
+            ><mat-icon>{{ column.icon }}</mat-icon></button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row
+          *cdkRowDef="let row; columns: displayedColumns"
+          [class.selected]="selectedRow === row"
+          [ngClass]="{
+            'row-highlight-orange': row.priority === 3,
+            'row-highlight-red': row.priority === 2,
+            'row-highlight-yellow': row.priority === 1,
+            'row-highlight-gray': row.isDeleted,
+            'staff-class': rowClass
+          }"
+          (click)="onSelect(row)"
+        ></mat-row>
+      </mat-table>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end none">
+      <mat-paginator
+        *ngIf="!paginatorOnTop"
+        #paginator
+        [class.hidden]="!paginable"
+        [length]="calculatedDataSource?.resultsLength || 0"
+        [pageIndex]="0"
+      >
+      </mat-paginator>
+      <span fxFlex="90px"></span>
+    </div>
+  </div>
+</div>

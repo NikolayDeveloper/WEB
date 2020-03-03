@@ -1,0 +1,21 @@
+<div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+>
+    <mat-button-toggle-group
+        [vertical]="true"
+        multiple
+    >
+        <mat-button-toggle
+            value="0"
+            (change)="onSearchModeChanged($event)"
+        >
+            <mat-icon
+                svgIcon="equals"
+                i18n-matTooltip="@@searchModeEqualsTooltip"
+                matTooltip="Equals"
+                class="toggle-icon"
+            ></mat-icon>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>

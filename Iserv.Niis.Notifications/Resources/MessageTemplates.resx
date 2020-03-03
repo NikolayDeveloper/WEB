@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContractCreateForStatement" xml:space="preserve">
+    <value>Zajavleniju na registraciju dogovora prisvoen  № {0}.  Podrobnee v Lichnom kabinete. Shartty tirkeu otinishine № {0} tagajyndaldy. Tolygyrak Zheke kabinette.</value>
+  </data>
+  <data name="ContractOnlineStatusChanged" xml:space="preserve">
+    <value>Status zajavlenija {0} izmenen na «{1}». Podrobnee v Lichnom kabinete. № {0} otinishtin martebesi «{1}» martebesine ozgertildi.  Tolygyrak Zheke kabinette.</value>
+  </data>
+  <data name="ContractSendNotification" xml:space="preserve">
+    <value>Po zajavleniju № {0} napravleno uvedomlenie. Podrobnee v Lichnom kabinete. № {0} otinish bojynsha habarlama zholdandy. Tolygyrak Zheke kabinette.</value>
+  </data>
+  <data name="ContractStatementExamination" xml:space="preserve">
+    <value>Po zajavleniju № {0} napravlen zapros. Srok predostavlenija otveta do {1}. Podrobnee v Lichnom kabinete. № {0} otinish bojynsha suratu zholdandy. Zhauap beru merzimi {1} zh. dejin Tolygyrak Zheke kabinette.</value>
+  </data>
+  <data name="CreateStageForApplication" xml:space="preserve">
+    <value>Zajavke prisvoen № {0}. Podrobnee v Lichnom kabinete. Otinimge № {0} tagajyndaldy. Tolygyrak Zheke kabinette.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Здравствуйте!
+Это письмо создано автоматически и не требует ответа.
+Описание: {0}
+Письма направляйте по адресу: kazpatent@kazpatent.kz 
+ 
+С уважением,
+РГП «Национальный институт интеллектуальной собственности» МЮ РК 
+ 
+Call-centre. 8 (7172) 66-15-15</value>
+  </data>
+  <data name="ExpertisePaymentWaitingStage" xml:space="preserve">
+    <value>Srok oplaty za jekspertizu pozajavke № {0} do {1}. Podrobnee v Lichnom kabinete. № {0} otiniminin saraptamasy ushin tolemnin merzimi {1} zh. dejin. Tolygyrak Zheke kabinette.</value>
+    <comment>При переходе на этап «Ожидает
+оплату за полную
+экспертизу/экспертизу по
+существу» и смене онлайн статуса
+«Ожидает оплаты»</comment>
+  </data>
+  <data name="IncomingAnswerLetter" xml:space="preserve">
+    <value>Napravleno pismo. Podrobnee v Lichnom kabinete. Hat zholdandy. Tolygyrak Zheke kabinette.</value>
+    <comment>Направлено письмо. Подробнее в Личном кабинете. Хат жолданды. Толығырақ Жеке кабинетте.</comment>
+  </data>
+  <data name="InvoiceForPayment" xml:space="preserve">
+    <value>Napravlen schet. Podrobnee v Lichnom kabinete. Shot zholdandy. Tolygyrak Zheke kabinette.</value>
+    <comment>Направлен счёт. Подробнее в Личном кабинете. Шот жолданды. Толығырақ Жеке кабинетте.</comment>
+  </data>
+  <data name="ObjectionExpirationTerm" xml:space="preserve">
+    <value>Srok podachi vozrazhenija po zajavke № {0} istekaet {1}. Podrobnee v Lichnom kabinete. № {0} otinim bojynsha karsylyk beru merzimi {1} zh. otedi. Tolygyrak Zheke kabinette.</value>
+    <comment>При истечении срока подачи
+возражения за 15 календарных
+дней.</comment>
+  </data>
+  <data name="OnlineStatusChanged" xml:space="preserve">
+    <value>Status zajavki № {0} izmenen na «{1}». Podrobnee v Lichnom kabinete. № {0} otinimnin martebesi «{1}» martebesine ozgertildi. Tolygyrak Zheke kabinette.</value>
+    <comment>При смене онлайн статуса заявки
+на:
+ Ожидает оплату;
+ Отказ в регистрации;
+ Ожидает ответ;  Отозвано/прекращено;
+ Приостановлено;
+ Зарегистрирован.</comment>
+  </data>
+  <data name="PaymentWaitingStage" xml:space="preserve">
+    <value>Srok oplaty za podachu zajavki № {0} do {1}. Podrobnee v Lichnom kabinete. № {0} otinimin beru ushin tolemnin merzimi {1} zh. dejin. Tolygyrak Zheke kabinette.</value>
+    <comment>При переходе на этап «Ожидает
+оплату за подачу» и смене онлайн
+статуса «Ожидает оплаты»</comment>
+  </data>
+  <data name="PreparationForTransferStage" xml:space="preserve">
+    <value>Srok oplaty za publikaciju svedenij po zajavke № {0} do {1}. Podrobnee v Lichnom kabinete. № {0} otinim bojynsha malimetterdi zharijalau ushin tolemnin merzimi {1} zh. dejin. Tolygyrak Zheke kabinette.</value>
+    <comment>При переходе на этап «Подготовка
+для передачи в Госреестр» и смене
+онлайн статуса «Ожидает оплаты»</comment>
+  </data>
+  <data name="ProtectionDocSupportAboutToExpire" xml:space="preserve">
+    <value>Uvedomljaem o neobhodimosti oplaty za podderzhanie v sile ohrannogo dokumenta № {0}.</value>
+  </data>
+  <data name="ProtectionDocValidityAboutToExpire" xml:space="preserve">
+    <value>Srok dejstvija patenta s № {0}  istekaet {1}. Podrobnee v Lichnom kabinete. № {0}  patenttin areket etu merzimi {1} zh. otedi. Tolygyrak Zheke kabinette.</value>
+  </data>
+  <data name="RecoveryStage" xml:space="preserve">
+    <value>Vosstanovlenie propushhennogo sroka po zajavke № {0} do {1}. Podrobnee v Lichnom kabinete. № {0} otinim bojynsha zhiberip alfan merzimdi kalpyna keltiru {1} zh. dejin. Tolygyrak Zheke kabinette.</value>
+    <comment>При переходе заявки на этап
+восстановления пропущенного
+срока</comment>
+  </data>
+  <data name="RequestExpirationTerm" xml:space="preserve">
+    <value>Srok predostavlenija otveta po zajavke № {0} istekaet {1}. Podrobnee v Lichnom kabinete. № {0} otinim bojynsha zhauap beru merzimi {1} zh. otedi. Tolygyrak Zheke kabinette.</value>
+    <comment>Данное уведомление направляется:
+ При истечении срока
+предоставления ответа на запрос за
+15 календарных дней;
+ При продлении срока
+предоставления ответа на запрос;
+ При истечении срока
+предоставления ответа на запрос за
+15 календарных дней в рамках
+продления срока ответа на завпрос.</comment>
+  </data>
+  <data name="RequestSendConclusion" xml:space="preserve">
+    <value>Po zajavke № {0} napravleno zaklyuchenie. Podrobnee v Lichnom kabinete. № {0}  otinim bojynsha korytyndy zholdandy. Tolygyrak Zheke kabinette.</value>
+    <comment>По заявке № &lt;Номер заявки&gt; направлено заключение. Подробнее в Личном кабинете. № &lt;Номер заявки&gt;  өтінім бойынша қорытынды жолданды. Толығырақ Жеке кабинетте.</comment>
+  </data>
+  <data name="RequestSendNotification" xml:space="preserve">
+    <value>Po zajavke № {0} napravleno uvedomlenie. Podrobnee v Lichnom kabinete. № {0}  otinim bojynsha habarlama zholdandy. Tolygyrak Zheke kabinette.</value>
+    <comment>По заявке № &lt;Номер заявки&gt; направлено уведомление. Подробнее в Личном кабинете. № &lt;Номер заявки&gt;  өтінім бойынша хабарлама жолданды. Толығырақ Жеке кабинетте.</comment>
+  </data>
+  <data name="RequestSendSolution" xml:space="preserve">
+    <value>Po zajavke № {0} napravleno reshenie. Podrobnee v Lichnom kabinete. № {0} otinim bojynsha sheshim zholdandy. Tolygyrak Zheke kabinette.</value>
+    <comment>По заявке № &lt;Номер заявки&gt; направлено решение. Подробнее в Личном кабинете. № &lt;Номер заявки&gt;  өтінім бойынша шешім жолданды. Толығырақ Жеке кабинетте.</comment>
+  </data>
+  <data name="RequestSendStageForNotification" xml:space="preserve">
+    <value>Po zajavke № {0} napravleno uvedomlenie. Podrobnee v Lichnom kabinete. № {0} otinim bojynsha habarlama zholdandy. Tolygyrak Zheke kabinette.</value>
+    <comment>При направлении уведомлений о:
+ Выделении заявки;
+ Разделении заявки;
+ Приобразовании заявки;
+ Принятии заявки к
+рассмотрению;
+ Продлении срока
+предоставления ответа;
+ Возможности
+восстановлении заявки;
+ Принятии решения о
+регистрации товарного
+знака/выдачи патента;
+Отправки исходящего документа
+(уведомление) с присвоением
+исходящего номера и
+проставлением даты отправки.</comment>
+  </data>
+  <data name="RequestStatementExamination" xml:space="preserve">
+    <value>Po zajavke № {0} napravlen zapros. Srok predostavlenija otveta do {1} g. Podrobnee v Lichnom kabinete. № {0} otinim bojynsha suratu zholdandy. Zhauap beru merzimi {1} zh. dejin. Tolygyrak Zheke kabinette.</value>
+    <comment>По заявке № &lt;Номер заявки&gt; направлен запрос. Срок предоставления ответа до &lt;Срок предоставления ответа&gt; г. Подробнее в Личном кабинете. № &lt;Номер заявки&gt; өтінім бойынша сұрату жолданды. Жауап беру мерзімі &lt;Срок предоставления ответа&gt; ж. дейін. Толығырақ Жеке кабинетте.</comment>
+  </data>
+  <data name="RequestStatementFullExamination" xml:space="preserve">
+    <value>Po zajavke № {0} napravlen zapros. Podrobnee v Lichnom kabinete. № {0} otinim bojynsha suratu zholdandy.</value>
+    <comment>По заявке № &lt;Номер заявки&gt; направлен запрос. Подробнее в Личном кабинете. № &lt;Номер заявки&gt; өтінім бойынша сұрату жолданды. Толығырақ Жеке кабинетте.</comment>
+  </data>
+  <data name="SendStageForDecision" xml:space="preserve">
+    <value>Po zajavke № {0} srok podachi vozrazhenija do {1}. Podrobnee v Lichnom kabinete. № {0} otinim bojynsha karsylyk beru merzimi {1} zh. dejin. Tolygyrak Zheke kabinette.</value>
+    <comment>1) Вынесено экспертное
+заключение об отказе в
+регистрации/выдачи патента;
+2) Вынесено экспертное
+заключение с
+дискламацией/частичная
+регистрация.
+Отправки исходящего документа
+(решение) с присвоением
+исходящего номера и
+проставлением даты отправки.</comment>
+  </data>
+  <data name="SendStageForRequest" xml:space="preserve">
+    <value>Po zajavke № {0} napravlen zapros. Srok predostavlenija otveta do {1} g. Podrobnee v Lichnom kabinete. № {0} otinim bojynsha suratu zholdandy. Zhauap beru merzimi {1} zh. dejin. Tolygyrak Zheke kabinette.</value>
+    <comment>При направлении запроса в рамках
+проводимых экспертиз.
+Отправки исходящего документа
+(запрос) с присвоением
+исходящего номера и
+проставлением даты отправки.</comment>
+  </data>
+  <data name="SendStageForStatement" xml:space="preserve">
+    <value>Zajavleniju na registraciju dogovora prisvoen  № {0}.  Podrobnee v Lichnom kabinete. Shartty tirkeu otinishine № {0} tagajyndaldy. Tolygyrak Zheke kabinette.</value>
+  </data>
+  <data name="WaitingForPaymentFiling" xml:space="preserve">
+    <value>Srok oplaty za podachu zajavlenija № {0} dо {1}. Podrobnee v Lichnom kabinete. № {0} otinishti beru үshin toleu merzimi {1} zh. dejin. Tolygyrak Zheke kabinette.</value>
+  </data>
+</root>

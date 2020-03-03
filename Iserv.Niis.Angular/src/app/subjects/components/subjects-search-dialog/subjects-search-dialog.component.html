@@ -1,0 +1,109 @@
+<h2
+  mat-dialog-title
+  i18n="@@customerSelect"
+>Выбор контрагентов</h2>
+<mat-dialog-content>
+  <form>
+    <div
+      fxLayout="row"
+      [formGroup]="formGroup"
+    >
+      <app-common-input-string
+        fxFlex
+        i18n-placeholder="@@inputId"
+        placeholder="ID"
+        formControlName="inputId"
+      ></app-common-input-string>
+      <span fxFlex="16px"></span>
+      <app-common-input-string
+        fxFlex
+        i18n-placeholder="@@inputXin"
+        placeholder="Xin"
+        formControlName="inputXin"
+      ></app-common-input-string>
+      <span fxFlex="16px"></span>
+      <app-common-input-string
+        fxFlex
+        i18n-placeholder="@@inputName"
+        placeholder="Customer name"
+        formControlName="inputName"
+      ></app-common-input-string>
+      <span fxFlex="16px"></span>
+      <app-common-input-string
+        *ngIf="isPatentAttorney"
+        fxFlex
+        i18n-placeholder="@@inputPowerAttorneyNumber"
+        placeholder="Power Attorney Number"
+        formControlName="inputPowerAttorneyNumber"
+      ></app-common-input-string>
+      <span fxFlex="16px" *ngIf="isPatentAttorney"></span>
+      <!-- Тип контрагента -->
+      <mat-form-field>
+        <mat-select
+          i18n-placeholder="@@inputCustomerType"
+          placeholder="Customer type"
+          formControlName="customerTypeId"
+        >
+          <mat-option
+            *ngFor="let selectOption of dicCustomerTypes"
+            [value]="selectOption.id"
+          >{{ selectOption.nameRu }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span fxFlex="16px"></span>
+      <button
+        type="button"
+        mat-mini-fab
+        color="primary"
+        i18n-matTooltip="@@createCustomerTooltip"
+        matTooltip="Create new customer"
+        matTooltipPosition="above"
+        [disabled]="isPatentAttorney"
+        (click)="onCreateCustomerClick()"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+      <span fxFlex="16px"></span>
+      <button
+        type="submit"
+        mat-mini-fab
+        color="primary"
+        i18n-matTooltip="@@searchTooltip"
+        matTooltip="Search for customer"
+        matTooltipPosition="above"
+        (click)="onSearchCustomersClick()"
+      >
+        <mat-icon>zoom_in</mat-icon>
+      </button>
+    </div>
+  </form>
+  <app-table
+    [columns]="columns"
+    [source]="source"
+    [sortable]="true"
+    [selectable]="true"
+    [paginable]="true"
+    [paginatorOnTop]="true"
+    [onlyQueriedData]="true"
+    [reset]="reset"
+    (select)="onCustomerSelect($event)"
+    class="table-medium table-stripped"
+  ></app-table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    type="button"
+    i18n="@@dialogCancel"
+    mat-button
+    color="accent"
+    (click)="onCancel()"
+  >Cancel</button>
+  <button
+    type="button"
+    i18n="@@buttonAttach"
+    mat-button
+    color="primary"
+    [disabled]="!selectedCustomer"
+    (click)="onSubmit()"
+  >Attach</button>
+</mat-dialog-actions>

@@ -1,0 +1,35 @@
+<h2 mat-dialog-title
+    i18n="@@barcodeDialogTitle">Barcode dialog</h2>
+<form>
+  <mat-dialog-content>
+    <div class="dialog-content-wrapper"
+         fxLayout="row"
+         fxLayoutAlign="center none">
+      <ngx-barcode #barcode
+                   [bc-value]="barcodeNumber"
+                   [bc-display-value]="true"
+                   [bc-element-type]="'canvas'"
+                   [bc-height]="47"
+                   [bc-margin-top]="2"
+                   [bc-margin-bottom]="2"
+                   [bc-margin-left]="2"
+                   [bc-margin-right]="2"></ngx-barcode>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="button"
+            mat-button
+            color="warn"
+            (click)="onCancel()"
+            i18n="@@dialogCancel">Cancel</button>
+    <button type="button"
+            mat-button
+            color="primary"
+            (click)="onPrint()"
+            i18n="@@dialogPrint">Print</button>
+    <button type="button"
+            mat-button
+            (click)="onDownload()"
+            i18n="@@dialogDownload">Download</button>
+  </mat-dialog-actions>
+</form>

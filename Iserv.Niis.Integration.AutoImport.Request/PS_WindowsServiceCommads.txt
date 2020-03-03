@@ -1,0 +1,37 @@
+Задача NIIS-680 Импорт Заявки. Автоматически импортировать все заявки по Номеру заявки - Закрыта.
+
+Доставил на бой. Логи Лежат в папке C:\Logs\AutoImportRequest по датам, внутри за каждый проход информация времени старта и результату, было что то нет. 
+
+Таймер стоит сейчас на 15 минут, можно поменять в конфиге по пути C:\Iserv.Niis.Integration.AutoImport.Request\appsettings.json свойство CheckPeriodInMinutes
+
+Так же можно установить конкретную дату для импорта в поле DateForImport, если там стоит NULL берет текущую дату. Формат даты внутри.
+
+Для применения изменений надо перезапустить службу с именем Iserv.Niis.Integration.AutoImport.Request, после в логе будет запись Info-Service started. Period 15 minutes, где будет указан период из конфига.
+
+Перезапустить можно из Диспетчера стола вкладки Service, или командой.
+
+
+
+Команды PS cздания службы параметры: Имя службы, Путь до Exe файла службы
+
+sc.exe create "Iserv.Niis.Integration.AutoImport.Request" binPath= "C:\Iserv.Niis.Integration.AutoImport.Request\Iserv.Niis.Integration.AutoImport.Request.exe" start= auto
+
+
+Запуск службы 
+
+sc.exe start "Iserv.Niis.Integration.AutoImport.Request"
+
+
+
+Для изменения параметров необходимо остановить службу
+
+
+Команда PS остановки службы
+
+sc.exe stop "Iserv.Niis.Integration.AutoImport.Request" 
+
+
+
+Команды PS удаления службы
+
+sc.exe delete "Iserv.Niis.Integration.AutoImport.Request"

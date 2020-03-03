@@ -1,0 +1,53 @@
+<mat-tab-group [selectedIndex]="tabIndex">
+    <mat-tab
+        [disabled]="(editMode && !isChangeMode) || needUpdateSubjects"
+        label="Description"
+        i18n-label="@@textDescription"
+    >
+        <app-description
+            [owner]="owner"
+            [isChangeMode]="isChangeMode"
+            [disabled]="disabled"
+            (submitData)="onSubmitData($event)"
+            (edit)="onEdit($event)"
+            (changed)="descriptionChanged.emit($event)"
+            #description
+        ></app-description>
+    </mat-tab>
+    <mat-tab
+        [disabled]="(editMode && !isChangeMode) || needUpdateSubjects"
+        label="Priority"
+        i18n-label="@@textPriority"
+    >
+      <app-priority
+          [owner]="owner"
+          [isChangeMode]="isChangeMode"
+          [disabled]="disabled"
+          (submitData)="onSubmitData($event)"
+          (edit)="onEdit($event)"
+      ></app-priority>
+    </mat-tab>
+    <mat-tab
+        [disabled]="needUpdateSubjects ? false : editMode && !isChangeMode"
+        label="Subjects"
+        i18n-label="@@textSubjects"
+        #subjectsTab
+    >
+        <app-subjects
+            [disabled]="disabled"
+            [needUpdate]="needUpdateSubjects"
+            [ownerId]="ownerId"
+            [ownerType]="ownerType"
+            [counter]="counter"
+            [protectionDocTypeCode]="protectionDocTypeCode"
+            [speciesTrademarkCode]="owner.speciesTrademarkCode"
+            [roleCodes]="roleCodes"
+            [hasProxy]="owner.hasProxy"
+            [isChangeMode]="isChangeMode"
+            (changed)="subjectsChanged.emit($event)"
+            (attached)="subjectAttached.emit($event)"
+            (deleted)="subjectDeleted.emit($event)"
+            (edited)="subjectEdited.emit($event)"
+        ></app-subjects>
+    </mat-tab>
+</mat-tab-group>

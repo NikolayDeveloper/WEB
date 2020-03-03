@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspose.Words" Version="15.12.0" />
+    <PackageReference Include="NetCoreCQRS" Version="1.2.3" />
+    <PackageReference Include="ZXing.Net" Version="0.16.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Niis.DataAccess.EntityFramework\Iserv.Niis.DataAccess.EntityFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NetCoreCQRS">
+      <HintPath>..\packages\NetCoreCQRS.1.2.3\lib\netstandard2.0\NetCoreCQRS.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+    <Folder Include="QrCodeGenerators\" />
+  </ItemGroup>
+
+</Project>

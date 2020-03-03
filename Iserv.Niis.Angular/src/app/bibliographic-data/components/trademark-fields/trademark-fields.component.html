@@ -1,0 +1,116 @@
+<!-- Поля для ТЗ -->
+<div [formGroup]="formGroup" fxLayout="column">
+  <div fxLayout="column">
+    <!-- Транслитерация -->
+    <app-common-input-string
+      i18n-placeholder="@@inputTransliteration"
+      placeholder="Transliteration"
+      formControlName="transliteration"
+      [required]="isRequiredTransliteration()"
+    ></app-common-input-string>
+    <!-- Перевод -->
+    <app-common-input-string
+      i18n-placeholder="@@inputTranslation"
+      placeholder="Translation"
+      formControlName="translation"
+    ></app-common-input-string>
+    <!-- Дискламация Ru -->
+    <app-common-input-string
+      i18n-placeholder="@@inputDisclaimerRu"
+      placeholder="DisclaimerRu"
+      formControlName="disclaimerRu"
+    ></app-common-input-string>
+    <!-- Дискламация Kz -->
+    <app-common-input-string
+      i18n-placeholder="@@inputDisclaimerKz"
+      placeholder="DisclaimerKz"
+      formControlName="disclaimerKz"
+    ></app-common-input-string>
+    <!-- Дискламация En -->
+    <app-common-input-string
+      i18n-placeholder="@@inputDisclaimerEn"
+      placeholder="DisclaimerEn"
+      formControlName="disclaimerEn"
+    ></app-common-input-string>
+    <app-datepicker
+      i18n-placeholder="@@inpitPublicDate"
+      placeholder="PublicDate"
+      formControlName="publicDate"
+    >
+    </app-datepicker>
+  </div>
+  <!-- Разновидность товарного знака -->
+  <div fxLayout="row">
+    <mat-form-field>
+      <mat-select
+        i18n-placeholder="@@inputSpeciesTradeMark"
+        placeholder="Species Trademark"
+        formControlName="speciesTradeMarkId"
+        (change)="onSpeciesTradeMarkChanged($event.value)"
+        [required]="true"
+      >
+        <mat-option
+          *ngFor="let selectOption of speciesTradeMarks"
+          [value]="selectOption.id"
+        >
+          {{ selectOption.nameRu }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- Вид товарного знака -->
+  <div fxLayout="row">
+    <mat-form-field>
+      <mat-select
+        matInput
+        i18n-placeholder="@@inputTypeOfTrademark"
+        placeholder="Type of trademark"
+        formControlName="typeTrademarkId"
+        (change)="onTrademarkTypeChanged($event.value)"
+        [required]="true"
+      >
+        <mat-option
+          *ngFor="let selectOption of typeTrademark"
+          [value]="selectOption.id"
+        >
+          {{ selectOption.nameRu }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- Поля Общеизвестные товарные знаки -->
+  <!-- <div
+    *ngIf="
+      !!owner && protectionDocSubTypeFTMCode === owner.protectionDocTypeCode
+    "
+  > -->
+    <!-- Дата признания общеизвестным -->
+    <app-datepicker
+      i18n-placeholder="@@inputDateRecognizedKnown"
+      placeholder="Date Recognized Known"
+      formControlName="dateRecognizedKnown"
+    >
+    </app-datepicker>
+    <!-- Сведения о решении признания общеизвестным -->
+    <app-common-input-string
+      i18n-placeholder="@@inputInfoDecisionToRecognizedKnown"
+      placeholder="Info Decision To Recognized Known"
+      formControlName="infoDecisionToRecognizedKnown"
+    ></app-common-input-string
+    >
+    <!-- Сведения, подтверждающие общеизвестность товарного знака -->
+    <app-common-input-string
+      i18n-placeholder="@@inputInfoConfirmKnownTrademark"
+      placeholder="Info Confirm Known Trademark"
+      formControlName="infoConfirmKnownTrademark"
+    ></app-common-input-string>
+  <!-- </div> -->
+  <!-- <div *ngIf="isSpeciesTrademarkCode(protectionDocSubtypeCtmCode)"> -->
+    <!-- [required]="true" -->
+    <app-common-input-string
+      i18n-placeholder="@@inputColectiveTrademarkParticipantsInfo"
+      placeholder="ColectiveTrademarkParticipantsInfo"
+      formControlName="colectiveTrademarkParticipantsInfo"
+    ></app-common-input-string>
+  <!-- </div> -->
+</div>

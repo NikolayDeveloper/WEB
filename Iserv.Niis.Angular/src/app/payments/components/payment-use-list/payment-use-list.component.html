@@ -1,0 +1,52 @@
+<form novalidate
+      [formGroup]="formGroup"
+      (ngSubmit)="onSubmit()"
+      class="form-full-width form-medium-input">
+  <app-table [columns]="columns"
+             [source]="source"
+             [paginable]="true"
+             [paginatorOnTop]="true"
+             [pageSize]="10"
+             [sortable]="true"
+             [onlyQueriedData]="true"
+             [selectable]="true"
+             [reset]="reset"
+             (select)="onSelectPayment($event)"
+             class="table-small table-stripped"></app-table>
+  <div class="spacer"></div>
+  <div div
+       fxLayout="row"
+       fxFill
+       *ngIf="formGroup.enabled">
+    <mat-form-field fxFlex="49">
+      <input matInput
+             type="number"
+             i18n-placeholder="@@inputAmount"
+             placeholder="Amount"
+             formControlName="amount">
+<!--
+              [max]="roundedAvailableAmount">
+-->
+
+      <mat-error i18n="@@errorAmount">Incorrect amount value</mat-error>
+    </mat-form-field>
+    <span fxFlex="2"></span>
+    <app-common-input-string fxFlex="49"
+                             i18n-placeholder="@@inputDescription"
+                             placeholder="Description"
+                             formControlName="description"></app-common-input-string>
+  </div>
+  <div align="end"
+       *ngIf="formGroup.enabled">
+    <button type="button"
+            mat-button
+            color="accent"
+            (click)="useCompleted.emit()"
+            i18n="@@dialogCancel">Cancel</button>
+    <button type="submit"
+            mat-button
+            color="primary"
+            [disabled]="(formGroup.invalid || formGroup.pristine) || !selectedPayment"
+            i18n="@@dialogLink">Link</button>
+  </div>
+</form>

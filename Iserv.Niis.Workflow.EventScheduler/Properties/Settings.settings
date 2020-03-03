@@ -1,0 +1,42 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Iserv.Niis.Workflow.EventScheduler.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="NotificationsJobInterval" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="WorkflowsJobInterval" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="EmailFrom" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">m.pavlov1233@gmail.com</Value>
+    </Setting>
+    <Setting Name="EmailPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">326161rR_</Value>
+    </Setting>
+    <Setting Name="SmtpServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">smtp.gmail.com</Value>
+    </Setting>
+    <Setting Name="SmtpPort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">465</Value>
+    </Setting>
+    <Setting Name="MinioEndpoint" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">192.168.78.2:9000</Value>
+    </Setting>
+    <Setting Name="MinioWithSsl" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MinioAccessKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">H7UXESC5OP9N0NAKBWUT</Value>
+    </Setting>
+    <Setting Name="MinioSecretKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">suuzkZfHaz4HXPlzttIwgxmJKcTTSqsvPcTsT2yU</Value>
+    </Setting>
+    <Setting Name="SmscLogin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">IServ2</Value>
+    </Setting>
+    <Setting Name="SmscPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">QAWsed123</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

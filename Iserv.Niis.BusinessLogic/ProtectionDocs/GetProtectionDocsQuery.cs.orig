@@ -1,0 +1,34 @@
+﻿using System.Linq;
+<<<<<<< HEAD
+using Iserv.Niis.Domain.Entities.ProtectionDoc;
+=======
+using System.Threading.Tasks;
+using Iserv.Niis.Domain.Entities.ProtectionDoc;
+using Microsoft.EntityFrameworkCore;
+>>>>>>> origin/niis_refactoring
+using Iserv.Niis.DataBridge.Repositories;  using Iserv.Niis.DataBridge.Implementations; //using NetCoreCQRS; .Queries;
+
+namespace Iserv.Niis.BusinessLogic.ProtectionDocs
+{
+    public class GetProtectionDocsQuery : BaseQuery
+    {
+<<<<<<< HEAD
+        public IQueryable<ProtectionDoc> Execute()
+        {
+            var repo = Uow.GetRepository<ProtectionDoc>();
+            return repo.AsQueryable();
+=======
+        public async Task<IQueryable<ProtectionDoc>> ExecuteAsync()
+        {
+            var repository = Uow.GetRepository<ProtectionDoc>()
+                .AsQueryable()
+                .Include(pd => pd.CurrentWorkflow)
+                .ThenInclude(cw => cw.CurrentStage);
+
+            var result = await Task.FromResult(repository);
+
+            return result;
+>>>>>>> origin/niis_refactoring
+        }
+    }
+}

@@ -1,0 +1,340 @@
+<div
+    fxLayout="column"
+    class="app-trademark-container"
+>
+    <div
+        fxLayout="row"
+        fxLayoutAlign="space-between stretch"
+        class="table-header"
+    >
+        <!-- <mat-form-field floatPlaceholder="never">
+            <input
+                matInput
+                #filter
+                i18n-placeholder="@@filterPlaceholder"
+                placeholder="Filter"
+            >
+        </mat-form-field> -->
+        <mat-paginator
+            fxFlex
+            #paginator
+            [length]="dataSource?.resultsLength"
+        >
+        </mat-paginator>
+    </div>
+    <div
+        fxFlex
+        class="table-container"
+    >
+        <mat-table
+            #table
+            [dataSource]="dataSource"
+            matSort
+            matSortDisableClear
+            class="table-medium table-auto-width"
+        >
+            <ng-container cdkColumnDef="select">
+                <mat-header-cell
+                    [class.hidden]="!checkable"
+                    *cdkHeaderCellDef
+                    fxFlex="50px"
+                >
+                    <mat-checkbox
+                        [checked]="selectionModel.hasValue() && isAllSelected()"
+                        [indeterminate]="selectionModel.hasValue() && !isAllSelected()"
+                        (change)="$event ? masterToggle() : null"
+                    >
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell
+                    [class.hidden]="!checkable" style="padding-top: 15px; padding-bottom: 15px;"
+                    *cdkCellDef="let row"
+                    fxFlex="50px"
+                >
+                    <mat-checkbox
+                        [checked]="isChecked(row)"
+                        (click)="$event.stopPropagation()"
+                        (change)="$event ? selectionModel.toggle(row) : null"
+                    ></mat-checkbox>
+                </mat-cell>
+            </ng-container>
+            <!-- <ng-container cdkColumnDef="ownerType">
+                <mat-header-cell *cdkHeaderCellDef
+                                                 mat-sort-header
+                                                 fxFlex="70px"
+                                                 i18n="@@columnOwnerType">Owner type</mat-header-cell>
+                <mat-cell *cdkCellDef="let row"
+                                    fxFlex="70px">{{row.ownerType}}</mat-cell>
+            </ng-container> -->
+            <ng-container cdkColumnDef="id">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="70px"
+                    i18n="@@columnId"
+                >Id</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="70px"
+                >{{ row.id }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="previewImage">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="100px"
+                    i18n="@@columnPicture"
+                >Picture</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="100px"
+                >
+                  <img [src]="row.previewImage" (click)="imageClick($event, row)" *ngIf="row.previewImage">
+                  <ng-container *ngIf="!row.previewImage">Нет</ng-container>
+                </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="name">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="300px"
+                    i18n="@@columnName"
+                >Name</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="300px"
+                >{{ row.name }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="statusNameRu">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="150px"
+                    i18n="@@columnStatus"
+                >Status</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="150px"
+                >{{ row.statusNameRu }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="ownerType">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="50px"
+                    i18n="@@columnHeaderKind"
+                >Kind</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="50px"
+                >
+                    <mat-icon
+                        *ngIf="row.ownerType === 1 && row.isIndustrial"
+                        svgIcon="request"
+                        i18n-matTooltip="@@requestIndustrialIconTooltip"
+                        matTooltip="Industrial Request"
+                    ></mat-icon>
+                    <mat-icon
+                        *ngIf="row.ownerType === 1 && !row.isIndustrial"
+                        svgIcon="request"
+                        i18n-matTooltip="@@requestNonIndustrialIconTooltip"
+                        matTooltip="Intellectual Request"
+                    ></mat-icon>
+                    <mat-icon
+                        *ngIf="row.ownerType === 2"
+                        svgIcon="protection-doc"
+                        i18n-matTooltip="@@protectionDocIconTooltip"
+                        matTooltip="Protection document"
+                    ></mat-icon>
+                    <mat-icon
+                        *ngIf="row.ownerType === 3"
+                        svgIcon="contract"
+                        i18n-matTooltip="@@contractIconTooltip"
+                        matTooltip="Contract"
+                    ></mat-icon>
+                </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="regNumber">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="150px"
+                    i18n="@@columnRegNumber"
+                >Reg number</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="150px"
+                >{{ row.regNumber }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="regDate">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="150px"
+                    i18n="@@columnRegDate"
+                >Reg date</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="150px"
+                >{{ toDate(row.regDate) }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="gosNumber">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="150px"
+                    i18n="@@columnGosNumber"
+                >Gos number</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="150px"
+                >{{ row.gosNumber }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="gosDate">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="150px"
+                    i18n="@@columnGosDate"
+                >Gos date</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="150px"
+                >{{ toDate(row.gosDate) }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="declarantName">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="250px"
+                    i18n="@@columnDeclarantName"
+                >Declarant name</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="250px"
+                    (click)="$event.stopPropagation(); openDetailsPopup('Declarant name', row.declarantName)"
+                >{{ row.declarantName }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="ownerName">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="250px"
+                    i18n="@@columnOwnerName"
+                >Owner Name</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="250px"
+                >{{ row.ownerName }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="priorityData">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="200px"
+                    i18n="@@columnPriorityData"
+                >Priority data</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="200px"
+                >{{ row.priorityData }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="icgs">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="300px"
+                    i18n="@@columnIcgs"
+                >ICGS</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="300px"
+                    (click)="$event.stopPropagation(); openDetailsPopup('ICGS', row.icgs)"
+                >{{ stringifyICGS(row.icgs) }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="disclamation">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="250px"
+                    i18n="@@columnDisclamation"
+                >Disclamation</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="250px"
+                >{{ row.disclamation }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="validDate">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="150px"
+                    i18n="@@columnValidDate"
+                >Valid date</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="150px"
+                >{{ toDate(row.validDate) }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="colors">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="300px"
+                    i18n="@@columnColors"
+                >Colors</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="300px"
+                >{{ row.colors }}</mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="icfem">
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    mat-sort-header
+                    fxFlex="300px"
+                    i18n="@@columnIcfem"
+                >ICFEM</mat-header-cell>
+                <mat-cell
+                    *cdkCellDef="let row"
+                    fxFlex="300px"
+                >{{ row.icfem }}</mat-cell>
+            </ng-container>
+            <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row
+                *cdkRowDef="let row; columns: displayedColumns;"
+                (click)="onSelect(row)"
+            ></mat-row>
+        </mat-table>
+    </div>
+</div>
+<div class="actions-container ac-bottom ac-right">
+    <button
+        mat-mini-fab
+        type="button"
+        (click)="onColumnsChange()"
+        color="primary"
+        matTooltip="Columns"
+        i18n-matTooltip="@@textColumns"
+        matTooltipPosition="above"
+    ><mat-icon>view_column</mat-icon></button>
+    <button
+        mat-fab
+        type="button"
+        [disabled]="(resultsLength | async) <= 0 || displayedColumns && displayedColumns.length === 0"
+        (click)="onExport()"
+        matTooltip="Export to Excel"
+        i18n-matTooltip="@@textExportToExcel"
+        matTooltipPosition="above"
+    ><mat-icon>file_download</mat-icon></button>
+    <button
+        *ngIf="checkable"
+        mat-fab
+        type="button"
+        [disabled]="(resultsLength | async) <= 0 || displayedColumns && displayedColumns.length === 0"
+        (click)="checkChanged.emit(selectionModel.selected)"
+        matTooltip="Save selected"
+        i18n-matTooltip="@@textSaveSelected"
+        matTooltipPosition="above"
+    ><mat-icon>save</mat-icon></button>
+</div>

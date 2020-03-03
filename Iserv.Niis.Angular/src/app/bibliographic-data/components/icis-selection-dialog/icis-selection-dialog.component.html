@@ -1,0 +1,28 @@
+<div>
+  <div mat-dialog-content
+       [formGroup]="formGroup"
+       class="container-height-90">
+    <mat-selection-list formControlName="icis"
+                        (selectionChange)="onIcisSelectionChanged($event)">
+      <mat-list-option *ngFor="let icis of dicIcis"
+                       [value]="icis.id"
+                       [selected]="selectedIds.includes(icis.id)">
+        {{icis.description}}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+  <div mat-dialog-actions
+       align="end">
+    <button mat-button
+            type="button"
+            color="primary"
+            (click)="onSubmit()"
+            i18n="@@textSave">Save</button>
+    <button mat-button
+            type="button"
+            color="warn"
+            mat-dialog-close
+            (click)="onCancel()"
+            i18n="@@textCancel">Cancel</button>
+  </div>
+</div>

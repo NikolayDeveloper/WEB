@@ -1,0 +1,109 @@
+<h2
+    mat-dialog-title
+    i18n="@@workflowDialog"
+>Workflow dialog</h2>
+<form
+    novalidate
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit()"
+    class="form-full-width form-medium-input"
+>
+    <mat-dialog-content>
+        <div class="dialog-content-wrapper">
+            <mat-form-field>
+                <mat-select
+                    matInput
+                    #routeType
+                    i18n-placeholder="@@inputRouteType"
+                    (change)="onRouteChange($event.value)"
+                    placeholder="Route type"
+                    formControlName="workflowSendType"
+                >
+                    <mat-option
+                        *ngFor="let item of workflowSendTypes"
+                        [value]="item.type"
+                    >{{ item.nameRu }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select
+                    matInput
+                    i18n-placeholder="@@inputCurrentStage"
+                    placeholder="Current stage"
+                    formControlName="fromStageId"
+                >
+                    <mat-option
+                        *ngFor="let selectOption of dicRouteStages"
+                        [value]="selectOption.id"
+                    >{{ selectOption.nameRu }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select
+                    matInput
+                    i18n-placeholder="@@inputNextStage"
+                    placeholder="Next stage"
+                    formControlName="currentStageId"
+                    (change)="onNextStageChange($event.value)"
+                >
+                    <mat-option
+                        *ngFor="let selectOption of filteredRouteStages"
+                        [value]="selectOption.id"
+                    >{{ selectOption.nameRu }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <!-- <mat-select 
+                    matInput
+                    i18n-placeholder="@@inputNextUser"
+                    placeholder="Next user"
+                    formControlName="currentUserId"
+                >
+                    <mat-option
+                        *ngFor="let user of stageUsers"
+                        [value]="user.id"
+                    >{{ user.nameRu }}</mat-option>
+                </mat-select> -->
+                <input
+                    matInput
+                    type="text"
+                    placeholder="Next user"
+                    i18n-placeholder="@@inputNextUser"
+                    formControlName="currentUserId"
+                    [matAutocomplete]="userList"
+                >
+                <mat-autocomplete #userList="matAutocomplete">
+                    <mat-option
+                        *ngFor="let user of filteredStageUsers | async"
+                        [value]="user.nameRu"
+                    >{{ user.nameRu }}</mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <app-common-input-string
+                *ngIf="
+                    routeType.selected?.value === WorkflowSendType.ReturnByRoute ||
+                    routeType.selected?.value === WorkflowSendType.ToCurrentStage
+                "
+                i18n-placeholder="@@inputDescription"
+                placeholder="Description"
+                formControlName="description"
+            ></app-common-input-string>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button
+            type="button"
+            mat-button
+            color="accent"
+            (click)="onWorkflowCancel()"
+            i18n="@@dialogCancel"
+        >Cancel</button>
+        <button
+            type="submit"
+            mat-button
+            color="primary"
+            [disabled]="formGroup.invalid || formGroup.pristine"
+            i18n="@@dialogSend"
+        >Send</button>
+    </mat-dialog-actions>
+</form>

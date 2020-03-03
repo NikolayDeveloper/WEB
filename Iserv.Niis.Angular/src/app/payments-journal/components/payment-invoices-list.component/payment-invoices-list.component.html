@@ -1,0 +1,17 @@
+<app-table
+    [columns]="columns"
+    [data]="data"
+    [sortable]="true"
+    [paginable]="false"
+    [displayedColumns]="displayedColumns"
+    [defaultConfig]="columnsConfigs"
+    [sortButton]="true"
+    [addButton]="document != null"
+    (columnSort)="onColumnsChange($event)"
+    [header]="'Выставленные оплаты'"
+    (onAddButton)="addPayment()"
+    [uniqTableName]="'paymentsInvoicesListTable'"
+    [canExport]="true"
+    (export)="onExport($event)"
+    class="table-medium"
+></app-table>

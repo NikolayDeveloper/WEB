@@ -1,0 +1,919 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{12080A4F-ABC7-43CB-8D1F-9347F249CB64}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Iserv.Niis.Migration.Host</RootNamespace>
+    <AssemblyName>Iserv.Niis.Migration.Host</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>EE4B332CFE7DB14B4539C0934D4C577AF92BF600</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Iserv.Niis.Migration.Host_1_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Authentication, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Cookies.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Core.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.JwtBearer, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.JwtBearer.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.Internal.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.KeyDerivation.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.DataProtection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.DataProtection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Identity, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Identity.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Identity.EntityFrameworkCore.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DotNet.PlatformAbstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DotNet.PlatformAbstractions.1.1.0\lib\net451\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=2.2.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.2.3\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Abstractions, Version=2.2.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Abstractions.2.2.3\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Relational, Version=2.2.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Relational.2.2.3\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.SqlServer, Version=2.2.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.SqlServer.2.2.3\lib\netstandard2.0\Microsoft.EntityFrameworkCore.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Memory.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.FileExtensions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Json, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Json.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.2.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyModel.1.1.0\lib\net451\Microsoft.Extensions.DependencyModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Physical.2.1.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileSystemGlobbing.2.1.0\lib\netstandard2.0\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Identity.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Identity.Core.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Identity.Stores, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Identity.Stores.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.2.1.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.WebEncoders, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.WebEncoders.2.1.0\lib\netstandard2.0\Microsoft.Extensions.WebEncoders.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.2.1\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=5.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.5.2.1\lib\net451\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=5.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.5.2.1\lib\net451\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.2.1\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.1.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.4.5.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="NetCoreDataAccess, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetCoreDataAccess.1.4.1\lib\netstandard2.0\NetCoreDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="NetCoreDataAccessSpecification, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetCoreDataAccessSpecification.1.0.0\lib\netstandard2.0\NetCoreDataAccessSpecification.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.6\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.Extensions.Logging.1.1.0\lib\net461\NLog.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Scrutor, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scrutor.2.2.2\lib\net451\Scrutor.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SqlClient, Version=4.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.6.0\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.2.1\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Interactive.Async, Version=3.2.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.2.0\lib\net46\System.Interactive.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.4.5.0\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurations.cs" />
+    <Compile Include="Constants\AppSettings.cs" />
+    <Compile Include="MigrateAllData.cs" />
+    <Compile Include="MigrateAttachments.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LastMigratedAttachmentContractId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LastMigratedAttachmentDocumentId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LastMigratedAttachmentRequestId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UpdateDatabaseAfterMigrationScripts\2018.05.23_1.sql" />
+    <Content Include="AfterInitApplicationScripts\2018.05.24_1.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\2018.06.13_1.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\AspNetRoles.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\DicContactInfoTypes.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\DicNotificationStatuses.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\DicRouteStagesContractStatusIds.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\DicRouteStagesProtectionDocStatusIds.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\DicRouteStagesRequestStatusIds.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\DicRouteStage_DicRequestStatus.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\DicSelectionAchieveType.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\DicTypeTrademark.sql" />
+    <Content Include="AfterInitApplicationScripts\DocumentTemplateFiles_1.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\ExpertSearchView.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\InsertDicBeneficiaryTypes.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\NewDicProtectionDocSubTypes.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\SearchView.sql" />
+    <Content Include="AfterInitApplicationScripts\UpdateDicDocumentTypes.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateDicProtectionDocTypes.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateDicRequestStatuses.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateDicRouteStagesNmpt.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateDicRouteStagesPm.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateDicRouteStagesTm.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateDicRouteStages_Common.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateDicRouteStages_Inventions.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateDicTariffs.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateDicTariffsUm.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateDocumentTemplateFiles.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateRole_RouteStage.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateRouteStageOrdersNmpt.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateRouteStageOrdersPm.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateRouteStageOrders_Common.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateRouteStageOrders_Inventions.sql" />
+    <Content Include="UpdateDatabaseAfterMigrationScripts\UpdateTariffNames.sql" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="appsettings.json" />
+    <None Include="Iserv.Niis.Migration.Host_1_TemporaryKey.pfx" />
+    <None Include="Iserv.Niis.Migration.Host_TemporaryKey.pfx" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Resources\ConclusionTemplates\ExpertConclusionByRequest.docx" />
+    <None Include="Resources\ConclusionTemplates\InventionExpertSearchReport.docx" />
+    <None Include="Resources\ConclusionTemplates\InventionExpertSearchReportBranch.docx" />
+    <None Include="Resources\DocumentTemplates\Патент на изобретение.docx" />
+    <None Include="Resources\DocumentTemplates\Патент на Полезную Модель.docx" />
+    <None Include="Resources\DocumentTemplates\Патент на Промышленный образец.docx" />
+    <None Include="Resources\DocumentTemplates\Патент на СД  %28животноводство%29.docx" />
+    <None Include="Resources\DocumentTemplates\Патент на СД  %28растениеводство%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 01. ТЗ.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 1.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 10.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 102.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 106.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 11.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 12.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 13.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 14.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 15.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 152.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 153.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 154.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 155.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 156.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 157.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 158.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 159.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 16.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 162.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 163.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 164.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 165.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 169.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 17.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 170.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 171.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 172.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 173.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 174.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 175.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 176.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 177.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 178.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 179.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 18.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 180.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 19.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 196.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 198.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 199.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 2.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 20.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 200.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 201.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 202.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 21.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 22.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 220.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 23.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 24.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 243.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 25.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 26.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 261.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 27.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 272.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 275.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 28.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 3.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 30.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 309.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 31.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 310.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 311.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 312.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 313.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 314.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 315.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 316.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 317.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 318.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 319.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 32.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 320.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 321.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 322.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 323.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 324.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 325.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 326.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 327.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 328.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 329.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 33.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 330.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 331.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 332.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 333.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 334.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 335.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 336.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 337.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 338.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 339.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 34.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 340.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 341.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 342.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 343.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 344.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 345.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 35.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 353.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 355.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 36.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 366.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 37.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 370.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 371.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 372.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 373.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 374.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 375.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 38.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 382.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 386.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 387.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 389.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 39.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 390.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 391.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 392.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 393.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 4.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 40.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 400.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 401.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 402.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 403.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 404.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 405.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 406.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 41.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 415.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 416.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 417.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 418.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 419.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 42.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 422.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 423.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 424.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 425.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 426.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 427.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 428.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 429.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 43.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 430.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 431.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 432.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 433.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 434.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 435.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 436.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 437.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 438.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 439.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 44.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 440.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 441.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 442.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 443.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 444.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 445.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 446.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 447.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 448.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 449.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 45.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 450.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 451.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 452.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 453.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 454.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 455.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 456.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 457.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 458.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 459.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 46.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 460.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 461.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 462.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 463.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 464.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 465.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 466.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 467.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 468.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 469.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 47.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 470.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 471.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 472.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 473.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 474.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 475.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 476.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 477.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 478.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 479.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 48.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 480.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 481.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 482.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 483.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 484.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 485.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 486.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 487.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 488.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 489.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 49.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 490.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 491.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 492.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 493.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 494.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 495.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 496.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 497.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 498.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 499.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 5.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 50.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 500.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 501.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 502.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 503.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 504.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 505.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 506.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 507.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 508.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 51.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 510.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 511.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 512.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 513.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 514.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 515.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 516.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 536.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 537.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 538.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 539.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 54.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 540.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 542.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 543.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 544.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 545.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 546.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 547.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 55.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 56.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 57.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 576.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 577.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 578.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 579.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 58.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 580.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 581.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 582.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 583.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 584.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 585.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 586.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 587.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 588.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 589.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 59.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 590.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 591.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 592.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 593.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 594.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 595.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 596.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 6.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 60.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 601.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 602.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 603.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 604.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 605.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 606%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 607%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 608%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 609%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 61.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 610%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 611%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 612%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 613%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 614%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 615%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 616%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 617%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 618%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 619%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 62.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 620%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 621%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 622%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 623%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 624%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 625%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 626%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 627%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 628%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 629%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 63.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 630%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 631%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 632%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 633%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 634%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 635%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 636%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 637%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 638%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 639%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 64.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 640%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 641%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 642%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 643%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 644%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 645%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 646%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 647%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 648%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 649%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 65.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 650%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 651%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 652%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 653%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 654%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 655%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 656%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 657%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 658%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 659%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 66.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 660%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 661%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 662%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 663%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 664%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 665%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 666%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 667%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 668%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 669%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 67.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 670%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 671%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 672%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 673%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 674%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 675%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 676%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 677%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 678%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 679%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 68.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 680%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 681%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 682%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 683%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 684%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 685%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 686%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 687%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 688%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 689%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 69.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 690%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 691%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 692%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 693%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 694%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 695%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 696%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 697%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 698%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 699%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 7.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 70.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 700%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 701%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 702%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 703%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 704%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 705%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 706%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 707%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 708%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 709%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 71.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 710%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 711%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 712%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 713%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 714%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 715%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 716%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 717%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 718%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 719%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 72.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 720%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 721%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 722%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 723%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 724%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 725%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 726%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 727%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 728%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 729%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 73.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 730%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 731%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 732%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 733%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 734%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 735%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 736%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 737%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 738%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 739%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 74.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 740%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 741%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 742%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 743%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 744%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 745%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 746%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 747%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 748%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 749%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 75.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 750%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 751%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 752%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 753%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 754%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 755%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 756%28пустое%29.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 76.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 77.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 78.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 79.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 8.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 80.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 81.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 82.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 83.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 84.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 85.docx" />
+    <None Include="Resources\DocumentTemplates\Приложение 9.docx" />
+    <None Include="Resources\DocumentTemplates\Свидетельство на НМПТ.docx" />
+    <None Include="Resources\DocumentTemplates\Свидетельство на ТЗ.docx" />
+    <None Include="Resources\DocumentTemplates\Удостоверение ИЗ.docx" />
+    <None Include="Resources\DocumentTemplates\Удостоверение ПМ.docx" />
+    <None Include="Resources\DocumentTemplates\Удостоверение ПО.docx" />
+    <None Include="Resources\DocumentTemplates\Удостоверение СДЖ.docx" />
+    <None Include="Resources\DocumentTemplates\Удостоверение СДР.docx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Niis.Business\Iserv.Niis.Business.csproj">
+      <Project>{08fe3dbf-bc33-4444-ba68-aa19fc2c41fb}</Project>
+      <Name>Iserv.Niis.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.DataAccess.EntityFramework\Iserv.Niis.DataAccess.EntityFramework.csproj">
+      <Project>{ce7459e7-24a8-4fb4-af8d-d408b0122b43}</Project>
+      <Name>Iserv.Niis.DataAccess.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Domain\Iserv.Niis.Domain.csproj">
+      <Project>{3FAF8FDF-F227-4C2D-AA8F-7B8DBFFD0907}</Project>
+      <Name>Iserv.Niis.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.FileStorage\Iserv.Niis.FileStorage.csproj">
+      <Project>{914844b3-6785-47b4-b218-efc8b4375c69}</Project>
+      <Name>Iserv.Niis.FileStorage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Infrastructure\Iserv.Niis.Infrastructure.csproj">
+      <Project>{3e4dcd5f-639b-4287-98a4-b5baa15b8b29}</Project>
+      <Name>Iserv.Niis.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Migration.BusinessLogic\Iserv.Niis.Migration.BusinessLogic.csproj">
+      <Project>{6d2823f6-8a48-4b24-a9d9-fcb620f54524}</Project>
+      <Name>Iserv.Niis.Migration.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Migration.Common\Iserv.Niis.Migration.Common.csproj">
+      <Project>{f1da658c-16b4-42eb-a7da-af9b8a978d2a}</Project>
+      <Name>Iserv.Niis.Migration.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.Niis.Utils\Iserv.Niis.Utils.csproj">
+      <Project>{492f9b8f-c95b-47c8-a72c-7ee74f5c82e2}</Project>
+      <Name>Iserv.Niis.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.OldNiis.DataAccess.EntityFramework\Iserv.OldNiis.DataAccess.EntityFramework.csproj">
+      <Project>{57daa364-627c-468e-a34b-2c9546b160bc}</Project>
+      <Name>Iserv.OldNiis.DataAccess.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iserv.OldNiis.Domain\Iserv.OldNiis.Domain.csproj">
+      <Project>{64762594-26B4-46BC-853D-7A3D2FE1AE74}</Project>
+      <Name>Iserv.OldNiis.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>xcopy /Y "$(ProjectDir)appsettings.json"  "$(ProjectDir)$(OutDir)"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y "$(ProjectDir)UpdateDatabaseAfterMigrationScripts"  "$(ProjectDir)$(OutDir)UpdateDatabaseAfterMigrationScripts\"
+xcopy "$(ProjectDir)Resources" "$(ProjectDir)$(OutDir)Resources\"  /R /Y /S
+</PostBuildEvent>
+  </PropertyGroup>
+</Project>

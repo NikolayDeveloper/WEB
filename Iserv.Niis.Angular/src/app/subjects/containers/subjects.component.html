@@ -1,0 +1,43 @@
+<div fxFlexFill>
+    <!-- [disabled]="needUpdate || disabled" -->
+    <app-subjects-list
+        [subjects]="subjects"
+        [roleCodes]="roleCodes"
+        [needUpdate]="needUpdate"
+        [additionalRules]="additionalRules"
+        [ownerType]="ownerType"
+        [ownerId]="ownerId"
+        [disabled]="disabled"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)"
+    ></app-subjects-list>
+</div>
+<div class="actions-sub-container ac-bottom ac-right" *ngIf="isChangeMode">
+    <!-- [disabled]="needUpdate || disabled" -->
+    <button
+        mat-fab
+        type="button"
+        (click)="onAttach()"
+        [disabled]="disabled"
+        matTooltip="Add subject"
+        matTooltipPosition="above"
+        i18n-matTooltip="@@addSubjectTooltip"
+    ><mat-icon>add</mat-icon></button>
+</div>
+<div class="actions-container ac-bottom ac-right">
+    <!-- [disabled]="needUpdate || disabled" -->
+    <button
+        mat-fab
+        type="button"
+        (click)="onAttach()"
+        [disabled]="disabled"
+        matTooltip="Add subject"
+        matTooltipPosition="above"
+        *ngIf="ownerType !== 2"
+        i18n-matTooltip="@@addSubjectTooltip"
+    ><mat-icon>add</mat-icon></button>
+</div>
+<spinner
+    backgroundColor="#00695c"
+    spinner="sk-cube-grid"
+></spinner>

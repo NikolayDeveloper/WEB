@@ -1,0 +1,42 @@
+<div fxLayout="column" fxFlexFill>
+    <div fxLayoutAlign="end end"
+         class="calendar-toolbar">
+        <mat-button-toggle-group>
+            <mat-button-toggle mat-raised-button
+                               color="primary"
+                               (click)="onChangeYear(-1)">
+                <span i18n="@@textPrevious">Previous</span>
+            </mat-button-toggle>
+            <mat-button-toggle mat-raised-button
+                               color="primary"
+                               (click)="onChangeYear(0)">
+                <span i18n="@@textCurrent">Current</span>
+            </mat-button-toggle>
+            <mat-button-toggle mat-raised-button
+                               color="primary"
+                               (click)="onChangeYear(1)">
+                <span i18n="@@textNext">Next</span>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <div fxFlex
+         class="table-container">
+        <div fxLayout="row"
+             fxLayoutWrap>
+            <div fxFlex="33"
+                 *ngFor="let month of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]">
+                <div class="year-month">
+                    <h3>{{ viewDate(month) | calendarDate:'monthViewTitle' | uppercase }}</h3>
+                    <mwl-calendar-month-view [viewDate]="viewDate(month)"
+                                             [events]="events"
+                                             [locale]="locale"
+                                             [weekStartsOn]="weekStartsOn"
+                                             [weekendDays]="weekendDays"
+                                             [refresh]="refresh"
+                                             (dayClicked)="onDayClicked($event.day)"
+                                             (beforeViewRender)="onBeforeMonthViewRender($event)">
+                    </mwl-calendar-month-view>
+                </div>
+            </div>
+        </div>
+    </div>

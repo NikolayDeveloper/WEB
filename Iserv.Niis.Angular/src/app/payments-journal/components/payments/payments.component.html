@@ -1,0 +1,44 @@
+<div class="payments">
+  <div class="payments__search">
+    <h4 class="payments__title">Поиск платежей</h4>
+    <app-payments-search
+      (applySearch)="onApplySearch($event)"
+    ></app-payments-search>
+  </div>
+  <div class="payments__header">
+    <button
+      mat-button
+      color="primary"
+      [disabled]="(selectedPaymentId === null || isPaymentInForiegnCurrency === false)"
+      (click)="onPaymentBlockAmountClick()"
+    >ПКР</button>
+    <button
+      mat-button
+      color="primary"
+      [disabled]="selectedPaymentId === null"
+      (click)="onPaymentReturnAmountClick()"
+    >Возврат платежа</button>
+    <button
+      mat-button
+      color="primary"
+      [disabled]="selectedPaymentId === null"
+      (click)="onBoundPayment()"
+    >Зачесть оплату</button>
+    <button
+      mat-button
+      color="primary"
+      (click)="onImportPaymentsClick()"
+    >Загрузить платежи</button>
+  </div>
+  <div class="payments__table payments__table-list">
+    <app-payments-list
+      [searchParams]="searchParams"
+      (selectedPaymentIdChanged)="onSelectedPaymentIdChanged($event)"
+    ></app-payments-list>
+  </div>
+  <div class="payments__table payments__table-uses">
+    <app-payment-uses-list
+      [paymentId]="selectedPaymentId"
+    ></app-payment-uses-list>
+  </div>
+</div>

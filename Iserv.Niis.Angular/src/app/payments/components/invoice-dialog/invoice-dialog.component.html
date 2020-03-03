@@ -1,0 +1,108 @@
+<h2
+  mat-dialog-title
+  i18n="@@invoiceAddDialog"
+>Invoice add dialog</h2>
+
+<mat-dialog-content>
+  <form
+    novalidate
+    [formGroup]="invoiceFormGroup"
+    class="form form-medium-input"
+  >
+    <form
+      novalidate
+      class="group"
+      [formGroup]="filterForm"
+    >
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Code filter"
+          i18n-placeholder="@@inputCodeFilter"
+          formControlName="code"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Title filter"
+          i18n-placeholder="@@inputTitleFilter"
+          formControlName="title"
+        >
+      </mat-form-field>
+    </form>
+    <div class="table-wrapper">
+      <app-table
+        [data]="dataSource"
+        [columns]="columns"
+        [sortable]="true"
+        [filterable]="false"
+        [paginable]="true"
+        [paginatorOnTop]="true"
+        [selectable]="true"
+        (select)="onTariffSelect($event.id)"
+      ></app-table>
+    </div>
+    <div class="group">
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          placeholder="Coefficient"
+          i18n-placeholder="@@inputCoefficient"
+          formControlName="coefficient"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          min="1"
+          max="1000"
+          placeholder="Tariff count"
+          i18n-placeholder="@@inputTariffCount"
+          formControlName="tariffCount"
+        >
+      </mat-form-field>
+    </div>
+    <div class="group">
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          placeholder="Penalty percent"
+          i18n-placeholder="@@inputPenaltyPercent"
+          formControlName="penaltyPercent"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          placeholder="NDS"
+          i18n-placeholder="@@inputNds"
+          formControlName="nds"
+        >
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    type="button"
+    color="accent"
+    (click)="onCancel()"
+    i18n="@@dialogCancel"
+  >Cancel</button>
+  <button
+    mat-button
+    type="submit"
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="invoiceFormGroup.invalid || invoiceFormGroup.pristine"
+    i18n="@@dialogAdd"
+  >Add</button>
+</mat-dialog-actions>

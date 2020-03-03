@@ -1,0 +1,220 @@
+<div [formGroup]="formGroup"
+     fxLayout="column">
+  <h4 class="title"
+      i18n="@@cardData">Data</h4>
+  <!-- Номер заявки -->
+  <div fxLayout="row"
+       *ngIf="owner.ownerType === 1">
+    <app-common-input-string i18n-placeholder="@@inputRequestNumber"
+                             placeholder="Request number"
+                             formControlName="requestNum"
+                             [mask]="canHavemask() ? nmptNumberMask : null"
+                             fxFlex></app-common-input-string>
+    <ng-container *ngIf="isRequestNumberButtonVisible()">
+      <button
+        mat-icon-button
+        type="button"
+        [disabled]="isDisabledGenerateRequestNum()"
+        (click)="generateRequestNumber()"
+        i18n-matTooltip="@@GenerateRequestNumber"
+        matTooltip="Generate"
+        matTooltipPosition="above"
+        *ngIf="!hasRequestNumber()"
+      >
+        <mat-icon>rotate_right</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        type="button"
+        (click)="sendRegNumber()"
+        matTooltip="Отправить в ЛК"
+        matTooltipPosition="above"
+        *ngIf="hasRequestNumber()"
+      >
+        <mat-icon>mail</mat-icon>
+      </button>
+    </ng-container>
+
+  </div>
+  <div *ngIf="owner.ownerType === 2"
+       fxLayout="column">
+    <!--Номер ОД-->
+    <app-common-input-string fxFlex
+                             i18n-placeholder="@@inputProtectionDocNumber"
+                             placeholder="Protection document number"
+                             formControlName="gosNumber"></app-common-input-string>
+    <!-- Дата регистрации -->
+    <app-datepicker i18n-placeholder="@@inputGosDate"
+                    placeholder="Registry date"
+                    formControlName="gosDate"></app-datepicker>
+    <!-- Статус ОД -->
+    <mat-form-field fxFlex="48">
+      <mat-select i18n-placeholder="@@inputProtectionDocStatus"
+                  placeholder="Protection document status"
+                  formControlName="statusId"
+                  disabled>
+        <mat-option *ngFor="let selectOption of dicRequestStatuses"
+                    [value]="selectOption.id"
+                    disabled>
+          {{ selectOption.nameRu }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!--Бюллетень-->
+    <mat-form-field>
+      <mat-select i18n-placeholder="@@inputBulletin"
+                  placeholder="Bulletin"
+                  formControlName="bulletinId">
+        <mat-option *ngFor="let selectOption of bulletins"
+                    [value]="selectOption.id">
+          {{ 'Бюллетень №' + selectOption.number + ' от ' + (selectOption.publishDate | date: 'dd.MM.yyyy') }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <!-- Срок действия -->
+    <app-datepicker i18n-placeholder="@@inputValidDate"
+                    placeholder="Valid date"
+                    formControlName="validDate"></app-datepicker>
+    <!-- Срок продления -->
+    <app-datepicker i18n-placeholder="@@inputExtensionDate"
+                    placeholder="Extension date"
+                    formControlName="extensionDate"></app-datepicker>
+    <!-- Год поддержки -->
+    <app-common-input-string fxFlex
+                             i18n-placeholder="@@inputYearMaintain"
+                             placeholder="Maintain year"
+                             formControlName="yearMaintain"></app-common-input-string>
+    <!--Регистрационный номер заявки-->
+    <app-common-input-string i18n-placeholder="@@inputRequestNumber"
+                             placeholder="Request number"
+                             formControlName="requestNum"
+                             fxFlex></app-common-input-string>
+  </div>
+  <!-- Подвид заявки -->
+  <div *ngIf="!pdTypeCOOCodes.includes(owner.protectionDocTypeCode)">
+    <mat-form-field *ngIf="owner.ownerType === 1">
+      <mat-select i18n-placeholder="@@inputRequestType"
+                  placeholder="Request subtype"
+                  formControlName="requestTypeId"
+                  [disabled]="isDisabledRequestType()"
+                  *ngIf="!isSelectionAchieve">
+        <mat-option *ngFor="let selectOption of filteredPDSubTypes"
+                    [value]="selectOption.id">
+          {{ selectOption.nameRu }}
+        </mat-option>
+      </mat-select>
+      <mat-select
+        i18n-placeholder="@@inputRequestType"
+        placeholder="Request subtype"
+        formControlName="selectionAchieveTypeId"
+        [disabled]="isDisabledRequestType()"
+        *ngIf="isSelectionAchieve"
+      >
+        <mat-option
+          *ngFor="let selectOption of dicSelectionAchieveTypes"
+          [value]="selectOption.id"
+        >{{ selectOption.nameRu }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="owner.ownerType === 2">
+      <mat-select i18n-placeholder="@@inputProtectionDocSubtype"
+                  placeholder="Protection doc subtype"
+                  formControlName="requestTypeId"
+                  [disabled]="isDisabledRequestType()">
+        <mat-option *ngFor="let selectOption of filteredPDSubTypes"
+                    [value]="selectOption.id">
+          {{ selectOption.nameRu }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- Статус заявки -->
+  <mat-form-field *ngIf="owner.ownerType === 1">
+    <mat-select i18n-placeholder="@@inputRequestStatus"
+                placeholder="Request status"
+                formControlName="statusId"
+                disabled>
+      <mat-option *ngFor="let selectOption of dicRequestStatuses"
+                  [value]="selectOption.id"
+                  disabled>
+        {{ selectOption.nameRu }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div fxLayout="row">
+    <mat-form-field>
+      <mat-select
+        placeholder="Статус ЛК"
+        formControlName="lastOnlineRequisitionStatusId"
+      >
+        <mat-option
+          *ngFor="let selectOption of onlineRequisitionStatus"
+          [value]="selectOption.id"
+        >{{ selectOption.nameRu }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button
+      mat-icon-button
+      (click)="sendStatus()"
+      type="button"
+      [disabled]="isSendStatusDisabled()"
+    >
+      <mat-icon>mail</mat-icon>
+    </button>
+  </div>
+  <!-- Дата подачи заявки -->
+  <app-datepicker i18n-placeholder="@@inputRequestDate"
+                  placeholder="Request date"
+                  formControlName="requestDate">
+
+  </app-datepicker>
+  <mat-form-field *ngIf="isSelectionAchieve">
+    <input
+      matInput
+      placeholder="Publish date"
+      i18n-placeholder="@@inputPublicDate"
+      formControlName="publicDate"
+      [min]="minPublicDate"
+      [matDatepicker]="datepicker"
+    >
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="datepicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #datepicker></mat-datepicker>
+  </mat-form-field>
+  <!-- Льготник -->
+  <mat-form-field *ngIf="!!owner && !pdTypeCOOCodes.includes(owner.protectionDocTypeCode) && !pdTypeTMCodes.includes(owner.protectionDocTypeCode)">
+    <mat-select i18n-placeholder="@@inputBeneficiaryRequest"
+                placeholder="Beneficiary"
+                formControlName="beneficiaryTypeId"
+                disabled>
+      <mat-option *ngFor="let selectOption of dicBeneficiaryTypes"
+                  [value]="selectOption.id">
+        {{ selectOption.nameRu }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <app-common-input-string i18n-placeholder="@@columnHeaderCountIndependentItems"
+                             placeholder="Count Independent Items"
+                             formControlName="countIndependentItems"
+                             *ngIf="canShowCountIndependentItems()"
+                             fxFlex></app-common-input-string>
+  <div fxFlex>
+    <h4 class="title">{{getTitle(owner.protectionDocTypeCode)}}</h4>
+    <!-- <div [ngClass]="{'input-invalid': !doNamesHaveValue()}"> -->
+    <div>
+      <app-common-input-string i18n-placeholder="@@inputNameRu"
+                               placeholder="Name in Russian"
+                               formControlName="nameRu"></app-common-input-string>
+      <app-common-input-string i18n-placeholder="@@inputNameKz"
+                               placeholder="Name in Kazakh"
+                               formControlName="nameKz"></app-common-input-string>
+      <app-common-input-string i18n-placeholder="@@inputNameEn"
+                               placeholder="Name in English"
+                               formControlName="nameEn"></app-common-input-string>
+    </div>
+  </div>
+</div>

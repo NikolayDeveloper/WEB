@@ -1,0 +1,325 @@
+<div class="documents-search">
+  <div class="document-buttons">
+    <button mat-button type="submit"
+            color="primary"
+            (click)='onApplySearch()'
+            class="search-button"
+            [disabled]="searchParams.documentCategory == null"
+            i18n="@@textSearch">Search
+    </button>
+    <button mat-button
+            type="button"
+            color="accent"
+            i18n="@@textReset"
+            class="search-button"
+            (click)="onResetSearch()">Reset
+    </button>
+  </div>
+
+  <div class="search-panel form-full-width form-medium-input">
+    <!--Категория-->
+    <mat-form-field>
+      <mat-select [(ngModel)]="searchParams.documentCategory" (ngModelChange)="onDocCategoryChanged($event)"
+                  placeholder="Категория">
+        <mat-option *ngFor="let item of docCategories" [value]="item.id">
+          {{item.nameRu}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Вил ОПС/Договора-->
+    <mat-form-field>
+      <mat-select [(ngModel)]="searchParams.docTypeId" (ngModelChange)="onDocTypeChanged($event)"
+                  placeholder="Вил ОПС/Договора">
+        <mat-option *ngFor="let item of docTypes" [value]="item.id">
+          {{item.nameRu}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="search-block">
+      Основные параметры
+    </div>
+
+    <!--Штрих код-->
+    <mat-form-field>
+      <input matInput placeholder="Штрих код" [(ngModel)]="searchParams.barcode" type="number">
+    </mat-form-field>
+
+    <!--Тип доставки-->
+    <mat-form-field>
+      <mat-select [(ngModel)]="searchParams.receiveTypeId"
+                  placeholder="Тип доставки">
+        <mat-option *ngFor="let item of receiveTypes" [value]="item.id">
+          {{item.nameRu}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Подвид заявки-->
+    <mat-form-field>
+      <mat-select [(ngModel)]="searchParams.requestSubTypeId"
+                  placeholder="Подвид заявки">
+        <mat-option *ngFor="let item of requestSubTypes" [value]="item.id">
+          {{item.nameRu}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Тип заявки-->
+    <mat-form-field>
+      <mat-select [(ngModel)]="searchParams.requestTypeId"
+                  placeholder="Тип заявки">
+        <mat-option *ngFor="let item of requestTypes" [value]="item.id">
+          {{item.nameRu}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Входящий номер зявки-->
+    <mat-form-field>
+      <input matInput placeholder="Входящий номер зявки" [(ngModel)]="searchParams.requestIncomingNumber">
+    </mat-form-field>
+
+    <!--Регистрационный номер зявки-->
+    <mat-form-field>
+      <input matInput placeholder="Регистрационный номер зявки" [(ngModel)]="searchParams.requestRegNumber">
+    </mat-form-field>
+
+    <div class="group">
+      <!--Дата создания заявки с-->
+      <mat-form-field class="field">
+        <input matInput
+              [matDatepicker]="requestCreateDateFrom"
+              [(ngModel)]="searchParams.requestCreateDateFrom"
+              placeholder="Дата создания заявки с">
+        <mat-datepicker-toggle matSuffix [for]="requestCreateDateFrom"></mat-datepicker-toggle>
+        <mat-datepicker #requestCreateDateFrom></mat-datepicker>
+      </mat-form-field>
+
+      <!--Дата создания заявки по-->
+      <mat-form-field class="field">
+        <input matInput
+              [matDatepicker]="requestCreateDateTo"
+              [(ngModel)]="searchParams.requestCreateDateTo"
+              placeholder="Дата создания заявки по">
+        <mat-datepicker-toggle matSuffix [for]="requestCreateDateTo"></mat-datepicker-toggle>
+        <mat-datepicker #requestCreateDateTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="group">
+      <!--Дата подачи заявки с-->
+      <mat-form-field class="field">
+        <input matInput
+              [matDatepicker]="requestRegDateFrom"
+              [(ngModel)]="searchParams.requestRegDateFrom"
+              placeholder="Дата подачи заявки с">
+        <mat-datepicker-toggle matSuffix [for]="requestRegDateFrom"></mat-datepicker-toggle>
+        <mat-datepicker #requestRegDateFrom></mat-datepicker>
+      </mat-form-field>
+
+      <!--Дата подачи заявки по-->
+      <mat-form-field class="field">
+        <input matInput
+              [matDatepicker]="requestRegDateTo"
+              [(ngModel)]="searchParams.requestRegDateTo"
+              placeholder="Дата подачи заявки по">
+        <mat-datepicker-toggle matSuffix [for]="requestRegDateTo"></mat-datepicker-toggle>
+        <mat-datepicker #requestRegDateTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!--Статус заявки-->
+    <mat-form-field>
+      <mat-select [(ngModel)]="searchParams.requestStatusId"
+                  placeholder="Статус заявки">
+        <mat-option *ngFor="let item of requestStatuses" [value]="item.id">
+          {{item.nameRu}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Наименование на русском-->
+    <mat-form-field>
+      <input matInput placeholder="Наименование на русском" [(ngModel)]="searchParams.nameRu">
+    </mat-form-field>
+
+    <!--Наименование на казахском-->
+    <mat-form-field>
+      <input matInput placeholder="Наименование на казахском" [(ngModel)]="searchParams.nameKz">
+    </mat-form-field>
+
+    <!--Наименование на английском-->
+    <mat-form-field>
+      <input matInput placeholder="Наименование на английском" [(ngModel)]="searchParams.nameEn">
+    </mat-form-field>
+
+    <!--Номер охранного документа-->
+    <mat-form-field>
+      <input matInput placeholder="Номер охранного документа" [(ngModel)]="searchParams.protectionDocNumber">
+    </mat-form-field>
+
+    <!--Год поддержания ОД-->
+    <mat-form-field>
+      <input matInput placeholder="Год поддержания ОД" [(ngModel)]="searchParams.protectionDocMaintainYear"
+             type="number">
+    </mat-form-field>
+
+    <!--Срок действия ОД-->
+    <mat-form-field>
+      <input matInput
+             [matDatepicker]="protectionDocValidDate"
+             [(ngModel)]="searchParams.protectionDocValidDate"
+             placeholder="Срок действия ОД">
+      <mat-datepicker-toggle matSuffix [for]="protectionDocValidDate"></mat-datepicker-toggle>
+      <mat-datepicker #protectionDocValidDate></mat-datepicker>
+    </mat-form-field>
+
+    <!--Срок продления действия ОД-->
+    <mat-form-field>
+      <input matInput
+             [matDatepicker]="protectionDocExtensionDate"
+             [(ngModel)]="searchParams.protectionDocExtensionDate"
+             placeholder="Срок продления действия ОД">
+      <mat-datepicker-toggle matSuffix [for]="protectionDocExtensionDate"></mat-datepicker-toggle>
+      <mat-datepicker #protectionDocExtensionDate></mat-datepicker>
+    </mat-form-field>
+
+    <!--Статус ОД-->
+    <mat-form-field>
+      <mat-select [(ngModel)]="searchParams.protectionDocStatusId"
+                  placeholder="Статус ОД">
+        <mat-option *ngFor="let item of protectionDocStatuses" [value]="item.id">
+          {{item.nameRu}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Дата регистрации ОД в Госреестре-->
+    <mat-form-field>
+      <input matInput
+             [matDatepicker]="protectionDocDate"
+             [(ngModel)]="searchParams.protectionDocDate"
+             placeholder="Дата регистрации ОД в Госреестре">
+      <mat-datepicker-toggle matSuffix [for]="protectionDocDate"></mat-datepicker-toggle>
+      <mat-datepicker #protectionDocDate></mat-datepicker>
+    </mat-form-field>
+
+    <!--Дата отправки патента патентообладателю-->
+    <mat-form-field>
+      <input matInput
+             [matDatepicker]="protectionDocOutgoingDate"
+             [(ngModel)]="searchParams.protectionDocOutgoingDate"
+             placeholder="Дата отправки патента патентообладателю">
+      <mat-datepicker-toggle matSuffix [for]="protectionDocOutgoingDate"></mat-datepicker-toggle>
+      <mat-datepicker #protectionDocOutgoingDate></mat-datepicker>
+    </mat-form-field>
+
+    <div class="search-block">
+      Библиографические данные
+    </div>
+
+    <!--МКТУ-->
+    <mat-form-field>
+      <mat-select [(ngModel)]="searchParams.icgsId"
+                  placeholder="МКТУ">
+        <mat-option *ngFor="let item of icgses" [value]="item.id">
+          {{item.nameRu}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Тип селекционного достижения-->
+    <mat-form-field>
+      <mat-select [(ngModel)]="searchParams.selectionAchieveTypeId"
+                  placeholder="Тип селекционного достижения">
+        <mat-option *ngFor="let item of selectionAchieveTypes" [value]="item.id">
+          {{item.nameRu}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="search-block">
+      Субъекты
+    </div>
+    <!--Заявитель-->
+    <mat-form-field>
+      <input matInput placeholder="Заявитель" [(ngModel)]="searchParams.declarantName">
+    </mat-form-field>
+
+    <!--Патентообладатель-->
+    <mat-form-field>
+      <input matInput placeholder="Патентообладатель" [(ngModel)]="searchParams.patentOwnerName">
+    </mat-form-field>
+
+    <!--Автор-->
+    <mat-form-field>
+      <input matInput placeholder="Автор" [(ngModel)]="searchParams.authorName">
+    </mat-form-field>
+
+    <!--Патентно-поверенный-->
+    <mat-form-field>
+      <input matInput placeholder="Патентно-поверенный" [(ngModel)]="searchParams.patentAttorneyName">
+    </mat-form-field>
+
+    <!--Адресат для переписки-->
+    <mat-form-field>
+      <input matInput placeholder="Адресат для переписки" [(ngModel)]="searchParams.correspondenceName">
+    </mat-form-field>
+
+    <!--Доверенное лицо-->
+    <mat-form-field>
+      <input matInput placeholder="Доверенное лицо" [(ngModel)]="searchParams.confidantName">
+    </mat-form-field>
+
+    <!--Наличие отказов от упоминания при публикации-->
+    <mat-slide-toggle [(ngModel)]="searchParams.isNotMention" title="Наличие отказов от упоминания при публикации">Наличие отказов от упоминания при публикации</mat-slide-toggle>
+
+    <div class="group">
+      <!--Срок действия доверенности с-->
+      <mat-form-field class="field">
+        <input matInput
+              [matDatepicker]="confidantDateFrom"
+              [(ngModel)]="searchParams.confidantDateFrom"
+              placeholder="Срок действия доверенности с">
+        <mat-datepicker-toggle matSuffix [for]="confidantDateFrom"></mat-datepicker-toggle>
+        <mat-datepicker #confidantDateFrom></mat-datepicker>
+      </mat-form-field>
+
+      <!--Срок действия доверенности по-->
+      <mat-form-field class="field">
+        <input matInput
+              [matDatepicker]="confidantDateTo"
+              [(ngModel)]="searchParams.confidantDateTo"
+              placeholder="Срок действия доверенности по">
+        <mat-datepicker-toggle matSuffix [for]="confidantDateTo"></mat-datepicker-toggle>
+        <mat-datepicker #confidantDateTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!--№ авторского свидетельства-->
+    <mat-form-field>
+      <input matInput placeholder="№ авторского свидетельства" [(ngModel)]="searchParams.authorCertificateNumber">
+    </mat-form-field>
+
+    <div class="search-block">
+      Бюллетень
+    </div>
+
+    <!--Номер бюллетеня-->
+    <mat-form-field>
+      <input matInput placeholder="Номер бюллетеня" [(ngModel)]="searchParams.bulletinNumber">
+    </mat-form-field>
+
+    <!--Дата бюллетеня-->
+    <mat-form-field>
+      <input matInput
+             [matDatepicker]="bulletinDate"
+             [(ngModel)]="searchParams.bulletinDate"
+             placeholder="Дата бюллетеня">
+      <mat-datepicker-toggle matSuffix [for]="bulletinDate"></mat-datepicker-toggle>
+      <mat-datepicker #bulletinDate></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>

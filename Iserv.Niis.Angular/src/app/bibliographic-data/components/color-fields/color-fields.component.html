@@ -1,0 +1,51 @@
+<!-- Цвет -->
+<div [formGroup]="formGroup" fxLayout="column">
+  <h4 class="title" i18n="@@LableColor">Color</h4>
+  <input hidden formControlName="colorTzIds" />
+  <div *ngIf="labelsColor.length === 0" fxLayoutAlign="center none">
+    <button
+      mat-mini-fab
+      type="button"
+      [disabled]="isDisabledColor()"
+      [hidden]="!editMode"
+      (click)="openDialogColorTree()"
+      i18n-matTooltip="@@ButtonAddColor"
+      matTooltip="Add Color"
+      matTooltipPosition="above"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="labelsColor.length > 0"
+      class="formarray-container-items-3">
+   <div *ngFor="let item of labelsColor"
+        fxLayout="row"
+        class="label-item">
+     <span>{{item.nameRu}}</span>
+     <button mat-mini-fab
+             type="button"
+             [disabled]="isDisabledColor()"
+             [hidden]="!editMode"
+             (click)="deleteColor(item.id)"
+             i18n-matTooltip="@@ColorDeleteTooltip"
+             matTooltip="Delete color"
+             matTooltipPosition="above">
+       <mat-icon>delete</mat-icon>
+     </button>
+   </div>
+ </div>
+  <div *ngIf="labelsColor.length !== 0" fxLayoutAlign="row">
+    <button
+      mat-mini-fab
+      type="button"
+      [disabled]="isDisabledColor()"
+      [hidden]="!editMode"
+      (click)="openDialogColorTree()"
+      i18n-matTooltip="@@ButtonChangeColor"
+      matTooltip="Edit Color"
+      matTooltipPosition="above"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<app-table [columns]="columns"
+           [source]="bulletinSectionsService"
+           [reset]="reset"
+           [sortable]="true"
+           [paginable]="true"
+           [paginatorOnTop]="true"
+           [selectable]="true"
+           (select)="onSelect($event)"
+           [header]="'Разделы бюллетеней'"
+           class="table-medium">
+</app-table>
+
+<!--
+<app-table [columns]="columns"
+           [source]="paymentsService"
+           [reset]="reset"
+           [sortable]="true"
+           [paginable]="true"
+           [paginatorOnTop]="true"
+           [selectable]="true"
+           [onlyQueriedData]="true"
+           (select)="onSelect($event)"
+           (resultsLength)="onResultsLength()"
+           [displayedColumns]="displayedColumns"
+           [defaultConfig]="columnsConfigs"
+           [sortButton]="true"
+           (columnSort)="onColumnsChange($event)"
+           [header]="'Журнал платежей'"
+           class="table-medium">
+</app-table>
+-->

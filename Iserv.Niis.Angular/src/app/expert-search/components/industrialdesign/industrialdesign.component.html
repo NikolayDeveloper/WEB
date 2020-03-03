@@ -1,0 +1,11 @@
+<app-industrialdesign-form
+  [resultsLength]="resultsLength"
+  (search)="onSearch($event)"
+  (reset)="onReset()"
+></app-industrialdesign-form>
+<app-industrialdesign-list
+  [checkable]="checkable"
+  [checkedIndustrialDesignDtos]="checkedIndustrialDesignDtos"
+  (resultsLength)="resultsLength.next($event)"
+  (checkChanged)="checkChanged.emit($event)"
+></app-industrialdesign-list>

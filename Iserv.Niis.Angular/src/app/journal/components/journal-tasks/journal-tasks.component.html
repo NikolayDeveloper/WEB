@@ -1,0 +1,352 @@
+<div fxFlexFill fxLayout="column">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between stretch"
+    class="table-header"
+    [formGroup]="formGroup"
+  >
+    <div fxLayout="row">
+      <mat-form-field>
+        <mat-select
+          formControlName="ownerType"
+          (change)="onObjectKindSelectionChange($event.value)"
+        >
+          <mat-option
+            *ngFor="let selectOption of objectKinds"
+            [value]="selectOption.ownerType"
+          >
+            {{ selectOption.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span fxFlex="16px"></span>
+      <mat-form-field floatPlaceholder="never">
+        <input
+          matInput
+          #filter
+          i18n-placeholder="@@filterPlaceholder"
+          placeholder="Filter"
+        />
+      </mat-form-field>
+    </div>
+    <mat-paginator #paginator [length]="dataSource.resultsLength">
+    </mat-paginator>
+  </div>
+
+  <div
+    fxLayout="row"
+    *ngIf="mode === 0 && selectedOwnerType.ownerType === 2"
+    fxLayoutAlign="start center"
+  >
+    <button
+      mat-icon-button
+      type="button"
+      class="mat-mini-button"
+      i18n-matTooltip="@@generateGosNumber"
+      matTooltip="Generate by IPC"
+      matTooltipPosition="after"
+      (click)="onGenerateIpcNumberClick()"
+    >
+      <mat-icon>rotate_right</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      type="button"
+      class="mat-mini-button"
+      i18n-matTooltip="@@generateGosNumberTrademark"
+      matTooltip="Generate by request num"
+      matTooltipPosition="after"
+      (click)="onGenerateOtherNumberClick()"
+    >
+      <mat-icon>rotate_right</mat-icon>
+    </button>
+    <span fxFlex="4px"></span>
+    <mat-slide-toggle
+      i18n="@@showActivePdsCheckbox"
+      (change)="toggleActivePds($event)"
+      >Show Protection Docs</mat-slide-toggle
+    >
+  </div>
+
+<!--
+*ngIf="mode === 0 && selectedOwnerType.ownerType === 1"
+-->
+  <div
+    fxLayout="row"
+    *ngIf="false"
+    fxLayoutAlign="start center"
+  >
+    <button
+      mat-icon-button
+      type="button"
+      class="mat-mini-button"
+      i18n-matTooltip="@@sendMultipleForward"
+      matTooltip="Send requests forward"
+      matTooltipPosition="after"
+      (click)="onSendRequestsForwardClick()"
+    >
+      <mat-icon>next_week</mat-icon>
+    </button>
+  </div>
+
+  <div fxLayout="row" *ngIf="mode !== 0">
+    <button
+      mat-icon-button
+      type="button"
+      class="mat-mini-button"
+      i18n-matTooltip="@@buttonConfirm"
+      matTooltip="OK"
+      matTooltipPosition="above"
+      [disabled]="selectedItems.length === 0 && !isAllSelected"
+      (click)="confirmSelection()"
+    >
+      <mat-icon>done</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      type="button"
+      class="mat-mini-button"
+      i18n-matTooltip="@@buttonCancel"
+      matTooltip="Cancel"
+      matTooltipPosition="above"
+      (click)="resetSelection()"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+
+  <div fxFlex class="table-container">
+    <mat-table
+      #table
+      [dataSource]="dataSource"
+      matSort
+      matSortDisableClear
+      class="table-medium"
+    >
+      <ng-container cdkColumnDef="select">
+        <mat-header-cell *cdkHeaderCellDef mat-sort-header>
+          <mat-checkbox
+            *ngIf="mode !== 0"
+            (click)="$event.stopPropagation()"
+            (change)="checkAll($event)"
+            [checked]="isAllChecked()"
+            [indeterminate]="isSomeChecked()"
+          >
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *cdkCellDef="let row">
+          <mat-checkbox
+            *ngIf="(mode === 1 || mode === 2) && row.canGenerateGosNumber || mode === 3"
+            (click)="$event.stopPropagation()"
+            (change)="onCheck(row)"
+            [checked]="isChecked(row)"
+          >
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="barcode">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="100px"
+          i18n="@@columnHeaderBarcode"
+        >
+          Barcode
+        </mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="100px"
+          [ngStyle]="{ color: row.currentStageValue ? 'black' : 'red' }"
+        >
+          {{ row.barcode }}
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="kind">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          fxFlex="100px"
+          i18n="@@columnHeaderKind"
+        >
+          Kind
+        </mat-header-cell>
+        <mat-cell *cdkCellDef="let row" fxFlex="100px">
+          <mat-icon
+            *ngIf="row.ownerType === 1 && row.isIndustrial"
+            svgIcon="request"
+            i18n-matTooltip="@@requestIndustrialIconTooltip"
+            matTooltip="Industrial Request"
+          ></mat-icon>
+          <mat-icon
+            *ngIf="row.ownerType === 1 && !row.isIndustrial"
+            svgIcon="request"
+            i18n-matTooltip="@@requestNonIndustrialIconTooltip"
+            matTooltip="Intellectual Request"
+          ></mat-icon>
+          <mat-icon
+            *ngIf="row.ownerType === 2"
+            svgIcon="protection-doc"
+            i18n-matTooltip="@@protectionDocIconTooltip"
+            matTooltip="Protection document"
+          ></mat-icon>
+          <mat-icon
+            *ngIf="row.ownerType === 3"
+            svgIcon="contract"
+            i18n-matTooltip="@@contractIconTooltip"
+            matTooltip="Contract"
+          ></mat-icon>
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="dateCreate">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          i18n="@@columnHeaderDateCreate"
+        >
+          Date create
+        </mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          [ngStyle]="{ color: row.currentStageValue ? 'black' : 'red' }"
+          >{{ row.dateCreate | date: 'dd.MM.yyyy' }}
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="protectionDocTypeValue">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          i18n="@@columnHeaderTypeName"
+        >
+          Type name
+        </mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          [ngStyle]="{ color: row.currentStageValue ? 'black' : 'red' }"
+        >
+          {{ row.protectionDocTypeValue }}
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="requestNum">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          i18n="@@columnHeaderRequestNum"
+        >
+          Request number
+        </mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          [ngStyle]="{ color: row.currentStageValue ? 'black' : 'red' }"
+        >
+          {{ row.regNumber }}
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="ipcCodes" *ngIf="mode === 2">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          i18n="@@columnHeaderIpcCodes"
+        >
+          Ipc Codes
+        </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{ row.ipcCodes }} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="ipcCodes" *ngIf="mode === 1">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          i18n="@@columnHeaderRequestNumberSort"
+        >
+          Request number
+        </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{ row.ipcCodes }} </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="currentStageValue">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          mat-sort-header
+          i18n="@@columnHeaderCurrentStage"
+        >
+          Stage
+        </mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          [ngStyle]="{ color: row.currentStageValue ? 'black' : 'red' }"
+        >
+          {{ row.currentStageValue }}
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="reviewDaysAll">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          fxFlex="200px"
+          mat-sort-header
+          i18n="@@columnHeaderReviewDaysAll"
+        >
+          Review date all (days)
+        </mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="200px"
+          [ngStyle]="{ color: row.currentStageValue ? 'black' : 'red' }"
+        >
+          {{ row.reviewDaysAll }}
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="reviewDaysStage">
+        <mat-header-cell
+          *cdkHeaderCellDef
+          fxFlex="200px"
+          mat-sort-header
+          i18n="@@columnHeaderReviewDaysStage"
+        >
+          Review date stage (days)
+        </mat-header-cell>
+        <mat-cell
+          *cdkCellDef="let row"
+          fxFlex="200px"
+          [ngStyle]="{ color: row.currentStageValue ? 'black' : 'red' }"
+        >
+          {{ row.reviewDaysStage }}
+        </mat-cell>
+      </ng-container>
+      <ng-container cdkColumnDef="actions">
+        <mat-header-cell *cdkHeaderCellDef fxFlex="100px"></mat-header-cell>
+        <mat-cell *cdkCellDef="let row" fxFlex="100px" align="end">
+          <button
+            mat-icon-button
+            matTooltip="Preview"
+            i18n-matTooltip="@@textPreview"
+            matTooltipPosition="above"
+            [disabled]="!row.canDownload"
+            (click)="onAttachmentClick(row, false); $event.stopPropagation()"
+          >
+            <mat-icon>zoom_in</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            matTooltip="Download"
+            i18n-matTooltip="@@textDownload"
+            matTooltipPosition="above"
+            [disabled]="!row.canDownload"
+            (click)="onAttachmentClick(row, true); $event.stopPropagation()"
+          >
+            <mat-icon>file_download</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row
+        *cdkRowDef="let row; columns: displayedColumns"
+        (click)="mode === 0 ? onSelect(row) : onCheck(row)"
+        [ngClass]="{
+          'row-text-bold': !row.isRead,
+          'row-highlight-orange': row.priority === 3,
+          'row-highlight-red': row.priority === 2,
+          'row-highlight-yellow': row.priority === 1
+        }"
+      >
+      </mat-row>
+    </mat-table>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Iserv.Niis.Domain.Entities.Request;
+using Iserv.Niis.DataBridge.Repositories;  using Iserv.Niis.DataBridge.Implementations; //using NetCoreCQRS; .Queries;
+
+namespace Iserv.Niis.BusinessLogic.Requests
+{
+    public class GetRequestsQuery : BaseQuery
+    {
+<<<<<<< HEAD
+        public IQueryable<Request> Execute()
+        {
+            var requestRepository = Uow.GetRepository<Request>();
+            return requestRepository.AsQueryable();
+=======
+        public async Task<IQueryable<Request>> ExecuteAsync()
+        {
+            var repository = Uow.GetRepository<Request>();
+
+            var result = await Task.FromResult(repository.AsQueryable());
+
+            return result;
+>>>>>>> origin/niis_refactoring
+        }
+    }
+}

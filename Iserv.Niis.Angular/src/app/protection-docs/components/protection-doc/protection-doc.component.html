@@ -1,0 +1,185 @@
+<form
+  novalidate
+  [formGroup]="formGroup"
+  class="info"
+>
+  <div class="info__column">
+    <h4 class="info__title" i18n="@@mainParameters">Main parameters</h4>
+    <div class="info__group">
+      <!--Вид ОПС-->
+      <mat-form-field class="info__group-item">
+        <mat-select
+          i18n-placeholder="@@inputProtectionDocType"
+          placeholder="PD type"
+          formControlName="typeId"
+        >
+          <mat-option
+            *ngFor="let selectOption of dicPDTypes"
+            [value]="selectOption.id"
+          >{{ selectOption.nameRu }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!--Тип отправки-->
+      <mat-form-field class="info__group-item">
+        <mat-select
+          i18n-placeholder="@@inputSendType"
+          placeholder="Send type"
+          formControlName="sendTypeId"
+        >
+          <mat-option
+            *ngFor="let selectOption of dicSendTypes"
+            [value]="selectOption.id"
+          >{{ selectOption.nameRu }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="info__group">
+      <!-- Номер ОД -->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputProtectionDocNumber"
+        placeholder="Protection document number"
+        formControlName="gosNumber"
+      ></app-common-input-string>
+      <!-- Штрихкод -->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputBarcode"
+        placeholder="Barcode"
+        formControlName="barcode"
+      ></app-common-input-string>
+    </div>
+      <!--Адресат-->
+    <app-subjects-search-form
+      placehoder="Customer search"
+      formControlName="customerSearch"
+      [protectionDocTypeCode]="protectionDocDetails.protectionDocTypeCode"
+    ></app-subjects-search-form>
+    <div class="info__group">
+      <!-- Номер исходящего -->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputOutgoingNum"
+        placeholder="Outgoing number"
+        formControlName="outgoingNumber"
+      ></app-common-input-string>
+      <!-- Дата исходящего -->
+      <app-datepicker
+        class="info__group-item"
+        i18n-placeholder="@@inputProtectionDocSendingDate"
+        placeholder="Outgoing date"
+        formControlName="outgoingDate"
+      ></app-datepicker>
+    </div>
+    <div class="info__group">
+      <!-- Дата создания -->
+      <app-datepicker
+        class="info__group-item"
+        i18n-placeholder="@@inputDateCreate"
+        placeholder="Outgoing date"
+        formControlName="dateCreate"
+      ></app-datepicker>
+      <!--Количество страниц-->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputPageCount"
+        placeholder="Page count"
+        formControlName="pageCount"
+      ></app-common-input-string>
+    </div>
+  </div>
+  <div class="info__column">
+    <h4 class="info__title" i18n="@@documentDescription">Document description</h4>
+    <app-common-input-string
+      i18n-placeholder="@@inputNameRu"
+      placeholder="Name in Russian"
+      formControlName="nameRu"
+    ></app-common-input-string>
+    <app-common-input-string
+      i18n-placeholder="@@inputNameKz"
+      placeholder="Name in Kazakh"
+      formControlName="nameKz"
+    ></app-common-input-string>
+    <app-common-input-string
+      i18n-placeholder="@@inputNameEn"
+      placeholder="Name in English"
+      formControlName="nameEn"
+    ></app-common-input-string>
+    <app-common-input-string
+      i18n-placeholder="@@inputNote"
+      placeholder="Description"
+      formControlName="description"
+    ></app-common-input-string>
+    <h4 class="info__title" i18n="@@documentRoute">Document route</h4>
+    <div class="info__table">
+      <app-table
+        [columns]="columns"
+        [data]="workflows"
+        class="table-small table-stripped table-height-40"
+      ></app-table>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="actions-container ac-right ac-bottom" fxLayout="row">
+    <div class="read-mode-actions">
+      <button
+        mat-fab
+        type="button"
+        (click)="onPreviewClick()"
+        color="accent"
+        i18n-matTooltip="@@textPreview"
+        matTooltip="Preview"
+        matTooltipPosition="above"
+        [disabled]="!protectionDocDetails || !protectionDocDetails.wasScanned"
+      >
+        <mat-icon>zoom_in</mat-icon>
+      </button>
+    </div>
+    <div
+      class="read-mode-actions"
+      *ngIf="!editMode"
+    >
+      <button
+        mat-fab
+        type="button"
+        (click)="onEdit()"
+        [disabled]="!(availableAtStage | async)"
+        color="accent"
+        i18n-matTooltip="@@editTooltip"
+        matTooltip="Edit"
+        matTooltipPosition="above"
+      >
+        <mat-icon>mode_edit</mat-icon>
+      </button>
+    </div>
+    <div
+      class="edit-mode-actions"
+      *ngIf="editMode"
+    >
+      <button
+        mat-mini-fab
+        type="button"
+        (click)="onUndo()"
+        [color]="formGroup.dirty ? 'warn' : 'accent'"
+        i18n-matTooltip="@@undoTooltip"
+        matTooltip="Undo"
+        matTooltipPosition="above"
+      >
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button
+        mat-fab
+        type="button"
+        [disabled]="formGroup.invalid || formGroup.pristine"
+        color="primary"
+        i18n-matTooltip="@@saveTooltip"
+        matTooltip="Save"
+        matTooltipPosition="above"
+        (click)="onSubmit()"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+  </div>
+</form>

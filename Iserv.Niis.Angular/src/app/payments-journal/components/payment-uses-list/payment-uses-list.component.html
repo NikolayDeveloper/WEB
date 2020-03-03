@@ -1,0 +1,15 @@
+<app-table
+    [columns]="columns"
+    [data]="data"
+    [sortable]="true"
+    [paginable]="false"
+    [displayedColumns]="displayedColumns"
+    [defaultConfig]="columnsConfigs"
+    [sortButton]="true"
+    (columnSort)="onColumnsChange($event)"
+    [header]="'Журнал распределения платежа'"
+    [uniqTableName]="'paymentsUsesListTable'"
+    [canExport]="true"
+    (export)="onExport($event)"
+    class="table-medium"
+></app-table>

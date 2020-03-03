@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+.mat-dialog-content {
+  overflow: hidden;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.warning {
+  padding: 10px;
+  background: mat-color($mat-red, 500);
+  color: #ffffff;
+}

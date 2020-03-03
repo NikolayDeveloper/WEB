@@ -1,0 +1,189 @@
+<div fxLayout="column"
+     *ngIf="!templateForms"
+     fxLayoutAlign="center none"
+     class="search-container">
+  <div class="delimiter">
+    <span>поиск заявок / од / договоров</span>
+  </div>
+  <form [formGroup]="formGroup">
+    <div class="form-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+      <div class="label-field">
+        <label i18n="@@columnBarcode">Штрихкод</label>
+      </div>
+      <input class="search-input" formControlName="barcode" type="number">
+    </div>
+  <div class="form-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+    <div class="label-field">
+      <label>Вид ОПС</label>
+    </div>
+    <mat-form-field class="table-picker-field">
+      <input matInput placeholder="Выберите фильтр" aria-label="Выберите фильтр" [matAutocomplete]="protectionDocTypeId" formControlName="protectionDocTypeId">
+      <mat-autocomplete #protectionDocTypeId="matAutocomplete">
+        <mat-option *ngFor="let state of filterStates | async"
+                    [value]="state.name"
+                    (onSelectionChange)="onSelectComplete($event, state.key, 'protectionDocTypeId', false)">
+          <span>{{state.name}}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <div class="form-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+    <div class="label-field">
+      <label>Регистрационный номер заявки</label>
+    </div>
+    <input class="search-input" type="text" formControlName="regNumber" />
+  </div>
+  <label class="form-wrapper_delim">Дата создания</label>
+  <div class="form-wrapper form-wrapper_datepicker" fxLayout="row" fxLayoutAlign="space-around">
+    <div class="datepicker-container_from" fxLayout="row" fxLayoutAlign="space-between">
+      <mat-form-field>
+        <div class="datepicker">
+          <input matInput formControlName="createDate_from" [matDatepicker]="creationDateFromPicker">
+          <mat-datepicker-toggle class="mat-toggle-date mat-toggle-date_from" matSuffix [for]="creationDateFromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #creationDateFromPicker></mat-datepicker>
+        </div>
+      </mat-form-field>
+    </div>
+    <div class="datepicker-container_to" fxLayout="row" fxLayoutAlign="space-between">
+      <mat-form-field>
+        <div class="datepicker">
+          <input matInput formControlName="createDate_to" [matDatepicker]="creationDateToPicker">
+          <mat-datepicker-toggle class="mat-toggle-date mat-toggle-date_to" matSuffix [for]="creationDateToPicker"></mat-datepicker-toggle>
+          <mat-datepicker #creationDateToPicker></mat-datepicker>
+        </div>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <label class="form-wrapper_delim">Дата перехода на этап</label>
+  <div class="form-wrapper form-wrapper_datepicker" fxLayout="row" fxLayoutAlign="space-around">
+    <div class="datepicker-container_from" fxLayout="row" fxLayoutAlign="space-between">
+      <mat-form-field>
+        <div class="datepicker">
+          <input matInput formControlName="currentStageDate_from" [matDatepicker]="stageTransitionDateFromPicker">
+          <mat-datepicker-toggle class="mat-toggle-date mat-toggle-date_from" matSuffix [for]="stageTransitionDateFromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #stageTransitionDateFromPicker></mat-datepicker>
+        </div>
+      </mat-form-field>
+    </div>
+    <div class="datepicker-container_to" fxLayout="row" fxLayoutAlign="space-between">
+      <mat-form-field>
+        <div class="datepicker">
+          <input matInput formControlName="currentStageDate_to" [matDatepicker]="stageTransitionDateToPicker">
+          <mat-datepicker-toggle class="mat-toggle-date mat-toggle-date_to" matSuffix [for]="stageTransitionDateToPicker"></mat-datepicker-toggle>
+          <mat-datepicker #stageTransitionDateToPicker></mat-datepicker>
+        </div>
+      </mat-form-field>
+    </div>
+  </div>
+<div class="form-wrapper margin-top" fxLayout="row" fxLayoutAlign="space-between">
+  <div class="label-field">
+    <label>Этап</label>
+  </div>
+  <mat-form-field class="table-picker-field">
+    <input matInput placeholder="Выберите фильтр" aria-label="Выберите фильтр" [matAutocomplete]="currentStageCode" formControlName="currentStageCode">
+    <mat-autocomplete #currentStageCode="matAutocomplete">
+      <mat-option *ngFor="let state of stageFilter | async"
+                  [value]="state.name"
+                  (onSelectionChange)="onSelectComplete($event, state.key, 'currentStageCode', false)">
+        <span>{{state.name}}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+<div class="form-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+  <div class="label-field">
+    <label>Статус</label>
+  </div>
+  <mat-form-field class="table-picker-field">
+    <input matInput placeholder="Выберите фильтр" aria-label="Выберите фильтр" [matAutocomplete]="statusId" formControlName="statusId">
+    <mat-autocomplete #statusId="matAutocomplete">
+      <mat-option *ngFor="let state of statusFilter | async"
+                  [value]="state.name"
+                  (onSelectionChange)="onSelectComplete($event, state.key, 'statusId', false)">
+        <span>{{state.name}}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+  </form>
+  <form [formGroup]="matFormGroup">
+<div class="delimiter">
+  <span>поиск документов</span>
+</div>
+  <div class="form-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+    <div class="label-field">
+      <label i18n="@@columnBarcode">Штрихкод</label>
+    </div>
+    <input class="search-input" formControlName="barcode" type="number">
+  </div>
+<div class="form-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+  <div class="label-field">
+    <label>Тип корреспонденции</label>
+  </div>
+  <mat-form-field class="table-picker-field">
+    <input matInput placeholder="Выберите фильтр" aria-label="Выберите фильтр" [matAutocomplete]="documentType" formControlName="documentType">
+    <mat-autocomplete #documentType="matAutocomplete">
+      <mat-option *ngFor="let state of documentFilter | async"
+                  [value]="state.name"
+                  (onSelectionChange)="onSelectComplete($event, state.key, 'documentType', true)">
+        <span>{{state.name}}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+<div class="form-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+  <div class="label-field">
+    <label>Тип документа</label>
+  </div>
+  <mat-form-field class="table-picker-field">
+    <input matInput placeholder="Выберите фильтр" aria-label="Выберите фильтр" [matAutocomplete]="typeId" formControlName="typeId">
+    <mat-autocomplete #typeId="matAutocomplete">
+      <mat-option *ngFor="let state of filterTypes | async"
+                  [value]="state.name"
+                  (onSelectionChange)="onSelectComplete($event, state.key, 'typeId', true)">
+        <span>{{state.name}}</span>
+      </mat-option>
+    </mat-autocomplete>
+</mat-form-field>
+
+</div>
+  <div class="label-field">
+    <label class="form-wrapper_delim">Дата создания</label>
+  </div>
+  <div class="form-wrapper form-wrapper_datepicker" fxLayout="row" fxLayoutAlign="space-around">
+    <div class="datepicker-container_from" fxLayout="row" fxLayoutAlign="space-between">
+      <mat-form-field>
+        <div class="datepicker">
+          <input matInput formControlName="createDate_from" [matDatepicker]="creationMaterialDateFromPicker">
+          <mat-datepicker-toggle class="mat-toggle-date mat-toggle-date_from" matSuffix [for]="creationMaterialDateFromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #creationMaterialDateFromPicker></mat-datepicker>
+        </div>
+      </mat-form-field>
+    </div>
+    <div class="datepicker-container_to" fxLayout="row" fxLayoutAlign="space-between">
+      <mat-form-field>
+        <div class="datepicker">
+          <input matInput formControlName="createDate_to" [matDatepicker]="creationMaterialDateToPicker">
+          <mat-datepicker-toggle class="mat-toggle-date mat-toggle-date_to" matSuffix [for]="creationMaterialDateToPicker"></mat-datepicker-toggle>
+          <mat-datepicker #creationMaterialDateToPicker></mat-datepicker>
+        </div>
+      </mat-form-field>
+    </div>
+  </div>
+<div class="form-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+  <div class="lavel-field">
+    <label>Входящий номер</label>
+  </div>
+  <input class="search-input" formControlName="incomingNumber" type="number">
+</div>
+<div class="form-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+  <div class="label-field">
+    <label>Исходящий номер</label>
+  </div>
+  <input class="search-input" formControlName="outgoingNumber" type="text">
+</div>
+  </form>
+</div>
+
+<ng-content class="search-form" select="[search-form]"></ng-content>

@@ -1,0 +1,89 @@
+<div mat-dialog-content>
+  <div class="columns">
+    <div class="column">
+      <h1 class="column__title">{{ className }}</h1>
+      <mat-form-field>
+        <input
+          matInput
+          [(ngModel)]="searchText"
+          placeholder="Search"
+          i18n-placeholder="@@textSearch"
+        >
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="search()"
+          matTooltip="Search"
+          i18n-matTooltip="@@textSearch"
+          matTooltipPoisition="above"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="column__container">
+        <mat-list>
+          <mat-list-item *ngFor="let name of viewDicICGSNames">
+            <button mat-icon-button>
+              <mat-icon>navigate_next</mat-icon>
+            </button>
+            {{ name }}
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+    <div class="column">
+      <h1 class="column__title">Description</h1>
+      <div class="column__container">
+        <div *ngFor="let name of descriptionNames" class="view-description">
+          <ng-container *ngIf="isContainsService(name); else elseBlock">
+            <button
+              mat-icon-button
+              (click)="openDialogDeleteService(name)"
+            >
+              <mat-icon mat-list-avatar>clear</mat-icon>
+            </button>
+            <p
+              (click)="openDialogInputData(name)"
+              class="success"
+            >{{ name }}</p>
+          </ng-container>
+          <ng-template #elseBlock>
+            <button
+              mat-icon-button
+              (click)="openDialogDeleteService(name)"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+            <p
+              (click)="openDialogInputData(name)"
+              class="warn"
+            >{{ name }}</p>
+          </ng-template>
+        </div>
+        <button
+          mat-icon-button
+          (click)="openDialogAddNewService()"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-button
+    type="button"
+    color="warn"
+    mat-dialog-close
+    (click)="onCancel()"
+    i18n="@@textCancel"
+  >Cancel</button>
+  <button
+    mat-button
+    type="button"
+    color="primary"
+    (click)="onSave()"
+    i18n="@@textSave"
+  >Save</button>
+</div>

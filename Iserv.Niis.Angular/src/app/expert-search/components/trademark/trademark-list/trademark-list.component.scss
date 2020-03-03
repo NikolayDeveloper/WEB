@@ -1,0 +1,38 @@
+mat-table {
+    mat-header-row {
+        min-height: 26px;
+    }
+
+    mat-header-cell,
+    mat-cell {
+        padding: 4px;
+
+        &:not(:last-child) {
+          border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    mat-cell {
+        height: 60px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.mat-column-previewImage img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
+.app-trademark-container {
+    height: 100%;
+    margin: 0px;
+    min-height: 300px;
+    min-width: 100%;
+    width: 100%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+}

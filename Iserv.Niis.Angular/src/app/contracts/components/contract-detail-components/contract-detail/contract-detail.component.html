@@ -1,0 +1,69 @@
+<div fxFill>
+  <mat-tab-group class="tabs-colored tabs-medium">
+    <mat-tab [disabled]="editMode"
+             i18n-label="@@contract"
+             label="Contract">
+      <app-contract [contractDetails]="contractDetails"
+                    [selectOptions]="requestSelectOptions"
+                    (edit)="onEdit($event)"
+                    (delete)="onDelete($event)"
+                    (submitData)="onSubmitData($event)"
+                    (modifiedData)="onModifiedData($event)"
+                    (register)="onRegister($event)"></app-contract>
+    </mat-tab>
+    <mat-tab [disabled]="editMode || isInitialStage()"
+             i18n-label="@@contractSubject"
+             label="Contract subject">
+      <app-contract-subject [contractDetails]="contractDetails"
+                            [selectOptions]="subjectSelectOptions"
+                            (edit)="onEdit($event)"
+                            (delete)="onEdit($event)"
+                            (submitData)="onSubmitData($event)"
+                            (modifiedData)="onModifiedData($event)"></app-contract-subject>
+    </mat-tab>
+    <mat-tab [disabled]="editMode || isInitialStage()"
+             i18n-label="@@payments"
+             label="Payments">
+      <app-payments [ownerId]="contractDetails.id"
+                    [ownerType]="contractDetails.ownerType"
+                    [payingSubject]="payingSubject"
+                    [protectionDocTypeId]="contractDetails.protectionDocTypeId"
+                    [disabled]="!arePaymentsAvailable"
+                    (changed)="onPaymentUsed($event)"
+                    [flagChange]="flagChangeForPayment">
+      </app-payments>
+    </mat-tab>
+    <mat-tab [disabled]="editMode"
+             i18n-label="@@materials"
+             label="Materials">
+      <app-materials [owner]="contractDetails"
+                     (modifiedData)="onModifiedData($event)"></app-materials>
+    </mat-tab>
+    <mat-tab [disabled]="editMode || isInitialStage()"
+             i18n-label="@@officeWork"
+             label="Office work">
+      <app-office-work></app-office-work>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="actions-container ac-top ac-right">
+    <button mat-mini-fab
+            type="button"
+            (click)="onBack()"
+            color="primary"
+            i18n-matTooltip="@@backTooltip"
+            matTooltip="Back"
+            matTooltipPosition="above">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button mat-fab
+            type="button"
+            color="accent"
+            i18n-matTooltip="@@TransferStageTooltip"
+            matTooltip="Transfer to stage"
+            matTooltipPosition="above"
+            [disabled]="editMode || !(availableOfTransfer | async)"
+            (click)="onOpenWorkflowDialog()">
+      <mat-icon>next_week</mat-icon>
+    </button>
+  </div>
+</div>

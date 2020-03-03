@@ -1,0 +1,19 @@
+<h2
+  mat-dialog-title
+  i18n="@@paymentUseAddDialog"
+>Payment use add dialog</h2>
+<mat-dialog-content>
+  <div class="dialog-content-wrapper">
+    <app-payment-search-form
+      [payingSubject]="data.payingSubject"
+      [ownerType]="data.ownerType"
+      (cancel)="onUseCompleted()"
+      (search)="onSearch($event)"
+    ></app-payment-search-form>
+    <app-payment-use-list
+      [paymentInvoice]="data.paymentInvoice"
+      [ownerType]="data.ownerType"
+      (useCompleted)="onUseCompleted($event)"
+    ></app-payment-use-list>
+  </div>
+</mat-dialog-content>

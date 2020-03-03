@@ -1,0 +1,15 @@
+<ng-container *ngFor="let attachment of attachments">
+  <div class="attachment">
+    <button
+      mat-mini-fab
+      class="attachment__button"
+      (click)="downloadAttachment(attachment.id)"
+    >
+      <mat-icon>file_download</mat-icon>
+    </button>
+    <div class="attachment__group">
+      <p class="attachment__name">{{ attachment.validName }}</p>
+      <p class="attachment__size">({{ attachment.attachmentSize }})</p>
+    </div>
+  </div>
+</ng-container>

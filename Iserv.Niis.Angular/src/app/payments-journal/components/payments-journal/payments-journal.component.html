@@ -1,0 +1,9 @@
+<app-payments
+    [hidden]="!isPaymentsMode"
+    (boundPayment)="onBoundPayment($event)"
+></app-payments>
+<app-documents
+    *ngIf="isDocumentsMode"
+    [paymentId]="selectedPaymentId"
+    (returnToPayments)="onReturnToPayments()"
+></app-documents>

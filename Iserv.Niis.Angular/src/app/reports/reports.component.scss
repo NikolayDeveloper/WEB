@@ -1,0 +1,62 @@
+$table-border-style: 1px solid #c1c1c1;
+
+table{
+    margin: 10px;
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+    background-color:#fff;
+}
+table thead th{
+    text-align: center;
+    height: 50%;
+    border-top: $table-border-style;
+    border-bottom: $table-border-style;
+}
+table thead tr:first-child th{
+    border-top: none;
+}
+
+table tbody tr td:nth-child(2)
+{
+    text-align: left;
+}
+table tbody tr td{
+    border-bottom: 1px dashed #c1c1c1;
+}
+table, table tbody tr td,table thead th{
+    border-left: $table-border-style;
+    border-collapse: collapse;
+    text-align:center;
+    padding-left: 5px;
+    padding-right: 3px;
+}
+table tbody tr :last-child,table thead th:last-child{
+    border-right: none;
+}
+table tr td:nth-child(2){    
+    text-align: left;
+    word-wrap: break-word;
+}
+
+mat-drawer{
+    max-width: 600px;
+}
+
+mat-list-item.mat-list-item {
+    height: auto;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 1px solid #00695c;
+}
+mat-list-item.mat-list-item:last-child{
+    border-bottom: none;
+}
+
+.div-scrollable {
+    overflow-y: scroll;
+    max-height: 600px;
+} 
+.reportSelected {
+    background: rgb(255, 167, 38);
+}

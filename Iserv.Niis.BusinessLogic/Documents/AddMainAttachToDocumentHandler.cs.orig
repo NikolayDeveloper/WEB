@@ -1,0 +1,160 @@
+﻿using Iserv.Niis.BusinessLogic.NeedRefactoring;
+using Iserv.Niis.DI;
+using Iserv.Niis.Domain.Entities.Document;
+using Iserv.Niis.Domain.Enums;
+using Iserv.Niis.Model.Constans;
+using Iserv.Niis.Model.Models.Material;
+using Iserv.Niis.DataBridge.Repositories;  using Iserv.Niis.DataBridge.Implementations; //using NetCoreCQRS; ;
+using Iserv.Niis.DataBridge.Repositories;  using Iserv.Niis.DataBridge.Implementations; //using NetCoreCQRS; .Handlers;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Iserv.Niis.FileStorage.Abstract;
+using Iserv.Niis.BusinessLogic.Attachments;
+using Iserv.Niis.Domain.Helpers;
+using Iserv.Niis.BusinessLogic.Requests;
+using Iserv.Niis.BusinessLogic.Dictionaries.DicRouteStages;
+using Iserv.Niis.Domain.Entities.Request;
+
+namespace Iserv.Niis.BusinessLogic.Documents
+{
+    public class AddMainAttachToDocumentHandler : BaseHandler
+    {
+        private readonly IExecutor _executor;
+        private readonly IAttachmentHelper _attachmentHelper;
+        private readonly IFileStorage _fileStorage;
+        
+        public AddMainAttachToDocumentHandler(
+            IExecutor executor,
+            IAttachmentHelper attachmentHelper,
+            IFileStorage fileStorage)
+        {
+            _executor = executor;
+            _attachmentHelper = attachmentHelper;
+            _fileStorage = fileStorage;
+        }
+
+        public async Task<Document> Execute(MaterialDetailDto data)
+        {
+            using (var fileStream = System.IO.File.OpenRead(Path.Combine(Path.GetTempPath(),
+                     data.Attachment.TempName)))
+            {
+                if (!data.Id.HasValue)
+                    throw new Exception("Document not Fount");
+                var document = await _executor.GetQuery<GetDocumentByIdQuery>().Process(q => q.ExecuteAsync(data.Id.Value));
+
+                if (document == null)
+                    throw new Exception("Document not Fount");
+
+                var bucketName = "";
+
+                switch (document.DocumentType)
+                {
+                    case DocumentType.Incoming:
+                        bucketName = $"document-{document.Id}-incoming";
+                        break;
+                    case DocumentType.Outgoing:
+                        bucketName = $"document-{document.Id}-outgoing";
+                        break;
+                    case DocumentType.Internal:
+                        bucketName = $"document-{document.Id}-internal";
+                        break;
+                    default:
+                        throw new Exception("Type is undefined");
+                }
+
+                Attachment newAttachment;
+                var userId = NiisAmbientContext.Current.User.Identity.UserId;
+
+                if (data.Attachment.ContentType.Equals(ContentType.Pdf))
+                {
+                    newAttachment = _attachmentHelper.NewPdfObject(data.Attachment, userId, document.Id, bucketName, fileStream, true);
+                }
+                else
+                {
+                    newAttachment = _attachmentHelper.NewFileObject(data.Attachment, userId, document.Id, bucketName, fileStream, true);
+                }
+
+                // TODO: Transaction with complex logic
+                //using (var transaction = _context.Database.BeginTransaction())
+                //{
+                try
+                {
+                    await _executor.GetCommand<CreateAttachmentCommand>().Process(q => q.ExecuteAsync(newAttachment));
+
+                    var oldAttachment = document.MainAttachment;
+
+                    document.MainAttachment = newAttachment;
+                    if (newAttachment.PageCount.HasValue && data.Owners.Any(o => o.OwnerType == Owner.Type.Request))
+                    {
+                        var requestOwners = data.Owners.FirstOrDefault(o => o.OwnerType == Owner.Type.Request);
+
+                        if (requestOwners != null)
+                        {
+                            var requestId = requestOwners.OwnerId;
+
+                            var request = _executor.GetQuery<GetRequsetCurrentWorkflowByIdQuery>().Process(q => q.Execute(requestId));
+
+                            if (request == null || request.CurrentWorkflow.CurrentStageId.HasValue == false)
+                            {
+                                AddPageCountToRequest(request, newAttachment.PageCount.Value, oldAttachment?.PageCount);
+
+<<<<<<< HEAD
+                                await _executor.GetCommand<UpdateRequestCommand>().Process(q => q.ExecuteAsync(request));
+                            }
+=======
+                                _executor.GetCommand<UpdateRequestCommand>().Process(q => q.Execute(request));
+                            } 
+>>>>>>> origin/niis_refactoring
+                        }
+
+                    }
+                    await _fileStorage.AddAsync(document.MainAttachment.BucketName,
+                        document.MainAttachment.ValidName, fileStream, document.MainAttachment.ContentType);
+
+                    //transaction.Commit();
+
+                    if (oldAttachment != null)
+                    {
+                        await _fileStorage.Remove(oldAttachment.BucketName, oldAttachment.ValidName);
+
+                        await _executor.GetCommand<DeleteAttachmentCommand>().Process(q => q.ExecuteAsync(oldAttachment));
+                    }
+                }
+                catch
+                {
+                    //todo: log exception
+                    throw;
+                }
+                // }
+
+                return document;
+            }
+
+        }
+        private void AddPageCountToRequest(Request request, int pageCount, int? oldPageCount)
+        {
+            //TODO: Вынести коды 
+            var stageInitialCodes = new[] { "TM01.1", "TMI01.1", "NMPT01.1", "B01.1", "U01.1", "PO01.1", "SA01.1" };
+            var currentStage = _executor.GetQuery<GetDicRouteStageByIdQuery>().Process(q => q.Execute(request.CurrentWorkflow.CurrentStageId.Value));
+            if (!stageInitialCodes.Contains(currentStage.Code))
+            {
+                return;
+            }
+
+            if (request.PageCount.HasValue == true)
+            {
+                request.PageCount = oldPageCount.HasValue
+                    ? request.PageCount + pageCount - oldPageCount.Value
+                    : request.PageCount + pageCount;
+            }
+            else
+            {
+                request.PageCount = pageCount;
+            }
+        }
+    }
+}

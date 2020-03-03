@@ -1,0 +1,19 @@
+app-table {
+  height: 100%;
+
+  /deep/.table-component {
+    height: 100%;
+
+    .main-table-container {
+      height: 100%;
+
+      .table-container {
+        height: 100%;
+      }
+    }
+  }
+}
+
+.mat-cell {
+  font-size: 12px !important;
+}

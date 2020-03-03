@@ -1,0 +1,108 @@
+<form fxFlexFill>
+    <div fxLayout="column">
+        <div [formGroup]="formGroup"
+             fxLayout="row"
+             style="margin:10px 10px 0 10px">
+            <div>
+                <mat-list fxFlex="500px">
+                    <mat-list-item [ngClass]="{'reportSelected': reportCode == report.code}" *ngFor="let report of reports"
+                                   (click)="setReportCode(report.code)">{{report.name}}</mat-list-item>
+                </mat-list>
+            </div>
+            <div *ngIf="!!reportCode"
+                 fxFlex>
+                 <div ngSwitch="{{reportCode}}">
+                    <div *ngSwitchCase="'ChargedPaymentInvoicesReport'" >
+                        <app-charged-paymnet-invoices-report-filter [reportCode]="reportCode"></app-charged-paymnet-invoices-report-filter>
+                    </div>                        
+                    <div *ngSwitchDefault>
+                        <app-report-filter [reportCode]="reportCode"></app-report-filter>
+                    </div>
+                 </div> 	                
+            </div>
+        </div>
+        <div *ngIf="!!reportCode"
+             fxLayout="row">
+            <button mat-button
+                    type="button"
+                    color="primary"
+                    (click)="onReset()"
+                    i18n="@@textReset">Reset</button>
+            <button mat-button
+                    type="button"
+                    color="primary"
+                    (click)="onGenerate()"
+                    i18n="@@textGenerate">Generate</button>
+        </div>
+        
+        <div fxLayout="column"
+             fxLayoutAlign="start center"
+             class="div-scrollable">
+            <div *ngIf="!!reportData">                   
+                <table>
+                    <thead>
+                        <tr *ngFor="let row of headers">
+                            <th *ngFor="let cell of row.cells"
+                                [attr.rowspan]="cell.rowSpan ? cell.rowSpan : 1"
+                                [attr.colspan]="cell.collSpan ? cell.collSpan : 1"> {{cell.value}} </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of body">
+                            <td *ngFor="let cell of row.cells"
+                                [ngStyle]="{'font-weight': cell.isBold ? 'bold' : 'normal'}"
+                                [attr.rowspan]="cell.rowSpan ? cell.rowSpan : 1"
+                                [attr.colspan]="cell.collSpan ? cell.collSpan : 1">{{cell.value}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="!!chartData">
+                <p-chart *ngIf="chartData.chartType === 1"
+                         type="doughnut"
+                         [data]="chartData"
+                         width="1100px"
+                         height="600px"></p-chart>
+                <p-chart *ngIf="chartData.chartType === 2"
+                         type="polarArea"
+                         [data]="chartData"
+                         width="1100px"
+                         height="600px"></p-chart>
+                <p-chart *ngIf="chartData.chartType === 3"
+                         type="radar"
+                         [data]="chartData"
+                         width="1100px"
+                         height="600px"></p-chart>
+                <p-chart *ngIf="chartData.chartType == 4"
+                         type="bar"
+                         [data]="chartData"
+                         width="1100px"
+                         height="600px"></p-chart>
+                <p-chart *ngIf="chartData.chartType === 5"
+                         type="line"
+                         [data]="chartData"
+                         width="1100px"
+                         height="600px"></p-chart>
+                <p-chart *ngIf="chartData.chartType === 6"
+                         type="pie"
+                         [data]="chartData"
+                         width="1100px"
+                         height="600px"></p-chart>
+            </div>
+        </div>
+        <div class="actions-container ac-right ac-bottom">
+            <button mat-fab
+                    type="button"
+                    [disabled]="!reportData"
+                    (click)="onExportToExcel()"
+                    [color]="'primary'"
+                    i18n-matTooltip="@@excelTooltip"
+                    matTooltip="Export to Excel"
+                    matTooltipPosition="above">
+                <mat-icon>file_download</mat-icon>
+            </button>
+        </div>
+    </div>
+</form>
+<spinner backgroundColor="#00695c"
+         spinner="sk-cube-grid"></spinner>

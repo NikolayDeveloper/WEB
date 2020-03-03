@@ -1,0 +1,28 @@
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  /deep/app-common-input-string {
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  /deep/app-table {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .table-component {
+      height: 100%;
+      overflow: hidden;
+
+      .main-table-container {
+        height: 100%;
+        overflow: hidden;
+      }
+    }
+  }
+}

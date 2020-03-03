@@ -1,0 +1,40 @@
+<h2 mat-dialog-title i18n="@@authorsCertificatesDialog">Authors Certificates Dialog</h2>
+<form novalidate [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form-full-width form-medium-input">
+    <mat-dialog-content>
+        <div class="dialog-content-wrapper">
+            <div fxFlex class="table-container">
+                <mat-table fxFlex="400px" #table [dataSource]="dataSource" matSortDisableClear class="table-medium">
+                    <ng-container cdkColumnDef="select">
+                        <mat-header-cell  *cdkHeaderCellDef fxFlex="100px"i18n="@@columnHeaderSelect" >
+                            Certificates : {{ counter }}
+                        </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row" fxFlex="100px">
+                            <mat-checkbox 
+                                (change)="onSelect(row)"
+                                [checked]="row.isChecked" 
+                                [disabled]="(counter < 1 && !row.isChecked)">
+                            </mat-checkbox>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container cdkColumnDef="name">
+                        <mat-header-cell *cdkHeaderCellDef fxFlex="200px" i18n="@@columnHeaderAuthors">
+                            Authors
+                        </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row" fxFlex="200px"
+                            [ngStyle]="{ color: 'black' }">
+                            {{ row.author.nameRu }}
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *cdkRowDef="let row; columns: displayedColumns">
+                    </mat-row>
+                </mat-table>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button type="button" mat-button color="warn" (click)="onWorkflowCancel()" i18n="@@dialogCancel">Cancel</button>
+        <button type="submit" mat-button color="primary" [disabled]="cantPrint()"
+            i18n="@@dialogPrint">Print</button>
+    </mat-dialog-actions>
+</form>

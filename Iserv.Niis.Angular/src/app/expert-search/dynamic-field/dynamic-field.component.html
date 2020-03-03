@@ -1,0 +1,171 @@
+<form
+    [formGroup]="formGroup"
+    fxLayout="row"
+    class="form-full-width"
+    fxFlexFill
+    >
+    <div
+        fxLayout="column"
+        fxLayoutAlign="center center"
+    >
+        <button
+            class="delete-button"
+            mat-button
+            matTooltip="Delete"
+            *ngIf="canDeleted"
+            (click)="onFieldDelete()"
+        >
+            <mat-icon
+                svgIcon="times"
+                class="delete-button-icon"
+            ></mat-icon>
+        </button>
+        <span
+            style="width: 20px;"
+            *ngIf="!canDeleted"
+            ></span>
+        </div>
+        <span fxFlex="1"></span>
+        <span [class.hidden]="!hideOperator" style="width: 70px;"></span>
+        <mat-form-field
+            [class.hidden]="hideOperator"
+            fxFlex="70px;"
+            *ngIf="selectedField"
+        >
+            <mat-select class="operator-mat-select" matInput formControlName="operator">
+                <mat-option
+                *ngFor="let operator of (CombineOperatorEnum | keys)"
+                [value]="operator.key"
+            >{{ operator.value }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <!-- <div [class.hidden]="!hideOperator" style="width: 70px"></div> -->
+    <!-- <span fxFlex="70px" *ngIf="!selectedField"></span> -->
+    <span fxFlex="1" *ngIf="selectedField"></span>
+    <mat-form-field fxFlex="40">
+        <mat-select
+            #fieldSelector
+            matInput
+            formControlName="fieldSelector"
+            [disabled]="!canChanged"
+            (change)="onFieldSelectorChange($event.value)"
+        >
+            <mat-option
+                *ngFor="let config of configs; let optionIndex = index"
+                [value]="config.enum"
+                [disabled]="!canSelectFirstOption && optionIndex === 0"
+            >{{ config.label }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <span fxFlex="1"></span>
+    <mat-form-field *ngIf="isFieldActive(selectedField, dateFields)" fxFlex>
+        <input
+            matInput
+            [matDatepicker]="picker"
+            [placeholder]="fieldSelector.triggerValue"
+            formControlName="value"
+            (keyup.enter)="enter.emit()"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field *ngIf="isFieldActive(selectedField, selectFields)" fxFlex>
+        <mat-select
+            formControlName="value"
+            [placeholder]="fieldSelector.triggerValue"
+        >
+            <mat-option
+                *ngFor="let dic of dictionary"
+                [value]="dic.id"
+            >{{ dic.nameRu }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <app-advanced-select
+        fxFlex
+        formControlName="value"
+        [entries]="dictionary | filterByParams:filterParams"
+        [placeholder]="fieldSelector.triggerValue"
+        [id]="generateId(fieldSelector.triggerValue)"
+        [done]="done"
+        *ngIf="isFieldActive(selectedField, selectListFields)"
+        (search)="onSearch($event)"
+    ></app-advanced-select>
+    <!-- <mat-form-field>
+        <input
+            matInput
+            type="text"
+            formControlName="value"
+            [placeholder]="fieldSelector.triggerValue"
+            [matAutocomplete]="auto"
+        >
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete" multiple>
+        <mat-option
+            *ngFor="let dic of dictionary"
+            [value]="dic.id"
+        >{{ dic.name.ru }}</mat-option>
+    </mat-autocomplete> -->
+    <div
+        fxLayout="row"
+        fxFlex
+        *ngIf="isFieldActive(selectedField, dateRangeFields)"
+    >
+        <mat-form-field>
+            <input
+                matInput
+                #value
+                [max]="toDate(subValue.value)"
+                [matDatepicker]="fromPicker"
+                [placeholder]="fieldSelector.triggerValue"
+                formControlName="value"
+                (keyup.enter)="enter.emit()"
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="fromPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <input
+                matInput
+                #subValue
+                [min]="toDate(value.value)"
+                [matDatepicker]="toPicker"
+                i18n-placeholder="@@inputTo"
+                placeholder="To"
+                formControlName="subValue"
+                (keyup.enter)="enter.emit()"
+            />
+            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <app-common-input-string
+        fxFlex
+        *ngIf="isFieldActive(selectedField, textFields)"
+        [placeholder]="fieldSelector.triggerValue"
+        formControlName="value"
+        (keyup.enter)="enter.emit()"
+    ></app-common-input-string>
+    <div
+      class="dictionary"
+      *ngIf="isFieldActive(selectedField, dictionaryFields)"
+    >
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          [placeholder]="fieldSelector.triggerValue"
+          formControlName="placeholder"
+          readonly
+        >
+      </mat-form-field>
+      <button
+        mat-button
+        (click)="openDictionary(selectedField)"
+      >Открыть справочник</button>
+    </div>
+    <span fxFlex="4px"></span>
+    <app-search-mode-toggle formControlName="value_mode" *ngIf="selectedField"></app-search-mode-toggle>
+</form>

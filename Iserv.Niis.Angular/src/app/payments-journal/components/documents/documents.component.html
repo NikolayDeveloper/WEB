@@ -1,0 +1,38 @@
+<div class="documents">
+  <div class="documents__search">
+    <h4 class="documents__title">Поиск заявок / ОД / Договоров</h4>
+    <app-documents-search
+      (applySearch)="onApplySearch($event)"
+    ></app-documents-search>
+  </div>
+  <div class="documents__header">
+    <h1 class="documents__title">Зачесть оплату</h1>
+    <div class="documents__buttons">
+      <button
+        mat-button
+        color="primary"
+        (click)="onReturnBack()"
+      >
+        <mat-icon>arrow_back</mat-icon>
+        Назад
+      </button>
+    </div>
+  </div>
+  <div class="documents__table documents__table-list">
+    <app-documents-list
+      [searchParams]="searchParams"
+      (selectedDocumentChanged)="onSelectedDocumentChanged($event)"
+    ></app-documents-list>
+  </div>
+  <div class="documents__table documents__table-invoices">
+    <app-payment-invoices-list
+      [paymentId]="paymentId"
+      [document]="selectedDocument"
+    ></app-payment-invoices-list>
+  </div>
+  <div class="documents__details">
+    <app-document-details
+      [document]="selectedDocument"
+    ></app-document-details>
+  </div>
+</div>

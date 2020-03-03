@@ -1,0 +1,520 @@
+<form
+  novalidate
+  [formGroup]="formGroup"
+  class="info"
+>
+  <div
+    class="actions-container ac-top ac-right"
+    [hidden]="!exists()"
+  >
+    <!-- [disabled]="!(availableOfTransfer | async) || canChangeExecutor()" -->
+    <button
+      mat-mini-fab
+      type="button"
+      (click)="createOutgoing()"
+      color="primary"
+      matTooltip="Создать исходящий документ"
+      matTooltipPosition="above"
+    >
+      <mat-icon>insert_drive_file</mat-icon>
+    </button>
+    <button
+      mat-mini-fab
+      type="button"
+      (click)="changeExecutorDialog()"
+      color="accent"
+      i18n-matTooltip="@@changeExecutor"
+      matTooltip="Change executor"
+      matTooltipPosition="above"
+    >
+      <mat-icon>mode_edit</mat-icon>
+    </button>
+    <button
+      mat-mini-fab
+      type="button"
+      (click)="onBackClick()"
+      color="primary"
+      i18n-matTooltip="@@backTooltip"
+      matTooltip="Back"
+      matTooltipPosition="above"
+      *ngIf="isAttached()"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <!-- [disabled]="!(availableOfTransfer | async) || isReadOnly" -->
+    <button
+      mat-fab
+      type="button"
+      (click)="onOpenWorkflowDialog()"
+      color="accent"
+      i18n-matTooltip="@@TransferStageTooltip"
+      matTooltip="Transfer to stage"
+      matTooltipPosition="above"
+    >
+      <mat-icon>next_week</mat-icon>
+    </button>
+  </div>
+  <div class="info__column">
+    <h4
+      class="title"
+      i18n="@@mainParameters"
+    >Main parameters</h4>
+    <div class="info__group">
+      <!-- Тип документа -->
+      <app-common-autocomplete
+        class="info__group-item"
+        [dictionary]="docTypesCollection"
+        i18n-placeholder="@@inputDocumentType"
+        placeholder="Document type"
+        formControlName="typeId"
+        (changed)="typeIdChanged($event)"
+        [disabled]="!editMode"
+      ></app-common-autocomplete>
+      <!-- Тип доставки -->
+      <mat-form-field class="info__group-item">
+        <mat-select
+          i18n-placeholder="@@inputReceiveType"
+          placeholder="Receive type"
+          formControlName="receiveTypeId"
+        >
+          <mat-option
+            *ngFor="let selectOption of dicReceiveTypes"
+            [value]="selectOption.id"
+          >{{ selectOption.nameRu }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <p class="info__text">Статус: {{ statusNameRu }}</p>
+    <!--Номера заявок-->
+    <app-attach-to-owner-form
+      formControlName="ownerNumbers"
+      (attach)="onAttach($event)"
+      [disabled]="!editMode"
+    ></app-attach-to-owner-form>
+    <div class="info__group">
+      <app-datepicker
+        class="info__group-item"
+        formControlName="dateCreate"
+        placeholder="Date create"
+        i18n-placeholder="@@inputDateCreate"
+        disabled
+      ></app-datepicker>
+      <!-- Штрихкод -->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputBarcode"
+        placeholder="Barcode"
+        formControlName="barcode"
+      ></app-common-input-string>
+    </div>
+    <app-subjects-search-form
+      placehoder="Customer search"
+      formControlName="customerSearch"
+      [protectionDocTypeCode]="''"
+      [disabled]="!editMode"
+    ></app-subjects-search-form>
+    <div class="info__group">
+      <!-- Филиал -->
+      <mat-form-field class="info__group-item">
+        <mat-select
+          i18n-placeholder="@@inputDivision"
+          placeholder="Division"
+          formControlName="divisionId"
+          (change)="onDivisionChange($event.value)"
+        >
+          <mat-option
+            *ngFor="let selectOption of dicDivisions"
+            [value]="selectOption.id"
+          >{{ selectOption.nameRu }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Служба -->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          type="text"
+          placeholder="Department"
+          i18n-placeholder="@@inputDepartment"
+          formControlName="departmentId"
+          [matAutocomplete]="departmentList"
+        >
+        <mat-autocomplete
+          [displayWith]="getDisplayDepartment()"
+          #departmentList="matAutocomplete"
+        >
+          <mat-option
+            *ngFor="let department of filteredDepartments | async"
+            [value]="department.id"
+            [matTooltip]="department.nameRu"
+          >{{ department.nameRu }}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="info__group">
+      <!-- Количество страниц -->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          type="number"
+          i18n-placeholder="@@inputPageCount"
+          placeholder="Page count"
+          formControlName="pageCount"
+        />
+      </mat-form-field>
+      <!-- Количество копий -->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          type="number"
+          i18n-placeholder="@@inputCopyCount"
+          placeholder="Copy count"
+          formControlName="copyCount"
+        />
+      </mat-form-field>
+    </div>
+    <div class="info__group">
+      <!-- Дата исходящего документа  -->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          [matDatepicker]="documentDatePicker"
+          i18n-placeholder="@@inputDocumentDate"
+          placeholder="Document date"
+          formControlName="documentDate"
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="documentDatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #documentDatePicker
+          [disabled]="!editMode"
+        ></mat-datepicker>
+      </mat-form-field>
+      <!--Исходящий номер-->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputOutgoingCustomerNumber"
+        placeholder="Outgoing customer number"
+        formControlName="outgoingNumber"
+        i18n-matTooltip="@@InsertOutgoingCustomerNumTooltip"
+        matTooltip="Insert outgoing customer number"
+        matTooltipPosition="above"
+      ></app-common-input-string>
+    </div>
+    <div class="info__group">
+      <!--Входящий номер-->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputIncomingNumber"
+        placeholder="Incoming number"
+        formControlName="incomingNumber"
+        i18n-placeholder="@@textIncomingNum"
+      ></app-common-input-string>
+      <!--Входящий номер филиал-->
+      <app-common-input-string
+        class="info__group-item"
+        i18n-placeholder="@@inputIncomingNumberDivision"
+        placeholder="Incoming number division"
+        formControlName="incomingNumberFilial"
+        i18n-placeholder="@@textIncomingNumDivision"
+      ></app-common-input-string>
+    </div>
+    <div
+      class="info__group"
+      *ngIf="isProlongationPetition()"
+    >
+      <!--Количество требуемых платежек по ходатайству-->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          type="number"
+          i18n-placeholder="@@inputAttachedPaymentCount"
+          placeholder="Prolongation Months Count"
+          formControlName="attachedPaymentsCount"
+          [max]="maxProlongationMonths"
+        />
+      </mat-form-field>
+    </div>
+    <!--Отсканировано-->
+    <mat-checkbox
+      class="check-input-container"
+      i18n="@@inputScanned"
+      formControlName="wasScanned"
+    >Was scanned</mat-checkbox>
+    <div class="info__group">
+      <!--Отметка контроля-->
+      <div class="info__group-item info__group-item--center">
+        <mat-checkbox
+          class="check-input-container"
+          i18n="@@controlMark"
+          (change)="controlMarkOnChange($event)"
+          formControlName="controlMark"
+        >Control Mark</mat-checkbox>
+      </div>
+      <!--Дата контроля-->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          [disabled]="!editMode || !controlMarkChecked"
+          [matDatepicker]="controlDatePicker"
+          i18n-placeholder="@@controlDate"
+          placeholder="Control date"
+          formControlName="controlDate"
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="controlDatePicker"
+          formControlName="controlDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #controlDatePicker
+          formControlName="controlDate"
+          [disabled]="!editMode || !controlMarkChecked"
+        ></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div
+      class="info__group"
+      *ngIf="showOutOfControl()"
+    >
+      <!-- Снят с контроля -->
+      <div class="info__group-item">
+        <mat-checkbox
+          class="check-input-container"
+          i18n="@@outOfControl"
+          [disabled]="!editMode || !controlMarkChecked"
+          (change)="outOfControlOnChange($event)"
+          formControlName="outOfControl"
+        >Снят с контроля</mat-checkbox>
+      </div>
+      <!--Дата снятия с контроля-->
+      <mat-form-field class="info__group-item">
+        <input
+          matInput
+          [disabled]="!editMode || !outOfControlChecked"
+          [matDatepicker]="dateOutOfControlPicker"
+          i18n-placeholder="@@dateOutOfControl"
+          placeholder="Date out of control"
+          formControlName="dateOutOfControl"
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          formControlName="dateOutOfControl"
+          [for]="dateOutOfControlPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #dateOutOfControlPicker
+          formControlName="dateOutOfControl"
+          [disabled]="!editMode || !outOfControlChecked"
+        ></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <!-- Резолюция по продлению даты контроля\снятию с контроля -->
+    <app-common-input-string
+      i18n="@@resolutionExtensionControlDate"
+      placeholder="Resolution extension control date"
+      formControlName="resolutionExtensionControlDate"
+      i18n-matTooltip="@@resolutionExtensionControlDateTooltip"
+      matTooltip="Resolution extension control date"
+      matTooltipPosition="above"
+    ></app-common-input-string>
+    <!-- Признак наличия платёжного документа -->
+    <mat-checkbox
+      class="check-input-container"
+      [disabled]="!editMode || !controlMarkChecked"
+      i18n="@@isHasPaymentDocument"
+      formControlName="isHasPaymentDocument"
+    >Has payment document</mat-checkbox>
+    <app-documen-link
+      [links]="links"
+      [parentLinks]="parentLinks"
+      (linkRemove)="linkRemove($event)"
+      (changed)="linkAdded($event)"
+      [disabled]="!editMode"
+    ></app-documen-link>
+    <app-comment
+      [comments]="comments"
+      (changed)="commentAdded($event)"
+      [disabled]="!editMode"
+    ></app-comment>
+  </div>
+  <div class="info__column">
+    <h4
+      class="title"
+      i18n="@@documentDescription"
+    >Document description</h4>
+    <app-common-input-string
+      i18n-placeholder="@@documentDescription"
+      placeholder="Name in Russian"
+      formControlName="nameRu"
+    ></app-common-input-string>
+    <h4
+      class="title"
+      [hidden]="!exists()"
+      i18n="@@documentRoute"
+    >Document route</h4>
+    <app-table
+      [columns]="columns"
+      [data]="workflows"
+      class="table-small table-stripped"
+    ></app-table>
+    <h4 class="title" *ngIf="!noAttachments">Прикрепленные файлы</h4>
+    <h4 class="title" *ngIf="noAttachments">Прикрепленных файлов нет</h4>
+    <app-attachments
+      [id]="id"
+      [reloadAttachments]="reloadAttachments"
+      (attachmentsLoad)="onAttachmentsLoad($event)"
+    ></app-attachments>
+  </div>
+  <!-- Buttons -->
+  <div
+    class="actions-container ac-right ac-bottom"
+    fxLayout="row"
+  >
+    <div
+      fxLayout="row"
+      *ngIf="exists()"
+    >
+      <div class="edit-mode-actions">
+        <button
+          mat-fab
+          type="button"
+          (click)="onPreview()"
+          color="accent"
+          i18n-matTooltip="@@textPreview"
+          matTooltip="Preview"
+          matTooltipPosition="above"
+          [disabled]="!hasAttachment()"
+        >
+          <mat-icon>zoom_in</mat-icon>
+        </button>
+      </div>
+      <div
+        class="edit-mode-actions"
+        fxLayout="row"
+        *ngIf="canByDone()"
+      >
+        <button
+          mat-fab
+          type="button"
+          (click)="done()"
+          color="accent"
+          matTooltip="Done"
+          matTooltipPosition="above"
+        >
+          <mat-icon>done_outline</mat-icon>
+        </button>
+      </div>
+      <div
+        class="edit-mode-actions"
+        fxLayout="row"
+        *ngIf="editMode && isInitialStage()"
+      >
+        <button
+          mat-fab
+          type="button"
+          (click)="onDelete()"
+          color="warn"
+          i18n-matTooltip="@@textDelete"
+          matTooltip="Delete"
+          matTooltipPosition="above"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <div [ngSwitch]="hasAttachment()">
+          <input
+            accept=".pdf, .docx"
+            single
+            (change)="onSingleFileSelect($event, i)"
+            type="file"
+            #inputSingleFile
+            hidden
+          >
+          <button
+            mat-fab
+            type="button"
+            (click)="inputSingleFile.click()"
+            color="accent"
+            i18n-matTooltip="@@textReplace"
+            matTooltip="Replace"
+            matTooltipPosition="above"
+            *ngSwitchCase="true"
+          >
+            <mat-icon>find_replace</mat-icon>
+          </button>
+          <button
+            mat-fab
+            type="button"
+            color="accent"
+            (click)="onUnpinClick()"
+            i18n-matTooltip="@@unpinMaterialTooltip"
+            matTooltip="Unpin material"
+            matTooltipPosition="above"
+            *ngSwitchCase="true"
+          >
+            <mat-icon>link_off</mat-icon>
+          </button>
+          <button
+            mat-fab
+            type="button"
+            (click)="inputSingleFile.click()"
+            color="accent"
+            i18n-matTooltip="@@textScan"
+            matTooltip="Scan"
+            matTooltipPosition="above"
+            *ngSwitchCase="false"
+          >
+            <mat-icon>file_upload</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="read-mode-actions"
+      *ngIf="canEditData()"
+    >
+      <!-- [disabled]="(!(isEditableStage | async) && currentStageCode !== 'IN3' && currentStageCode !== 'IN1.2.1') || isReadOnly" -->
+      <button
+        mat-fab
+        type="button"
+        (click)="onEdit()"
+        color="accent"
+        i18n-matTooltip="@@editTooltip"
+        matTooltip="Edit"
+        matTooltipPosition="above"
+      >
+        <mat-icon>mode_edit</mat-icon>
+      </button>
+    </div>
+    <div class="edit-mode-actions" *ngIf="editMode">
+      <button
+        mat-mini-fab
+        type="button"
+        (click)="onUndo()"
+        [color]="formGroup.dirty ? 'warn' : 'accent'"
+        i18n-matTooltip="@@undoTooltip"
+        matTooltip="Undo"
+        matTooltipPosition="above"
+      >
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button
+        mat-fab
+        type="button"
+        [disabled]="isDisabledButtonSave()"
+        color="primary"
+        i18n-matTooltip="@@saveTooltip"
+        matTooltip="Save"
+        matTooltipPosition="above"
+        (click)="onSubmit()"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+  </div>
+  <spinner
+    backgroundColor="#00695c"
+    spinner="sk-cube-grid"
+  ></spinner>
+</form>

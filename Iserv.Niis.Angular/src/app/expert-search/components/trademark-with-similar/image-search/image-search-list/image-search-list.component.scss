@@ -1,0 +1,59 @@
+.mat-column-previewImage img {
+    max-height: 34px;
+    max-width: 68px;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .mat-cell {
+      font-size: 11px!important;
+  }
+    
+  
+  .mat-column-barcode, .mat-column-requestTypeNameRu, .mat-column-statusNameRu, .mat-column-similarity, .mat-column-phonSimilarity, .mat-column-semSimilarity, .mat-column-nameRu, .mat-column-nameKz, .mat-column-nameEn, .mat-column-declarant, .mat-column-owner, .mat-column-patentAttorney, .mat-column-addressForCorrespondence, .mat-column-confidant, .mat-column-receiveTypeNameRu, .mat-column-icgs, .mat-column-icfems, .mat-column-transliteration, .mat-column-priorityData, .mat-column-numberBulletin, .mat-column-disclaimerRu, .mat-column-disclaimerKz {
+      min-width: 2%;
+      /* hide text if it more than N lines  */
+      overflow: hidden;
+      /* for set '...' in absolute position */
+      position: relative; 
+      /* use this value to count block height */
+      line-height: 1.2em;
+      /* max-height = line-height (1.2) * lines max number (3) */
+      max-height: 2.4em; 
+      /* fix problem when last visible word doesn't adjoin right side  */
+      text-align: justify;  
+      /* place for '...' */
+      margin-right: 1em;
+      padding-right: 0em;
+    }
+    /* create the ... */
+    .mat-column-barcode:before, .mat-column-requestTypeNameRu:before, .mat-column-similarity:before, .mat-column-phonSimilarity:before, .mat-column-semSimilarity:before, .mat-column-statusNameRu:before, .mat-column-nameRu:before, .mat-column-nameKz:before, .mat-column-nameEn:before, .mat-column-declarant:before, .mat-column-owner:before, .mat-column-patentAttorney:before, .mat-column-addressForCorrespondence:before, .mat-column-confidant:before, .mat-column-receiveTypeNameRu:before, .mat-column-icgs:before, .mat-column-icfems:before, .mat-column-transliteration:before, .mat-column-priorityData:before, .mat-column-numberBulletin:before, .mat-column-disclaimerRu:before, .mat-column-disclaimerKz:before {
+      /* points in the end */
+      content: '';
+      /* absolute position */
+      position: absolute;
+      /* set position to right bottom corner of block */
+      right: 0;
+      bottom: 0;
+    }
+    /* hide ... if we have text, which is less than or equal to max lines */
+    .mat-column-barcode:after, .mat-column-requestTypeNameRu:after, .mat-column-similarity:after, .mat-column-phonSimilarity:after, .mat-column-semSimilarity:after, .mat-column-statusNameRu:after, .mat-column-nameRu:after, .mat-column-nameKz:after, .mat-column-nameEn:after, .mat-column-declarant:after, .mat-column-owner:after, .mat-column-patentAttorney:after, .mat-column-addressForCorrespondence:after, .mat-column-confidant:after, .mat-column-receiveTypeNameRu:after, .mat-column-icgs:after, .mat-column-icfems:after, .mat-column-transliteration:after, .mat-column-priorityData:after, .mat-column-numberBulletin:after, .mat-column-disclaimerRu:after, .mat-column-disclaimerKz:after {
+      /* points in the end */
+      content: '';
+      /* absolute position */
+      position: absolute;
+      /* set position to right bottom corner of text */
+      right: 0;
+      /* set width and height */
+      width: 1em;
+      height: 1em;
+      margin-top: 0.2em;
+      /* bg color = bg color under block */
+      background: transparent;
+    }
+    mat-cell {
+      overflow: visible;
+  }
+  mat-header-cell {
+    overflow: visible;
+  }

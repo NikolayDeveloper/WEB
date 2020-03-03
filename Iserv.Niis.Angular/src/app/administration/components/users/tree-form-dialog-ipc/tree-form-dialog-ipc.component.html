@@ -1,0 +1,56 @@
+<div fxLayout="column"
+     fxFlexFill>
+        <div fxLayout="row"
+             fxFlex="6">
+                <mat-form-field>
+                        <input matInput
+                               [(ngModel)]="searchText"
+                               placeholder="Search"
+                               i18n-placeholder="@@textSearch">
+                </mat-form-field>
+                <span fxFlex="3"></span>
+                <button mat-icon-button
+                        type="button"
+                        class="mat-mini-button"
+                        (click)="searchByTree()"
+                        i18n-matTooltip="@@textSearch"
+                        matTooltip="Search"
+                        matTooltipPosition="above">
+                        <mat-icon>search</mat-icon>
+                </button>
+                <button mat-icon-button
+                        type="button"
+                        class="mat-mini-button"
+                        (click)="resetSearch()"
+                        i18n-matTooltip="@@textReset"
+                        matTooltip="Reset"
+                        matTooltipPosition="above">
+                        <mat-icon>clear</mat-icon>
+                </button>
+        </div>
+        <span fxFlex="3"></span>
+        <div mat-dialog-content
+             fxFlex="80">
+                <p-tree (onNodeSelect)="setValue($event)"
+                        (onNodeUnselect)="deleteValue($event)"
+                        [value]="viewTree"
+                        selectionMode="checkbox"
+                        [(selection)]="selectedTree"
+                        [styleClass]="'material-tree-fill'"
+                        (onNodeExpand)="loadNode($event)"></p-tree>
+        </div>
+        <div mat-dialog-actions
+             align="end">
+                <button mat-button
+                        type="button"
+                        color="primary"
+                        (click)="onSubmit()"
+                        i18n="@@textSave">Save</button>
+                <button mat-button
+                        type="button"
+                        color="warn"
+                        mat-dialog-close
+                        (click)="onCancel()"
+                        i18n="@@textCancel">Cancel</button>
+        </div>
+</div>

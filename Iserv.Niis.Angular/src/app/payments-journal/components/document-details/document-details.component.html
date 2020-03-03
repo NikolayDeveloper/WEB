@@ -1,0 +1,113 @@
+<div class="document-details">
+  <table class="details" cellspacing="0">
+    <tr>
+      <td class="title">Вид ОПС</td>
+      <td class="value">{{document && document.docTypeName}}</td>
+    </tr>
+    <tr>
+      <td class="title">Штрих код</td>
+      <td class="value">{{document && document.barcode}}</td>
+    </tr>
+    <tr>
+      <td class="title">Дата создания</td>
+      <td class="value">{{document && getFullDateString(document.dateCreate)}}</td>
+    </tr>
+    <tr>
+      <td class="title">Подвид Заявки</td>
+      <td class="value">{{document && document.requestSubTypeName}}</td>
+    </tr>
+    <tr>
+      <td class="title">Статус</td>
+      <td class="value">{{document && document.requestStatusName}}</td>
+    </tr>
+    <tr>
+      <td class="title">Изображение</td>
+      <td class="value">
+        <img *ngIf="document && document.image"
+             [src]="domSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + document.image)"/>
+      </td>
+    </tr>
+    <tr>
+      <td class="title">Входящий номер</td>
+      <td class="value">{{document && document.incomingNumber}}</td>
+    </tr>
+    <tr>
+      <td class="title">Номер заявки</td>
+      <td class="value">{{getRequestRegNumber()}}</td>
+    </tr>
+    <tr>
+      <td class="title">Номер ОД</td>
+      <td class="value">{{getProtectionDocRegNumber()}}</td>
+    </tr>
+    <tr>
+      <td class="title">Номер договора</td>
+      <td class="value">{{getContractRegNumber()}}</td>
+    </tr>
+    <tr>
+      <td class="title">Дата подачи заявки \ Заявления на регистрацию договора</td>
+      <td class="value">{{document && getShortDateString(document.regDate)}}</td>
+    </tr>
+    <tr>
+      <td class="title">Наименование на русском</td>
+      <td class="value">{{document && document.nameRu}}</td>
+    </tr>
+    <tr>
+      <td class="title">Наименование на казахском</td>
+      <td class="value">{{document && document.nameKz}}</td>
+    </tr>
+    <tr>
+      <td class="title">Наименование на английском</td>
+      <td class="value">{{document && document.nameEn}}</td>
+    </tr>
+    <tr>
+      <td class="title">Год поддержания ОД</td>
+      <td class="value">{{document && document.protectionDocMaintainYear}}</td>
+    </tr>
+    <tr>
+      <td class="title">Срок действия ОД</td>
+      <td class="value">{{document && getShortDateString(document.protectionDocValidDate)}}</td>
+    </tr>
+    <tr>
+      <td class="title">Заявитель</td>
+      <td class="value">{{document && document.declarantNames}}</td>
+    </tr>
+    <tr>
+      <td class="title">Патенто-обладатель</td>
+      <td class="value">{{document && document.patentOwnerNames}}</td>
+    </tr>
+    <tr>
+      <td class="title">Патентно-поверенный</td>
+      <td class="value">{{document && document.patentAttorneyNames}}</td>
+    </tr>
+    <tr>
+      <td class="title">Тип подачи</td>
+      <td class="value">{{document && document.receiveTypeName}}</td>
+    </tr>
+    <tr>
+      <td class="title">МКИЭТЗ</td>
+      <td class="value">{{document && document.icfemCodes}}</td>
+    </tr>
+    <tr>
+      <td class="title">МКТУ</td>
+      <td class="value">{{document && document.icgsCodes}}</td>
+    </tr>
+    <tr>
+      <td class="title">Дискламация (рус)</td>
+      <td class="value">{{document && document.disclaimerRu}}</td>
+    </tr>
+    <tr>
+      <td class="title">Дискламация (каз)</td>
+      <td class="value">{{document && document.disclaimerKz}}</td>
+    </tr>
+    <tr>
+      <td class="title"></td>
+      <td class="value" style="text-align: center;">
+        <a mat-button
+           class="mat-primary"
+           [disabled]="!document"
+           [attr.href]="getCardLink()">Карточка
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>

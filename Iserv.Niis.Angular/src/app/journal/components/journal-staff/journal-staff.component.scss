@@ -1,0 +1,294 @@
+@import '~@angular/material/theming';
+@import '../../../../styles/mixin';
+
+.sidenav-container {
+  height: 100%;
+}
+.footer-container,
+.namings,
+mat-grid-list {
+  padding: 10px;
+}
+.table-container {
+  margin: 10px 130px 0 130px;
+  overflow: hidden;
+}
+.height-half {
+  height: 40vh;
+}
+.btn-container {
+  padding: 5px;
+}
+.icon {
+  position: absolute;
+  top: 10px;
+  background-color: #30A095;
+  @include icon-button;
+  mat-icon {
+    margin: auto;
+    color: white;
+  }
+}
+//ul {
+//  margin: 0;
+//  padding: 0;
+//  list-style: none;
+//}
+//.img-label {
+//  width: 40px;
+//  height: 40px;
+//  background-color: #E4EAFF;
+//  border-radius: 30%;
+//  display: inline-flex;
+//  vertical-align: center;
+//  .td-logo {
+//    display: inline-flex;
+//    vertical-align: middle;
+//    border-radius: 50%;
+//    box-sizing: border-box;
+//    width: 22px;
+//    height: 22px;
+//    border: 2px solid darken(#E4EAFF, 10);
+//    color: darken(#E4EAFF, 10);
+//    text-transform: uppercase;
+//    font-size: 9px;
+//    margin: auto;
+//    div {
+//      margin: auto;
+//    }
+//  }
+//}
+//.label {
+//  display: flex;
+//  justify-content: space-around;
+//  justify-items: center;
+//}
+////.info-container {
+////  padding: 10px;
+////}
+//.trade-sign {
+//  border-bottom: 2px solid darken(#E4EAFF, 10);
+//  font-size: 16px;
+//  max-width: 245px;
+//}
+//.label-props {
+//
+//}
+//.labels {
+//  color: rgba(0, 0, 0, 0.4);
+//  display: block;
+//  font-size: 10px;
+//  span {
+//    font-size: 12px;
+//    color: #353A4D
+//  }
+//}
+//mat-grid-tile {
+//  background-color: #fff;
+//  /deep/.mat-figure {
+//    margin: 10px;
+//    justify-content: stretch;
+//    align-items: stretch;
+//  }
+//  .labels {
+//    text-transform: uppercase;
+//  }
+//  div {
+//    max-width: 100px;
+//    -ms-text-overflow: ellipsis;
+//    text-overflow: ellipsis;
+//  }
+//  span {
+//    text-transform: none;
+//  }
+//}
+//.name {
+//  font-size: 16px;
+//}
+//img {
+//  width: 170px;
+//}
+//.image {
+//  padding: 15px 50px 15px 50px;
+//}
+//.image-container {
+//  width: 100%;
+//  background-color: #EEEEEE;
+//  .labels {
+//    padding: 10px;
+//    text-transform: uppercase;
+//  }
+//}
+//.namings {
+//  div {
+//    .labels {
+//      font-size: 12px;
+//      line-height: 12px;
+//      letter-spacing: 0.5px;
+//    }
+//  }
+//}
+//.title {
+//  text-align: right;
+//}
+//mat-grid-list {
+//  margin: 5px 0 5px 0;
+//  background-color: #EEEEEE;
+//}
+//
+//.footer-labels {
+//  .labels {
+//    display: inline;
+//  }
+//  .content {
+//    font-size: 12px;
+//    color: black;
+//  }
+//}
+//.cal-icon {
+//  // position: fixed;
+//}
+//.go-to-card {
+//  cursor: pointer;
+//  color: white;
+//  text-transform: uppercase;
+//  height: 40px;
+//  background-color: #EAA623;
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//}
+//.pdf-frame {
+//
+//}
+//.pdf-wrapper-container {
+//  width: 350px;
+//  height: 460px;
+//  background-color: #fff;
+//  border: 1px solid #EEEEEE;
+//  border-radius: 5%;
+//  box-sizing: border-box;
+//  padding: 15px;
+//  margin: auto;
+//  margin-top: 10px;
+//  margin-bottom: 10px;
+//}
+//.pdf-frame {
+//  width: 320px;
+//  height: 420px;
+//}
+.search-container {
+  background-color: #DFDFDF;
+}
+.form-wrapper {
+  height: 30px;
+  margin: 20px 20px 20px 20px;
+}
+.form-wrapper_datepicker {
+  margin-top: 0;
+}
+.form-wrapper_delim {
+  height: 30px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+.header {
+  height: 40px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin: 20px 20px 0 20px;
+}
+.delimiter {
+  margin: 10px 0 10px 0;
+  padding-left: 20px;
+  vertical-align: middle;
+  width: 100%;
+  height: 30px;
+  background-color: #A8B9B7;
+  color: #29655E;
+  span {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 10px;
+    font-weight: bold;
+  }
+}
+.search-input, .datepicker {
+  border: 1px solid rgba(69, 75, 96, 0.4);
+  box-sizing: border-box;
+  border-radius: 4px;
+  max-width: 150px;
+}
+/deep/.mat-input-underline {
+  display: none;
+}
+/deep/.mat-form-field-infix {
+  width: 120px !important;
+  border-top: none;
+}
+label {
+  vertical-align: baseline;
+  width: 100px;
+  height: 25px;
+  color: #353A4D;
+  font-size: 12px;
+  font-family: Roboto, sans-serif;
+}
+.datepicker {
+  position: relative;
+  background-color: #fff;
+  width: 100px;
+  height: 30px;
+  input {
+    padding: 5px;
+    height: 100%;
+    vertical-align: center;
+    font-size: 12px;
+  }
+}
+
+.mat-toggle-date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /deep/button.mat-icon-button {
+    width: 25px;
+    height: 25px;
+    mat-icon {
+      vertical-align: sub;
+      width: 16px;
+      height: 18px;
+    }
+  }
+}
+.mat-toggle-date_from:before {
+  font-size: 12px;
+  content: 'c';
+  top: 6px;
+  left: -90px;
+  position: absolute;
+}
+.mat-toggle-date_to:before {
+  font-size: 12px;
+  content: 'по';
+  top: 6px;
+  left: -100px;
+  position: absolute;
+}
+.datepicker-container_from, .datepicker-container_to {
+  width: 100px;
+  height: 50px;
+}
+mat-option.mat-option {
+  line-height: 3em!important;
+}
+mat-option.mat-option.select-option {
+  line-height: 0.7em!important;
+}
+
+

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net461</TargetFramework>
+    <Configurations>Debug;Release;Development-iserv;Development-niis;Production-iserv;Production-niis;Staging-iserv;Staging-niis</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentFTP" Version="19.1.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Iserv.Integration.Romarin.BL\Iserv.Niis.Integration.Romarin.BL.csproj" />
+    <ProjectReference Include="..\Iserv.Niis.Integration.Romarin.Domain\Iserv.Niis.Integration.Romarin.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+</Project>

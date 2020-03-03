@@ -1,0 +1,32 @@
+<div
+  fxFlexFill
+  fxLayout="column"
+>
+  <nav
+    mat-tab-nav-bar
+    class="tabs-colored-light tabs-small"
+  >
+    <a
+      mat-tab-link
+      [routerLink]="['users']"
+      routerLinkActive="router-link-active"
+    ><span i18n="@@linkUsers">Users</span></a>
+    <a
+      mat-tab-link
+      [routerLink]="['roles']"
+      routerLinkActive="router-link-active"
+    ><span i18n="@@linkRoles">Roles</span></a>
+    <a
+      mat-tab-link
+      [routerLink]="['calendar']"
+      routerLinkActive="router-link-active"
+    ><span i18n="@@linkCalendar">Calendar</span></a>
+  </nav>
+  <div fxFlex="grow">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<spinner
+  backgroundColor="#00695c"
+  spinner="sk-cube-grid"
+></spinner>

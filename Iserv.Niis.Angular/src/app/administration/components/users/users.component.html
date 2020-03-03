@@ -1,0 +1,14 @@
+<app-users-list fxFlexFill
+                (select)="selectUser($event)"
+                [reset]="reset"></app-users-list>
+<div class="actions-container ac-bottom ac-right">
+    <button mat-fab
+            *ngIf="!showForm"
+            type="button"
+            i18n-matTooltip="@@CreateUserTooltip"
+            matTooltip="Create user"
+            (click)="openDialog()"
+            matTooltipPosition="above">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

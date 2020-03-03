@@ -1,0 +1,177 @@
+<form
+  novalidate
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+  class="form-full-width form-medium-input info"
+>
+  <div class="info__column">
+    <app-common-fields
+      formControlName="commonFields"
+      [disabled]="!editMode"
+      [owner]="owner"
+      (changed)="setRequestNumber($event)"
+    ></app-common-fields>
+    
+    <app-referat-fields
+      formControlName="referatFields"
+      *ngIf="isFieldActive(referatFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+    ></app-referat-fields>
+    <app-media-file-fields
+      formControlName="mediaFields"
+      *ngIf="isFieldActive(mediaFieldType) && (isVideo() || isAudio())"
+      [disabled]="!editMode"
+      [owner]="owner"
+      [trademarkTypeId]="trademarkTypeId"
+    >
+    </app-media-file-fields>
+    <app-image-fields
+      formControlName="imageFields"
+      *ngIf="isFieldActive(imageFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+    ></app-image-fields>
+  </div>
+  <div class="info__column">
+    <app-trademark-fields
+      formControlName="trademarkFields"
+      *ngIf="isFieldActive(trademarkFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+      (speciesTradeMarkChanged)="onSpeciesTrademarkChanged($event)"
+      (trademarkTypeChanged)="onTrademarkTypeChanged($event)"
+    ></app-trademark-fields>
+    <app-product-fields
+      formControlName="productFields"
+      *ngIf="isFieldActive(productFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+    ></app-product-fields>
+    <app-selection-fields
+      formControlName="selectionFields"
+      *ngIf="isFieldActive(selectionFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+    ></app-selection-fields>
+    <app-icgs-fields
+      formControlName="icgsFields"
+      *ngIf="isFieldActive(icgsFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+    ></app-icgs-fields>
+    <app-color-fields
+      formControlName="colorFields"
+      *ngIf="isFieldActive(colorFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+    ></app-color-fields>
+    <app-icfem-fields
+      formControlName="icfemFields"
+      *ngIf="isFieldActive(icfemFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+    ></app-icfem-fields>
+    <app-ipc-fields
+      formControlName="ipcFields"
+      *ngIf="isFieldActive(ipcFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+    ></app-ipc-fields>
+    <!-- <app-priority-fields
+      formControlName="priorityFields"
+      *ngIf="isFieldActive(priorityFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+    ></app-priority-fields> -->
+    <app-icis-fields
+      formControlName="icisFields"
+      *ngIf="isFieldActive(icisFieldType)"
+      [disabled]="!editMode"
+      [owner]="owner"
+    ></app-icis-fields>
+  </div>
+  <!-- Buttons -->
+  <div
+    class="actions-container ac-bottom ac-right"
+    fxLayout="row"
+    *ngIf="!isChangeMode"
+  >
+    <div class="read-mode-actions" *ngIf="!editMode">
+      <button
+        *ngIf="isChangeAvailable()"
+        mat-mini-fab
+        type="button"
+        (click)="onChangeClick()"
+        color="accent"
+        i18n-matTooltip="@@changeTooltip"
+        matTooltip="Change request"
+        matTooltipPosition="above"
+      >
+        <mat-icon>playlist_add_check</mat-icon>
+      </button>
+      <button
+        *ngIf="isConvertAvailable()"
+        mat-mini-fab
+        type="button"
+        (click)="onConvertClick()"
+        color="accent"
+        i18n-matTooltip="@@convertTooltip"
+        matTooltip="Convert request"
+        matTooltipPosition="above"
+      >
+        <mat-icon>sync</mat-icon>
+      </button>
+      <button
+        *ngIf="isSplitAvailable()"
+        mat-mini-fab
+        type="button"
+        (click)="onSplitClick()"
+        color="accent"
+        i18n-matTooltip="@@splitTooltip"
+        matTooltip="Split request"
+        matTooltipPosition="above"
+      >
+        <mat-icon>call_split</mat-icon>
+      </button>
+    </div>
+    <div class="read-mode-actions" *ngIf="isDisabled()">
+      <button
+        mat-fab
+        type="button"
+        (click)="onEdit()"
+        [disabled]="isDisabledEditButton()"
+        color="accent"
+        i18n-matTooltip="@@editTooltip"
+        matTooltip="Edit"
+        matTooltipPosition="above"
+      >
+        <mat-icon>mode_edit</mat-icon>
+      </button>
+    </div>
+    <div class="edit-mode-actions" *ngIf="editMode">
+      <button
+        mat-mini-fab
+        type="button"
+        (click)="onUndo()"
+        [color]="formGroup.dirty ? 'warn' : 'accent'"
+        i18n-matTooltip="@@undoTooltip"
+        matTooltip="Undo"
+        matTooltipPosition="above"
+      >
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button
+        mat-fab
+        type="submit"
+        [disabled]="isDisabledSaveButton()"
+        color="primary"
+        i18n-matTooltip="@@saveTooltip"
+        matTooltip="Save"
+        matTooltipPosition="above"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+  </div>
+</form>
